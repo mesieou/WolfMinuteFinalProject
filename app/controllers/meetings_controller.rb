@@ -15,4 +15,8 @@ class MeetingsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def meeting_params
+
+  end
 end
