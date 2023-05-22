@@ -5,8 +5,8 @@ class Meeting < ApplicationRecord
 
   validates :description, presence: true
   validates :duration, presence: true
-  validates :objectives, presence: true
-  validates :agenda, presence: true
+  # validates :objectives, presence: true
+  # validates :agenda, presence: true
   validates :location, presence: true
   validates :start_date, presence: true
 end
