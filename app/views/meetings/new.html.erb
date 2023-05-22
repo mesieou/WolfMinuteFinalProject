@@ -1,21 +1,11 @@
-<p>e</p>
-
-
-#ask for members
-
-#ask for description
-
-#provide chatgpt with the members and descriptions
-
-#chatgpt give optimal duration
-#display optimal duration to the user
-#user can change or accept the duration
-
-#calculate next available time
-#display next available time
-#user can change or accept the next available time
-
-#ask chatgpt for the objectives and agenda
-#consolidate all the info and display it to the user
-# user can change or submit
-# meeting is created and updated in the calendar
+<div class="container m-4">
+  <h1>New form</h1>
+  <%= simple_form_for @meeting, data: {controller: 'flatpickr'} do |f| %>
+    <%= f.input :description %>
+    <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime" }  }  %>
+    <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }  }  %>
+    <%= f.input :duration %>
+    <%= f.input :location %>
+    <%= f.submit %>
+  <% end %>
+</div>
