@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_063622) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_22_104504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_063622) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "video_id"
+    t.datetime "end_date"
     t.index ["user_id"], name: "index_meetings_on_user_id"
     t.index ["video_id"], name: "index_meetings_on_video_id"
   end

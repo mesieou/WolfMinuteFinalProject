@@ -29,6 +29,7 @@ puts "created test user"
 test_meeting = Meeting.create!(
   user: test_user,
   start_date: Date.today + rand(1..3),
+  end_date: Date.today + rand(4..6),
   description: Faker::Quote.most_interesting_man_in_the_world,
   location: location.sample,
   duration: rand(1..3)
@@ -57,6 +58,7 @@ puts "created booking"
   meeting = Meeting.create!(
     user: user,
     start_date: Date.today + rand(1..3),
+    end_date: Date.today + rand(4..6),
     description: Faker::Quote.most_interesting_man_in_the_world,
     location: location.sample,
     duration: rand(1..3)
