@@ -3,7 +3,6 @@ class MeetingsController < ApplicationController
     @meetings = Meeting.all
   end
 
-
   def show
     @meeting = Meeting.find(:params[:id])
     @booking = @meeting.bookings
