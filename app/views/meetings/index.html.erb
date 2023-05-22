@@ -1,0 +1,14 @@
+<div>
+<% @meetings.each do |meeting| %>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= meeting.description %></h5>
+    <p class="card-text"><%= meeting.duration %></p>
+    <p class="card-text"><%= meeting.location %></p>
+    <p class="card-text"><%= meeting.start_date %></p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<% end %>
+</div>
