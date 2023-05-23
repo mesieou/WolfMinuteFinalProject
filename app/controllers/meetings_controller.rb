@@ -1,6 +1,8 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = policy_scope(Meeting)
+    @meetings = policy_scope(Meeting.where(
+      start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
+    ))
   end
 
   def show
@@ -16,8 +18,15 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
+    @meeting.user = current_user
+    @users_names = params[:users]
     authorize @meeting
     if @meeting.save
+      @users_names.each do |name|
+        @user_instance = User.where(name: name).first
+        @booking = Booking.create(user: @user_instance, meeting: @meeting)
+        @meeting.bookings << @booking
+      end
       redirect_to meetings_path
     else
       render :new, status: :unprocessable_entity
@@ -47,7 +56,8 @@ class MeetingsController < ApplicationController
   end
 
   private
+
   def meeting_params
-    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration)
+    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration, :title)
   end
 end
