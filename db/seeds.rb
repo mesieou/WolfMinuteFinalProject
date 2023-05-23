@@ -82,7 +82,7 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-20.times do
+rand(10..20).times do
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
@@ -101,11 +101,13 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    Booking.create!(
-      user: user,
-      meeting: meeting,
-      status: Booking.statuses.keys.sample # or just 'accepted'
-    )
+    if rand(0..1) == 0
+      Booking.create!(
+        user: user,
+        meeting: meeting,
+        status: Booking.statuses.keys.sample # or just 'accepted'
+      )
+    end
   end
 end
 
