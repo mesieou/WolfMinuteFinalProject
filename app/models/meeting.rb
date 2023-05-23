@@ -1,6 +1,6 @@
 class Meeting < ApplicationRecord
   belongs_to :video, optional: true
-  belongs_to :user
+  has_many :user, through: :bookings
   has_many :bookings, dependent: :destroy
 
   validates :description, presence: true
