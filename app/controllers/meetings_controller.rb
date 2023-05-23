@@ -14,7 +14,14 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
+    @meeting.user = current_user
+    @users_names = params[:users]
     if @meeting.save
+      @users_names.each do |name|
+        @user_instance = User.where(name: name).first
+        @booking = Booking.create(user: @user_instance, meeting: @meeting)
+        @meeting.bookings << @booking
+      end
       redirect_to meetings_path
     else
       render :new, status: :unprocessable_entity
