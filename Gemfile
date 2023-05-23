@@ -83,3 +83,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# added gem
+gem "ruby-openai"
