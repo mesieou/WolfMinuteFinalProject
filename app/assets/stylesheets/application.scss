@@ -15,3 +15,30 @@
 @import "flatpickr/dist/themes/airbnb";
 
 @import "simple_calendar";
+
+body {
+  background-color: white;
+}
+h1 {
+  font-family: $headers-font;
+  color: $headers-color;
+  font-size: xxx-large;
+}
+
+h3 {
+  font-family: $sub-headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+h4 {
+  font-family: $headers-font;
+  color: $headers-color;
+  font-size: xx-large;
+}
+
+p {
+  font-family: $body-font;
+  color: $body-color;
+  font-size: x-large;;;
+}

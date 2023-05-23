@@ -4,18 +4,20 @@
 
 import { application } from "./application"
 
+import CalendarController from "./calendar_controller"
+application.register("calendar", CalendarController)
+
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 
+import FormStepsController from "./form_steps_controller"
+application.register("form-steps", FormStepsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-
-import CalendarController from "./calendar_controller"
-application.register("calendar", CalendarController)
 
 import MeetingController from "./meeting_controller"
 application.register("meeting", MeetingController)
 
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
-
