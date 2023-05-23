@@ -1,1 +1,23 @@
-<p>hello</p>
+<%= link_to "Calendar", meetings_path %>
+<div class="container">
+  <p>Title: <%= @meeting.title.capitalize %></p>
+  <p>Time: <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p")  %></p>
+  <p>Duration: <%= @meeting.duration  %> minutes</p>
+  <p>Location: <%= @meeting.location.capitalize  %></p>
+  <p>Organizer: <%= @meeting.user.name  %></p>
+  <p>Description: <%= @meeting.description %></p>
+  <h2>Attendance</h2>
+  <% @attendance.each do |person|%>
+    <ul>
+      <%= link_to user_path(person), class:"text-decoration-none" do %>
+        <li><%= person.name%></li>
+        <div class="hidden">
+          <p>Mobile: <%= @user.mobile%></p>
+          <p>Email: <%= @user.email %></p>
+          <p>Position: <%= @user.job_title %></p>
+        </div>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<p><%= link_to "Edit", edit_meeting_path %></p>
