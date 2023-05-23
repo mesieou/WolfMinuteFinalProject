@@ -9,7 +9,7 @@ module ApplicationHelper
     date = Date.today + 1
     bisstart = Time.local(date.year, )
     bisend = Time.local(date.year, )
-    duration = 1 ~
+    duration = 1
 
 
 

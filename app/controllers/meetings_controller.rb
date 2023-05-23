@@ -12,12 +12,22 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = Meeting.new
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+    respond_to do |format|
+      format.html
+      format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
+    end
   end
 
   def create
     @meeting = Meeting.new(meeting_params)
     @meeting.user = current_user
     @users_names = params[:users]
+    raise
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
