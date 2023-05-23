@@ -1,6 +1,8 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.all
+    @meetings = Meeting.where(
+      start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
+    )
   end
 
   def show
@@ -50,6 +52,6 @@ class MeetingsController < ApplicationController
   private
 
   def meeting_params
-    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration)
+    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration, :title)
   end
 end
