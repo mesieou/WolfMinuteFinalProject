@@ -1,13 +1,17 @@
-<div class="edit">
-  <div class="container-form">
-    <h1>Edit your meeting</h1>
-    <h2>In this meeting <%= @meeting.user.name %></h2>
-    <%= simple_form_for (@meeting) do |f| %>
-      <%= f.input :start_date  %>
-      <%= f.input :duration %>
-      <%= f.input :location %>
-      <%= f.submit 'Submit', class:"btn btn-primary" %>
+<div class="container m-4">
+  <h1>Edit</h1>
+  <%= simple_form_for @meeting, data: {controller: 'flatpickr'} do |f| %>
+    <% User.all.each_with_index do |user, index| %>
+      <input id= "name-<%=index%>" type="checkbox" name="users[]" value= "<%= user.name%>">
+      <label for="name-<%=index%>">
+        <%= user.name %>
+      </label>
     <% end %>
-    <%= link_to "Back", meetings_path %>
-  </div>
+    <%= f.input :description %>
+    <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime" }  }  %>
+    <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time'  }  %>
+    <%= f.input :duration %>
+    <%= f.input :location %>
+    <%= f.submit %>
+  <% end %>
 </div>

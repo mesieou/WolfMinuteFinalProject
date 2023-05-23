@@ -1,13 +1,16 @@
 class MeetingsController < ApplicationController
   def index
+    @user = User.find_by(id: params[:user_id]) || current_user
+    @users = User.all
     @meetings = policy_scope(Meeting.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
     ))
   end
 
   def show
-    @meeting = Meeting.find(:params[:id])
+    @meeting = Meeting.find(params[:id])
     @booking = @meeting.bookings
+    @attendance = @meeting.bookings.map { |booking| booking.user }
     authorize @meeting
   end
 
@@ -29,7 +32,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.user = current_user
     @users_names = params[:users]
-    #selected_users
     authorize @meeting
     if @meeting.save
       @users_names.each do |name|

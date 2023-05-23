@@ -1,67 +1,78 @@
+.simple-calendar {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
 
-// @import "simple_calendar";
-// .simple-calendar {
-//   width: 100%;
-//   border-collapse: collapse;
-//   border-spacing: 0;
-//   border: 1px solid #ccc;
-//   font-size: 12px;
-//   font-family: Arial, sans-serif;
-//   color: #333;
-//   background-color: #fff;
-// }
-// .day {
-//   padding: 5px;
-//   border: 1px solid #ccc;
-//   text-align: center;
-// }
+.calendar-card{
+  flex-direction: column;
+  background-color: #000064;
+  padding: 1rem;
+  margin: 1rem;
+  color: white;
+  border-radius: 8px;
+}
 
-// .wday-0 {
-//   color: #f00;
-// }
-// .wday-1 {
-//   color: #000;
-// }
-// .wday-2 {
-//   color: #000;
-// }
-// .wday-3 {
-//   color: #000;
-// }
-// .wday-4 {
-//   color: #000;
-// }
-// .wday-5 {
-//   color: #000;
-// }
-// .wday-6 {
-//   color: #f00;
-// }
 
-// .today {
-//   background-color: #f0f0f0;
-// }
-// .past {
-//   color: #ccc;
-// }
-// .future {
-//   color: #000;
-// }
+.day {
+}
 
-// .start-date {
-//   background-color: #f0f0f0;
-// }
 
-// .prev-month {
-//   color: #ccc;
-// }
-// .next-month {
-//   color: #ccc;
-// }
-// .current-month {
-//   color: #000;
-// }
+.hidden {
+  display: none;
+}
 
-// .has-events {
-//   background-color: #f0f0f0;
-// }
+.wday-0 {
+  color: #f00;
+}
+.wday-1 {
+  color: #000;
+}
+.wday-2 {
+  color: #000;
+}
+.wday-3 {
+  color: #000;
+}
+.wday-4 {
+  color: #000;
+}
+.wday-5 {
+  color: #000;
+}
+.wday-6 {
+  color: #f00;
+}
+
+.today {
+  background-color: #f0f0f0;
+}
+.past {
+  color: #ccc;
+}
+.future {
+  color: #000;
+}
+
+.start-date {
+  background-color: #f0f0f0;
+}
+
+.prev-month {
+  color: #ccc;
+}
+.next-month {
+  color: #ccc;
+}
+.current-month {
+  color: #000;
+}
+
+.has-events {
+  background-color: #f0f0f0;
+}
