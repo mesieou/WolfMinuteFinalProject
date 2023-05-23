@@ -1,5 +1,5 @@
 <%= link_to "Calendar", meetings_path %>
-<div class="container">
+<div class="container" data-controller="meeting">
   <p>Title: <%= @meeting.title.capitalize %></p>
   <p>Time: <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p")  %></p>
   <p>Duration: <%= @meeting.duration  %> minutes</p>
@@ -9,14 +9,15 @@
   <h2>Attendance</h2>
   <% @attendance.each do |person|%>
     <ul>
-      <%= link_to user_path(person), class:"text-decoration-none" do %>
-        <li><%= person.name%></li>
-        <div class="hidden">
-          <p>Mobile: <%= @user.mobile%></p>
-          <p>Email: <%= @user.email %></p>
-          <p>Position: <%= @user.job_title %></p>
-        </div>
-      <% end %>
+      <li data-action="click->meeting#toggleDiv">
+        <%= person.name%>
+      </li>
+      <div class="worker" data-meeting-target="user">
+        <%= image_tag person.photo.key ? cl_image_path(person.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
+        <p>Mobile: <%= person.mobile%></p>
+        <p>Email: <%= person.email %></p>
+        <p>Position: <%= person.job_title %></p>
+      </div>
     </ul>
   <% end %>
 </div>

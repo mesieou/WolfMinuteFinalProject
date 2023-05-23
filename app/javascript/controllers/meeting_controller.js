@@ -1,21 +1,30 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["month", "week"]
+  static targets = ["user",]
 
   connect() {
     console.log("Hello from our first Stimulus controller")
   }
 
-  weekly() {
-   this.monthTarget.classList.add("hidden")
-   this.weekTarget.classList.remove("hidden")
+
+
+  showDiv() {
+    this.userTarget.style.display = "block"
   }
 
-  monthly() {
-    this.monthTarget.classList.remove("hidden")
-   this.weekTarget.classList.add("hidden")
+  hideDiv() {
+    this.userTarget.style.display = "none"
   }
+
+  toggleDiv() {
+    if (this.userTarget.style.display === "block") {
+      this.hideDiv()
+    } else {
+      this.showDiv()
+    }
+  }
+
 
 
 }

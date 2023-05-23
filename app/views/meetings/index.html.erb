@@ -1,17 +1,17 @@
+<h2>Workers</h2>
+<% @users.each do |user|%>
+  <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
+  <%= link_to meetings_path(user_id: user.id), class:"text-decoration-none" do %>
+    <%= user.name%>
+  <% end %>
+<% end %>
 <div class="container" data-controller="calendar" >
-  <button data-action="click->calendar#weekly">
-    Weekly
-  </button>
   <button data-action="click->calendar#monthly">
     Monthly
   </button>
-  <div class="employees">
-    <% @users.each do |user| %>
-      <%= link_to meetings_path(user_id: user.id), class:"text-decoration-none" do %>
-        <%= user.name %>
-      <% end %>
-    <% end %>
-  </div>
+  <button data-action="click->calendar#weekly">
+    Weekly
+  </button>
   <div class="monthly-calendar" data-calendar-target="month">
     <h1>Calendar</h1>
     <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
