@@ -86,5 +86,6 @@ group :test do
   gem "webdrivers"
 end
 
-#added new gems
+gem "ruby-openai"
 gem "pundit"
+
