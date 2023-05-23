@@ -12,7 +12,7 @@ Meeting.destroy_all
 User.destroy_all
 
 role = ["manager", "employee"]
-location = ["Shibuya, Tokyo", "Roppongi, Tokyo", "Shinjuku, Tokyo", "Sapporo", "Osaka", "Kyoto", "Hiroshima"]
+location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 creator = [true, false]
 
 test_user = User.create!(
@@ -27,10 +27,11 @@ test_user = User.create!(
 puts "created test user"
 
 test_meeting = Meeting.create!(
+  title: Faker::Company.buzzword,
   user: test_user,
   start_date: Date.today + rand(1..3),
   end_date: Date.today + rand(4..6),
-  description: Faker::Quote.most_interesting_man_in_the_world,
+  description: Faker::Company.catch_phrase,
   location: location.sample,
   duration: rand(1..3)
 )
@@ -56,10 +57,11 @@ puts "created booking"
   puts "created #{User.count} users!"
 
   meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
     user: user,
     start_date: Date.today + rand(1..3),
     end_date: Date.today + rand(4..6),
-    description: Faker::Quote.most_interesting_man_in_the_world,
+    description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: rand(1..3)
   )
