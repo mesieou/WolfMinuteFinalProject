@@ -1,13 +1,14 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.where(
+    @meetings = policy_scope(Meeting.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
-    )
+    ))
   end
 
   def show
     @meeting = Meeting.find(:params[:id])
     @booking = @meeting.bookings
+    authorize @meeting
   end
 
   def new
@@ -21,6 +22,7 @@ class MeetingsController < ApplicationController
       format.html
       format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
     end
+    authorize @meeting
   end
 
   def create
@@ -28,6 +30,7 @@ class MeetingsController < ApplicationController
     @meeting.user = current_user
     @users_names = params[:users]
     raise
+    authorize @meeting
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
@@ -42,10 +45,12 @@ class MeetingsController < ApplicationController
 
   def edit
     @meeting = Meeting.find(params[:id])
+    authorize @meeting
   end
 
   def update
     @meeting = Meeting.find(params[:id])
+    authorize @meeting
     if @meeting.update(meeting_params)
       redirect_to meetings_path
     else
@@ -55,6 +60,7 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting = Meeting.find(params[:id])
+    authorize @meeting
     @meeting.destroy
     redirect_to meetings_path
   end
