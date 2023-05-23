@@ -1,12 +1,19 @@
-<div class="container m-4">
+<div class="container m-4" data-controller = "search-users">
   <h1>New form</h1>
-  <%= simple_form_for @meeting, data: {controller: 'flatpickr'} do |f| %>
-    <% User.all.each_with_index do |user, index| %>
-      <input id= "name-<%=index%>" type="checkbox" name="users[]" value= "<%= user.name%>">
-      <label for="name-<%=index%>">
-        <%= user.name %>
-      </label>
-    <% end %>
+
+  <form action="/meetings/new" method="get" data-search-users-target= "form">
+    <input type="text"name="query"
+      data-search-users-target = "input"
+      data-action = "keyup->search-users#search"
+      value= "<%= params[:query] %>"
+    >
+  </form>
+
+  <%= simple_form_for @meeting,
+    data: {controller: 'flatpickr'} do |f| %>
+    <div data-search-users-target="users">
+      <%= render 'list' if @users_filtered.length.positive? %>
+    </div>
     <%= f.input :description %>
     <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime" }  }  %>
     <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time'  }  %>
