@@ -15,3 +15,7 @@ application.register("calendar", CalendarController)
 
 import MeetingController from "./meeting_controller"
 application.register("meeting", MeetingController)
+
+import SearchUsersController from "./search_users_controller"
+application.register("search-users", SearchUsersController)
+
