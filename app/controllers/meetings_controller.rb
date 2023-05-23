@@ -41,6 +41,7 @@ class MeetingsController < ApplicationController
   end
 
   private
+
   def meeting_params
     params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration)
   end
