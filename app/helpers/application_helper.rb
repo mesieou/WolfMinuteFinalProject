@@ -5,9 +5,16 @@ module ApplicationHelper
   #   time_check = ["9~10", "10~11", "11~12", "12~13", "13~14", "14~15", "15~16", "16~17", "17~18"]
   #   avatime = []
 
+
   #   date = Date.today + 1
   #   bisstart0 = Time.local(2023, 5, 30, 9, 0).in_time_zone('Tokyo')
   #   bisend0 = Time.local(2023, 5, 30, 10, 0).in_time_zone('Tokyo')
+
+    date = Date.today + 1
+    bisstart = Time.local(date.year, )
+    bisend = Time.local(date.year, )
+    duration = 1
+
 
   #   bisstart1 = Time.local(2023, 5, 30, 10, 0).in_time_zone('Tokyo')
   #   bisend1 = Time.local(2023, 5, 30, 11, 0).in_time_zone('Tokyo')
