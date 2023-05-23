@@ -15,9 +15,6 @@ User.destroy_all
 role = ["manager", "employee"]
 location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
-# random_date = rand(1..29)
-# random_hour = rand(9..17)
-# random_minute = [15, 30, 60].sample
 now = DateTime.now
 
 test_user = User.create!(
@@ -34,14 +31,12 @@ puts "created test user"
 test_meeting = Meeting.create!(
   title: Faker::Company.buzzword,
   user: test_user,
-  start_date: DateTime.new(now.year, now.month, rand(1..29), rand(9..17), [15, 30, 60].sample, 0),
+  start_date: DateTime.new(now.year, now.month, rand(1..29), rand(8..12), [15, 30, 45, 0].sample, 0),
   end_date: Date.today + rand(4..6),
   description: Faker::Company.catch_phrase,
   location: location.sample,
   duration: duration.sample
 )
-
-p test_meeting.start_date
 
 puts "created meating"
 
@@ -67,13 +62,12 @@ puts "created booking"
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
-    start_date: DateTime.new(now.year, now.month, rand(1..29), rand(9..17), [15, 30, 60].sample, 0),
+    start_date: DateTime.new(now.year, now.month, rand(1..29), rand(9..17), [15, 30, 45, 0].sample, 0),
     end_date: Date.today + rand(4..6),
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample
   )
-  p meeting.start_date
 end
 
   puts "created #{Meeting.count} meetings!"
