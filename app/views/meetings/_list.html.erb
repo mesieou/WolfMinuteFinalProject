@@ -1,6 +1,10 @@
  <% if users.length >= 1 %>
     <% users.each_with_index do |user, index| %>
-          <input id= "name<%=index%>" type="checkbox" name="users[]" value= "<%= user.name%>">
+          <input
+            id= "name<%=index%>"
+            type="checkbox"
+            name="users[]"
+            value= "<%= user.name%>"
           <label for="name<%=index%>">
           <%= user.name %>
           </label>

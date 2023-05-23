@@ -29,7 +29,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.user = current_user
     @users_names = params[:users]
-    raise
+    #selected_users
     authorize @meeting
     if @meeting.save
       @users_names.each do |name|
