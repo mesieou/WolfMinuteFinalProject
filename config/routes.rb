@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   root to: "pages#home"
   resources :meetings do
     resources :bookings, only: [:edit, :update]
-    resources :chatrooms, only: :show
   end
   resources :bookings, only: [:destroy]
   resources :users, only: [:show]
+  resources :chatrooms, only: :show
 end

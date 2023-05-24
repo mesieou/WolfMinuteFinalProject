@@ -38,6 +38,18 @@
     </div>
     <div class="g-col-4">
       <div class="meeting-card">
+        <%# <h1>#<%= @chatroom.name %>
+        <div class="messages">
+          <% @chatroom.messages.each do |message| %>
+            <div id="message-<%= message.id %>">
+              <small>
+                <strong><%= message.user.nickname %></strong>
+                <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+              </small>
+              <p><%= message.content %></p>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
