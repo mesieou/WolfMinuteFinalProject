@@ -1,0 +1,7 @@
+ <% if users.length >= 1 %>
+  <% users.each do |user|%>
+    <%= link_to meetings_path(user_id: user.id, query: params[:query]), class:"text-decoration-none" do %>
+      <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1"%>
+    <% end %>
+  <% end %>
+<% end %>

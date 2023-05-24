@@ -24,22 +24,29 @@
         <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
       </div>
       <div data-form-steps-target="step" class="hidden">
-        <%= f.input :description %>
+        <%= f.input :description,input_html:{data: {form_steps_target: "description"}} %>
         <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
       </div>
       <div data-form-steps-target="step" class="hidden">
-        <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime" } } %>
+        <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime", form_steps_target: "startTime" } } %>
         <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time' } %>
         <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
       </div>
       <div data-form-steps-target="step" class="hidden">
-        <%= f.input :duration %>
+        <%= f.input :duration ,input_html:{data: {form_steps_target: "duration"}} %>
         <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
       </div>
       <div data-form-steps-target="step" class="hidden">
-        <%= f.input :location %>
+        <%= f.input :location, input_html:{data: {form_steps_target: "location"}} %>
+        <div data-form-steps-target="gptResult">
+          <%= render "objectives_and_agenda", result: @result %>
+        </div>
+        <button type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
         <%= f.submit class:"button-general", role:"button"%>
       </div>
+      <div data-form-steps-target="step" class="hidden">
+      </div>
+
     <% end %>
   </div>
 </div>

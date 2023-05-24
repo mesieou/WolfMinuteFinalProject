@@ -1,8 +1,15 @@
+.index-container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+
 .simple-calendar {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid #ccc;
+  border: 3px solid $sub-headers-color;
   font-size: 12px;
   font-family: Arial, sans-serif;
   color: #333;
@@ -12,16 +19,89 @@
 .calendar-card{
   flex-direction: column;
   background-color: #000064;
+  padding: 3px 0.5rem;
+  margin: 5px;
+  color: white;
+  border-radius: 8px;
+  text-align: left;
+  font-family: $body-font;
+  // width: 100px; define a width for the elipsies to show otherwise the pill will just expand
+}
+
+
+.calendar-card-week {
+  flex-direction: column;
+  background-color: #000064;
   padding: 1rem;
   margin: 1rem;
   color: white;
   border-radius: 8px;
+  text-align: left;
+  font-family: $body-font;
+}
+
+.btn-flat {
+  color: white;
+  padding: 0.35em 1.2em;
+  border-radius: 0.12em;
+  margin: 0 0.3em 0.3em 0;
+  background: $sub-headers-color;
+  transition: background 0.3s ease;
+  font-weight: bold;
+}
+
+.calendar-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-buttons i {
+  margin-right: 1rem;
 }
 
 
-.day {
+.calendar-heading{
+  border-color: #fff;
+  font-family: $sub-headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
 }
 
+.calendar-heading a{
+  text-decoration: none;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+.calendar-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+span {
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+.dayday{
+  text-align: right;
+  font-family: $body-font;
+  color: $body-color;
+  font-size: x-large;;;
+}
+
+.simple-calendar thead {
+  text-align: center;
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: x-large;
+  background-color: rgba(244,105,26,0.06);
+}
 
 
 
@@ -77,4 +157,34 @@
 
 .has-events {
   background-color: #f0f0f0;
+}
+
+.index-icons {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.index-icon  {
+
+  background-color: $headers-color;
+}
+
+.avatar-search {
+  align-items: center;
+  display: flex;
+  background-color: $headers-color;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.avatar-search i {
+  margin-right: 1rem;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+
+.avataravatar {
+  margin: 1rem;
 }
