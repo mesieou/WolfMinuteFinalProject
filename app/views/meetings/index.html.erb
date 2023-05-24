@@ -10,28 +10,32 @@
       >
     </form>
     <div id="form-container" >
-      <div data-form-steps-target="step">
+      <div>
         <div data-search-users-target="users">
           <% if @users_filtered.present? && @users_filtered.length.positive? %>
             <%= render 'avatars', users: @users_filtered %>
-          <% else %>
-            <p>No users found!</p>
           <% end %>
         </div>
       </div>
       <div data-search-users-target="usersClicked" class="hidden"></div>
     </div>
     <div class="container" data-controller="calendar" >
-      <button data-action="click->calendar#monthly">
-        Monthly
-      </button>
-      <button data-action="click->calendar#weekly">
-        Weekly
-      </button>
+      <div>
+        <div class="btn btn-flat" data-action="click->calendar#monthly">
+          Monthly
+        </div>
+        <div class="btn btn-flat" data-action="click->calendar#weekly">
+          Weekly
+        </div>
+        <div class="add-button" >
+          <%= link_to new_meeting_path do%>
+            <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #E24429;"></i>
+          <% end %>
+        </div>
+      </div>
       <div class="monthly-calendar" data-calendar-target="month">
-        <h1>Calendar</h1>
         <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-          <div class="day">
+          <div class="dayday">
             <%= date.mday  %>
           </div>
           <% meetings.each do |meeting| %>
@@ -49,9 +53,8 @@
         <% end %>
       </div>
       <div class="weekly-calendar hidden" data-calendar-target="week">
-        <h1>Calendar</h1>
         <%= week_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-          <div class="day">
+          <div class="dayday">
             <%= date.mday  %>
           </div>
           <% meetings.each do |meeting| %>

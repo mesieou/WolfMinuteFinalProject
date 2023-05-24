@@ -2,7 +2,7 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid #ccc;
+  border: 3px solid $sub-headers-color;
   font-size: 12px;
   font-family: Arial, sans-serif;
   color: #333;
@@ -16,12 +16,55 @@
   margin: 1rem;
   color: white;
   border-radius: 8px;
+  text-align: left;
+  font-family: $body-font;
 }
 
-
-.day {
+.btn-flat {
+  color: white;
+  padding: 0.35em 1.2em;
+  border-radius: 0.12em;
+  margin: 0 0.3em 0.3em 0;
+  background: $sub-headers-color;
+  transition: background 0.3s ease;
+  font-weight: bold;
 }
 
+.calendar-heading{
+  border-color: #fff;
+  font-family: $sub-headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+.calendar-heading a{
+  text-decoration: none;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+span {
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: xx-large;
+}
+
+.dayday{
+  text-align: right;
+  font-family: $body-font;
+  color: $body-color;
+  font-size: x-large;;;
+}
+
+.simple-calendar thead {
+  text-align: center;
+  font-family: $headers-font;
+  color: $sub-headers-color;
+  font-size: x-large;
+}
 
 
 
