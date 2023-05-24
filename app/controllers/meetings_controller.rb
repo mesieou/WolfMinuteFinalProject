@@ -26,14 +26,20 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = Meeting.new
-    if params[:query] && params[:query] != ""
+    if params[:description]
+      fetch_results
+      respond_to do |format|
+        format.html
+        format.text{ render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+      end
+    elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+      respond_to do |format|
+        format.html
+        format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
+      end
     else
       @users_filtered = []
-    end
-    respond_to do |format|
-      format.html
-      format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
     end
     authorize @meeting
   end
@@ -41,10 +47,6 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
-    @objectives_agenda = get_objectives_and_agenda_from_chatgpt(
-      params[:meeting][:description],
-      params[:meeting][:start_date],
-      params[:meeting][:duration])
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
@@ -113,5 +115,13 @@ class MeetingsController < ApplicationController
       3.  11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
       4.  11: 25 to 11:30 Next Steps and Conclusion (5 minutes) '"
     OpenaiService.new(objectives_and_agenda_prompt).call
+  end
+
+  def fetch_results
+    @result = get_objectives_and_agenda_from_chatgpt(
+      params[:description],
+      params[:start_date],
+      params[:duration]
+    )
   end
 end
