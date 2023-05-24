@@ -34,7 +34,8 @@
               Weekly
             </div>
           </div>
-          <div class="add-button" >
+          <div class="add-button" data-bs-toggle="modal" data-bs-target="#newMeeting" >
+            <%# <%= render 'modal', meeting: @meeting %> %>
             <%= link_to new_meeting_path do%>
               <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #E24429;"></i>
             <% end %>
