@@ -30,6 +30,11 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
+    user_reply_description = chatgptCall(params[:meeting][:description])
+    chatgpt_response_title = "Can you please provide a title for a meeting with
+    the following description: #{user_reply_description}.
+    Only reply with the answer and should not be more than 10 words, example reply: 'Training Session for Next Week'"
+    @meeting.title = chatgpt_response_title
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
@@ -71,5 +76,9 @@ class MeetingsController < ApplicationController
 
   def meeting_params
     params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration, :title)
+  end
+
+  def chatgptCall(user_input)
+    OpenaiService.new(user_input).call
   end
 end
