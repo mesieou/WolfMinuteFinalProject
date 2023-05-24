@@ -23,6 +23,33 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
+room_1 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_2 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_3 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
 test_user = User.create!(
   name: "testuser",
   email: "test@email.com",
@@ -41,10 +68,15 @@ test_user = User.create!(
 
 puts "created test user"
 
+day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+while day.wday == 0 || day.wday == 6
+  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
+
 test_meeting = Meeting.create!(
   title: Faker::Company.buzzword,
   user: test_user,
-  start_date: DateTime.new(now.year, now.month, rand(1..29), rand(9..17), [15, 30, 45, 0].sample, 0),
+  start_date: day,
   end_date: Date.today + rand(4..6),
   description: Faker::Company.catch_phrase,
   location: location.sample,
@@ -83,11 +115,15 @@ puts "created booking"
   puts "created #{User.count} users!"
 
 rand(1..10).times do
+  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+while day.wday == 0 || day.wday == 6
+  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
-    start_date: DateTime.new(now.year, now.month, rand(1..29), rand(9..17), [15, 30, 45, 0].sample, 0),
-    end_date: Date.today + rand(4..6),
+    start_date: day,
+    end_date: day + rand(4..6),
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample

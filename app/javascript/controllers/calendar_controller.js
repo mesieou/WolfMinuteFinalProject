@@ -2,11 +2,10 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["month", "week"]
+  static targets = ["month", "week" ,"meetings"]
 
   connect() {
     console.log("Hello from our first Stimulus controller")
-    console.log(this.weekTarget.style)
   }
 
   weekly() {
@@ -18,6 +17,23 @@ export default class extends Controller {
     this.monthTarget.classList.remove("hidden")
    this.weekTarget.classList.add("hidden")
   }
+
+  show() {
+    this.meetingsTarget.style.display = "block"
+  }
+
+  hide() {
+    this.meetingsTarget.style.display = "none"
+  }
+
+  toggle() {
+    if (this.meetingsTarget.style.display === "block") {
+      this.hide()
+    } else {
+      this.show()
+    }
+  }
+
 
 
 }

@@ -43,7 +43,7 @@
 .btn-flat {
   color: white;
   padding: 0.35em 1.2em;
-  border-radius: 0.12em;
+  border-radius: 0.5em;
   margin: 0 0.3em 0.3em 0;
   background: $sub-headers-color;
   transition: background 0.3s ease;
@@ -171,12 +171,16 @@ span {
 }
 
 .avatar-search {
+  margin-top: 3rem;
   align-items: center;
   display: flex;
   background-color: $headers-color;
   padding: 2rem;
-  margin: 1rem;
+  margin-left: 5px;
+  border-radius: 1rem;
+
 }
+
 
 .avatar-search i {
   margin-right: 1rem;
@@ -186,5 +190,99 @@ span {
 
 
 .avataravatar {
-  margin: 1rem;
+  align-items: center;
+  display: flex;
+  padding: 2rem;
+  margin-left: 5px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-organizing {
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  background-color: $headers-color;
+  padding: 1rem;
+  margin-left: 5px;
+  border-radius: 1rem;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.btn-organizing p:hover{
+  color: black;
+}
+
+.btn-organizing i:hover{
+  color: black;
+}
+
+.btn-organizing p {
+  margin: 2px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-organizing i {
+  margin-right: 1rem;
+}
+
+.created-meeting {
+  align-items: center;
+  padding: 2rem;
+  margin-left: 5px;
+  display: none;
+}
+
+.created-meeting p {
+  font-size: medium;
+}
+
+.meeting-title {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.meeting-title p {
+  margin-left: 1rem;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+
+.meeting-start-time {
+  display: flex;
+  align-items: center;
+}
+
+.meeting-start-time p {
+  margin-left: 1rem;
+  padding-top: 1rem;
+}
+
+.meeting-duration {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.meeting-duration p {
+  margin-left: 1rem;
+  padding-top: 1rem;
+}
+
+.meeting-attendees {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.meeting-attendees p {
+  margin-left: 1rem;
+  padding-top: 1rem;
 }

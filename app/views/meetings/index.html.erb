@@ -12,7 +12,7 @@
           >
         </form>
       </div>
-      <div id="form-container" >
+      <div id="form-container" class="avataravatar">
         <div>
           <div data-search-users-target="users">
             <% if @users_filtered.present? && @users_filtered.length.positive? %>
@@ -21,6 +21,34 @@
           </div>
         </div>
         <div data-search-users-target="usersClicked" class="hidden"></div>
+      </div>
+      <div class="btn btn-organizing" data-action="click->calendar#toggle">
+        <i class="fa-solid fa-clipboard fa-2xl" style="color: #E24429;"></i>
+        <p>Created Meetings</p>
+      </div>
+      <div class="created-meeting" data-calendar-target="meetings">
+        <% @user.meetings_as_owner.each do |meeting| %>
+          <div class="meeting-title">
+            <i class="fa-solid fa-hand-back-fist"></i>
+            <p><%= meeting.title %></p>
+          </div>
+          <div class="meeting-start-time">
+            <i class="fa-solid fa-clock"></i>
+            <p><%= meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %></p>
+          </div>
+          <div class="meeting-duration">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <p> <%= meeting.duration %> minutes</p>
+          </div>
+          <div class="meeting-attendees">
+            <i class="fa-solid fa-people-group"></i>
+            <p>Attendees</p>
+          </div>
+          <% meeting.users.each do |user|%>
+            <%# <%= user.bookings.statuses.keys %>
+            <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1"%>
+          <% end %>
+        <% end %>
       </div>
     </div>
     <div class="right">
@@ -35,7 +63,7 @@
             </div>
           </div>
           <div class="add-button" data-bs-toggle="modal" data-bs-target="#newMeeting" >
-            <%# <%= render 'modal', meeting: @meeting %> %>
+            <%# <%= render 'modal', meeting: @meeting %>
             <%= link_to new_meeting_path do%>
               <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #E24429;"></i>
             <% end %>
