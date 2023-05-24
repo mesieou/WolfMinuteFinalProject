@@ -50,8 +50,8 @@ class MeetingsController < ApplicationController
     @meeting.user = current_user
     @users_names = params[:users]
     @users = []
-    @users_names.each {|name|}
-    self.find_available(users)
+    @users_names.each { |name| @users << User.where(name: name).first }
+    @next_available_time = User.find_available(@users)
     authorize @meeting
     if @meeting.save
       @users_names.each do |name|
@@ -118,6 +118,34 @@ class MeetingsController < ApplicationController
       3.  11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
       4.  11: 25 to 11:30 Next Steps and Conclusion (5 minutes) '"
     OpenaiService.new(objectives_and_agenda_prompt).call
+    objectives = ""
+    agenda = ""
+
+    if response.include?("Objectives:")
+      objectives = response[/Objectives:(.*?)(?=Agenda:)/m, 1]
+    end
+
+    if response.include?("Agenda:")
+      agenda = response[/Agenda:(.*)/m, 1]
+    end
+
+    formatted_objectives = objectives.lines.map(&:strip).reject(&:blank?).map do |objective|
+      "<li>#{objective}</li>"
+    end.join
+
+    formatted_agenda = agenda.lines.map(&:strip).reject(&:blank?).map do |agenda_item|
+      "<li>#{agenda_item}</li>"
+    end.join
+
+    "<h3>Objectives:</h3>
+    <ul>
+      #{formatted_objectives}
+    </ul>
+
+    <h3>Agenda:</h3>
+    <ol>
+      #{formatted_agenda}
+    </ol>".html_safe
   end
 
   def fetch_results

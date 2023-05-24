@@ -35,6 +35,8 @@
         </div>
       </div>
       <div data-form-steps-target="step" class="hidden mb-3">
+        <!--<p> <%= @users_names %></p> -->
+        <p style="margin-right: 185px; margin-left: 66px; font-size: revert;">The next available time is....</p>
         <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime", form_steps_target: "startTime" } } %>
         <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time' } %>
         <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
