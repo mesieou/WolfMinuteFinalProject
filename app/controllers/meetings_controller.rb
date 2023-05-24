@@ -40,11 +40,11 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
-    user_reply_description = chatgptCall(params[:meeting][:description])
-    chatgpt_response_title = "Can you please provide a title for a meeting with
-    the following description: #{user_reply_description}.
-    Only reply with the answer and should not be more than 10 words, example reply: 'Training Session for Next Week'"
-    @meeting.title = chatgpt_response_title
+    @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
+    @objectives_agenda = get_objectives_and_agenda_from_chatgpt(
+      params[:meeting][:description],
+      params[:meeting][:start_date],
+      params[:meeting][:duration])
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
@@ -88,7 +88,30 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration, :title)
   end
 
-  def chatgptCall(user_input)
-    OpenaiService.new(user_input).call
+  def get_title_from_chatgpt(user_reply)
+    title_prompt = "Can you please provide a title for a meeting with
+      the following description: #{user_reply}.
+      Only reply with the answer and should not be more than
+      10 words, example reply: 'Training Session for Next Week'"
+    OpenaiService.new(title_prompt).call
+  end
+
+  def get_objectives_and_agenda_from_chatgpt(description_reply, start_time, duration)
+    objectives_and_agenda_prompt = "Can you please provide a objectives and agenda for a meeting with
+      the following description: #{description_reply}.
+      Provide only 3 objectives starting from the highest priority to the lowest.
+      The meeting starts at #{start_time} and the duration is #{duration} min should have an itemised date(maximum 5 items).
+      reply with bullet points. Your reply should only be the Objectives and Agenda. Example answer:
+      Objectives:
+      - Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+      - Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+      - Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+
+      Agenda:
+      1.  11: 00 to 11:05 Introduction and Welcome (5 minutes)
+      2.  11: 05 to 11:15 Review of the New Accounting Software (10 minutes)
+      3.  11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
+      4.  11: 25 to 11:30 Next Steps and Conclusion (5 minutes) '"
+    OpenaiService.new(objectives_and_agenda_prompt).call
   end
 end
