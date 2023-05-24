@@ -1,33 +1,40 @@
 <div class="container" data-controller="meeting">
   <%= link_to "Calendar", meetings_path, class: "button-general"%>
-  <div class="meeting-card mb-2">
-    <h3 class="text-center"><%= noun_project_icon("icon", class: "my-custom-class") %> <%= @meeting.title.capitalize %></h3>
-    <div class="grid">
-      <div class="g-col-6">
-        <p> <i class="fa-solid fa-clock me-1"></i> <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %>- <%= @meeting.end_date.strftime("%l:%M %p") %></p>
-        <p><i class="fa-solid fa-clock-rotate-left me-1"></i> <%= @meeting.duration  %> minutes</p>
-        <p><i class="fa-solid fa-house-circle-exclamation me-1"></i> <%= @meeting.location.capitalize  %></p>
-        <p><i class="fa-solid fa-link"></i> <%= @meeting.video_id %></p>
-      </div>
-      <div class="g-col-6">
-        <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
-        <p><i class="fa-solid fa-sitemap me-1"></i> <%= @meeting.user.name  %></p>
-        <div class="d-flex">
-          <p><%= noun_project_icon("iconattendee", class: "my-custom-class me-1") %></p>
-          <% @meeting.users.each do |user| %>
-            <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1", data: {"bs-toggle": "modal" ,"bs-target": "#user_#{user.id}"}) : image_tag(
- "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar")%>
-            <%= render "users/modal", user: user%>
-          <% end %>
+  <div class="grid">
+    <div class='g-col-8'>
+      <div class="meeting-card mb-2">
+        <h3 class="text-center"><%= noun_project_icon("icon", class: "my-custom-class") %> <%= @meeting.title.capitalize %></h3>
+        <div class="grid">
+          <div class="g-col-6">
+            <p> <i class="fa-solid fa-clock me-1"></i> <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %>- <%= @meeting.end_date.strftime("%l:%M %p") %></p>
+            <p><i class="fa-solid fa-clock-rotate-left me-1"></i> <%= @meeting.duration  %> minutes</p>
+            <p><i class="fa-solid fa-house-circle-exclamation me-1"></i> <%= @meeting.location.capitalize  %></p>
+            <p><i class="fa-solid fa-link"></i> <%= @meeting.video_id %></p>
+          </div>
+          <div class="g-col-6">
+            <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
+            <p><i class="fa-solid fa-sitemap me-1"></i> <%= @meeting.user.name  %></p>
+            <div class="d-flex">
+              <p><%= noun_project_icon("iconattendee", class: "my-custom-class me-1") %></p>
+              <% @meeting.users.each do |user| %>
+                <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1", data: {"bs-toggle": "modal" ,"bs-target": "#user_#{user.id}"}) : image_tag(
+              "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar")%>
+                <%= render "users/modal", user: user%>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="meeting-card">
+        <h3>Objectives:</h3>
+        <p>
+        </p>
+        <h3>Agenda:</h3>
+      </div>
+      <p><%= link_to "Edit", edit_meeting_path %></p>
+    </div>
+    <div class="g-col-4">
+      list
     </div>
   </div>
-  <div class="meeting-card">
-    <h3>Objectives:</h3>
-    <p>
-    </p>
-    <h3>Agenda:</h3>
-  </div>
-  <p><%= link_to "Edit", edit_meeting_path %></p>
 </div>
