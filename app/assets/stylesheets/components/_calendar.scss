@@ -1,3 +1,10 @@
+.index-container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+
 .simple-calendar {
   width: 100%;
   border-collapse: collapse;
@@ -10,6 +17,19 @@
 }
 
 .calendar-card{
+  flex-direction: column;
+  background-color: #000064;
+  padding: 3px 0.5rem;
+  margin: 5px;
+  color: white;
+  border-radius: 8px;
+  text-align: left;
+  font-family: $body-font;
+  // width: 100px; define a width for the elipsies to show otherwise the pill will just expand
+}
+
+
+.calendar-card-week {
   flex-direction: column;
   background-color: #000064;
   padding: 1rem;
@@ -30,6 +50,16 @@
   font-weight: bold;
 }
 
+.calendar-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-buttons i {
+  margin-right: 1rem;
+}
+
+
 .calendar-heading{
   border-color: #fff;
   font-family: $sub-headers-font;
@@ -44,6 +74,12 @@
   font-family: $headers-font;
   color: $sub-headers-color;
   font-size: xx-large;
+}
+
+.calendar-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 span {
@@ -64,6 +100,7 @@ span {
   font-family: $headers-font;
   color: $sub-headers-color;
   font-size: x-large;
+  background-color: rgba(244,105,26,0.06);
 }
 
 
@@ -120,4 +157,34 @@ span {
 
 .has-events {
   background-color: #f0f0f0;
+}
+
+.index-icons {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.index-icon  {
+
+  background-color: $headers-color;
+}
+
+.avatar-search {
+  align-items: center;
+  display: flex;
+  background-color: $headers-color;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.avatar-search i {
+  margin-right: 1rem;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+
+.avataravatar {
+  margin: 1rem;
 }
