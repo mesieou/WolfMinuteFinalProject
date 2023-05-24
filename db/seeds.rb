@@ -61,7 +61,7 @@ test_booking = Booking.create!(
 )
 puts "created booking"
 
-5.times do
+20.times do
   user = User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email,
@@ -82,7 +82,7 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-rand(10..20).times do
+rand(1..10).times do
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
