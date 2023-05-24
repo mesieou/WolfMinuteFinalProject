@@ -12,13 +12,14 @@
 @import "pages/index";
 
 @import "flatpickr/dist/flatpickr.css";
-@import "flatpickr/dist/themes/airbnb";
+// @import "flatpickr/dist/themes/airbnb";
 
 @import "simple_calendar";
 
 body {
   background-color: white;
 }
+
 h1 {
   font-family: $headers-font;
   color: $headers-color;
@@ -40,5 +41,7 @@ h4 {
 p {
   font-family: $body-font;
   color: $body-color;
-  font-size: x-large;;;
+  font-size: x-large;
+  ;
+  ;
 }
