@@ -49,6 +49,9 @@ class MeetingsController < ApplicationController
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
     @users_names = params[:users]
+    @users = []
+    @users_names.each {|name|}
+    self.find_available(users)
     authorize @meeting
     if @meeting.save
       @users_names.each do |name|
