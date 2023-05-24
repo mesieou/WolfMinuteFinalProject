@@ -1,8 +1,18 @@
 class MeetingsController < ApplicationController
   def index
     @user = User.find_by(id: params[:user_id]) || current_user
-    @users = User.all
-    @meetings = policy_scope(Meeting.where(
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+    respond_to do |format|
+      format.html
+      format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
+    end
+
+    @users = User.where.not(id: current_user)
+    @meetings = policy_scope(@user.meetings.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
     ))
   end

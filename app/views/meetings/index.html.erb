@@ -1,55 +1,71 @@
 <h2>Workers</h2>
-<% @users.each do |user|%>
-  <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
-  <%= link_to meetings_path(user_id: user.id), class:"text-decoration-none" do %>
-    <%= user.name%>
-  <% end %>
-<% end %>
-<div class="container" data-controller="calendar" >
-  <button data-action="click->calendar#monthly">
-    Monthly
-  </button>
-  <button data-action="click->calendar#weekly">
-    Weekly
-  </button>
-  <div class="monthly-calendar" data-calendar-target="month">
-    <h1>Calendar</h1>
-    <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-      <div class="day">
-        <%= date.mday  %>
+<div data-controller="search-users">
+  <form action="/meetings" method="get" data-search-users-target="form">
+    <input
+      type="text"
+      name="query"
+      data-search-users-target="input"
+      data-action="keyup->search-users#search"
+      value="<%= params[:query] %>"
+      >
+    </form>
+    <div id="form-container" >
+      <div data-form-steps-target="step">
+        <div data-search-users-target="users">
+          <% if @users_filtered.present? && @users_filtered.length.positive? %>
+            <%= render 'avatars', users: @users_filtered %>
+          <% else %>
+            <p>No users found!</p>
+          <% end %>
+        </div>
       </div>
-      <% meetings.each do |meeting| %>
-        <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-          <div class="calendar-card">
-            <div class="calendar-time">
-              <%= meeting.start_date.strftime("%k:%M ~") %>
-            </div>
-            <div class="calendar-title">
-              <%= meeting.title.capitalize %>
-            </div>
+      <div data-search-users-target="usersClicked" class="hidden"></div>
+    </div>
+    <div class="container" data-controller="calendar" >
+      <button data-action="click->calendar#monthly">
+        Monthly
+      </button>
+      <button data-action="click->calendar#weekly">
+        Weekly
+      </button>
+      <div class="monthly-calendar" data-calendar-target="month">
+        <h1>Calendar</h1>
+        <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
+          <div class="day">
+            <%= date.mday  %>
           </div>
+          <% meetings.each do |meeting| %>
+            <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
+              <div class="calendar-card">
+                <div class="calendar-time">
+                  <%= meeting.start_date.strftime("%k:%M ~") %>
+                </div>
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="weekly-calendar hidden" data-calendar-target="week">
-    <h1>Calendar</h1>
-    <%= week_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-      <div class="day">
-        <%= date.mday  %>
       </div>
-      <% meetings.each do |meeting| %>
-        <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-          <div class="calendar-card">
-            <div class="calendar-time">
-              <%= meeting.start_date.strftime("%k:%M ~") %>
-            </div>
-            <div class="calendar-title">
-              <%= meeting.title.capitalize %>
-            </div>
+      <div class="weekly-calendar hidden" data-calendar-target="week">
+        <h1>Calendar</h1>
+        <%= week_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
+          <div class="day">
+            <%= date.mday  %>
           </div>
+          <% meetings.each do |meeting| %>
+            <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
+              <div class="calendar-card">
+                <div class="calendar-time">
+                  <%= meeting.start_date.strftime("%k:%M ~") %>
+                </div>
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+      </div>
+    </div>
