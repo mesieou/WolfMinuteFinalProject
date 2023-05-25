@@ -719,6 +719,11 @@ source-map@^0.6.0:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+stimulus-popover@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/stimulus-popover/-/stimulus-popover-6.2.0.tgz#67bcf725d9077f213869905e7b5c80212a92d802"
+  integrity sha512-QJqGXA842qS9s+c0Si6JUKDHDZVnkClvgZPfl2KbHcT6G9BMrEK+21na00SVNpWmmzdc6E1qQrq/oVY7gGaf3w==
+
 stimulus-chartjs@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/stimulus-chartjs/-/stimulus-chartjs-5.0.0.tgz#0f7d6e40358328ea8bf16085c188b166f7a85cfc"
@@ -739,6 +744,7 @@ stimulus-use@^0.51.1:
   integrity sha512-V4YETxMFL4/bpmcqlwFtaOaJg9sLF+XlWsvXrsoWVA5jffsqe7uAvV6gGPPQta7Hgx01vovA0yNsWUe2eU9Jmw==
   dependencies:
     hotkeys-js ">=3"
+
 
 stimulus@^3.2.1:
   version "3.2.1"
