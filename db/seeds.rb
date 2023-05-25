@@ -105,13 +105,25 @@ end
     duration: duration.sample
   )
 
-  day2 = DateTime.new(2023, rand(1..4), rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day2 = DateTime.new(2023, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
     start_date: day2,
     end_date: day2 + Rational(duration.sample, 24 * 60),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample
+  )
+
+  day3 = DateTime.new(2023, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+
+  meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: user,
+    start_date: day3,
+    end_date: day3 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample
