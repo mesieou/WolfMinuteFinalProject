@@ -16,7 +16,7 @@
   </div>
   <div id="form-container" data-controller="form-steps">
     <%= simple_form_for @meeting, data: { controller: 'flatpickr' } do |f| %>
-      <div data-form-steps-target="step" class="input-button animate__animated animate__fadeInRight" style="margin-left: 64px;">
+      <div data-form-steps-target="step" class="input-button" style="margin-left: 64px;">
       <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
         <div data-search-users-target="users">
           <% if @users_filtered.present? && @users_filtered.length.positive? %>
@@ -51,14 +51,13 @@
         <div class="d-flex" style="margin-top: 20px;">
           <img src="<%=asset_path('logo.png')%>" style="height: 50px; margin-top: 31px;" alt="">
           <%= f.input :start_date, as: :string, input_html: {style: "margin-right: 22px; background: lavender", data: { flatpickr_target: "startTime", form_steps_target: "startTime" } } %>
-          <%= f.input :end_date, as: :string, input_html: { style: "background: lavender", data: { flatpickr_target: "endTime", form_steps_target: "endTime" }, id: 'end_time' } %>
+          <%= f.input :end_date, as: :string, input_html: { style: "background: lavender", data: { flatpickr_target: "endTime" }, id: 'end_time' } %>
           <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button" style="margin-top: 33px; margin-left: 24px;">Next</button>
         </div>
       </div>
       <div data-form-steps-target="step" class="hidden">
         <%= f.input :location, input_html:{data: {form_steps_target: "location"}} %>
         <div data-form-steps-target="gptResult">
-          <%# <%= f.input %> %>
           <%= render "objectives_and_agenda", result: @result %>
         </div>
         <button type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
