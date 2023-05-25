@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     resources :bookings, only: [:edit, :update]
   end
   resources :bookings, only: [:destroy]
-  resources :users, only: [:show]
+  get "users/:id/card", to: "users#card", as: "user_card"
 end

@@ -23,32 +23,7 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
-room_1 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
 
-room_2 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
-
-room_3 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
 
 test_user = User.create!(
   name: "testuser",
@@ -68,9 +43,9 @@ test_user = User.create!(
 
 puts "created test user"
 
-day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
 
 test_meeting = Meeting.create!(
@@ -115,9 +90,9 @@ puts "created booking"
   puts "created #{User.count} users!"
 
 rand(1..10).times do
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -141,7 +116,7 @@ Meeting.find_each do |meeting|
       Booking.create!(
         user: user,
         meeting: meeting,
-        status: Booking.statuses.values.sample # or just 'accepted'
+        status: Booking.statuses.keys.sample # or just 'accepted'
       )
     end
   end
@@ -233,3 +208,30 @@ testbooking4 = Booking.create!(
 puts "created #{Booking.count} bookings for Rika"
 puts "created #{Meeting.count} meetings for Rika"
 # fortesting by Rika until here!!!
+
+room_1 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_2 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_3 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)

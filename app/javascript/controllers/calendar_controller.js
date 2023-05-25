@@ -2,7 +2,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["month", "week" ,"meetings"]
+  static targets = ["month", "week" ,"meetings","title"]
 
   connect() {
     console.log("Hello from our first Stimulus controller")

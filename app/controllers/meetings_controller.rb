@@ -10,7 +10,8 @@ class MeetingsController < ApplicationController
       format.html
       format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
     end
-
+    @past_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
+    @upcoming_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
     @users = User.where.not(id: current_user)
     @meetings = policy_scope(@user.meetings.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
