@@ -7,6 +7,9 @@ import { application } from "./application"
 import CalendarController from "./calendar_controller"
 application.register("calendar", CalendarController)
 
+import ChatroomSubscriptionController from "./chatroom_subscription_controller"
+application.register("chatroom-subscription", ChatroomSubscriptionController)
+
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 
@@ -18,6 +21,9 @@ application.register("hello", HelloController)
 
 import MeetingController from "./meeting_controller"
 application.register("meeting", MeetingController)
+
+import PopoverController from "./popover_controller"
+application.register("popover", PopoverController)
 
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
