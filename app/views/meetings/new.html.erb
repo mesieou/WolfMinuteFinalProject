@@ -46,9 +46,9 @@
             <p data-form-steps-target="availabletime" style="margin-right: 185px; font-size: revert;"><%= render 'next_available_time' %></p>
             <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <%# <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Launch demo modal
-            </button>
+            </button> %>
 
             <!-- Modal -->
             <%# <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,7 +88,7 @@
           </div>
           <div style="margin-top: 32px; margin-left: 24px;">
             <button style="margin-right: 16px;" type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
-            <%= f.input :field_name, input_html: { value: @desired_value } %>
+            <%= f.input :objectives_and_agenda, as: :hidden, input_html: { value: @result } %>
             <%= f.submit class:"button-general", role:"button"%>
           </div>
         </div>
