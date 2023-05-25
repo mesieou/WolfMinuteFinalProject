@@ -27,3 +27,10 @@ application.register("popover", PopoverController)
 
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
+
+import Popover from 'stimulus-popover'
+application.register('popover', Popover)
+
+import Chart from 'stimulus-chartjs'
+application.register('chart', Chart)
+
