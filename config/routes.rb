@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :meetings do
     resources :bookings, only: [:edit, :update]
+    resources :messages, only: :create
   end
   resources :bookings, only: [:destroy]
   get "users/:id/card", to: "users#card", as: "user_card"

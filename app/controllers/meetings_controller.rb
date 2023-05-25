@@ -76,6 +76,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @booking = @meeting.bookings
     @attendance = @meeting.bookings.map { |booking| booking.user }
+    @message = Message.new
     authorize @meeting
   end
 
