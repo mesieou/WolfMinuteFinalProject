@@ -2,6 +2,8 @@
   margin-top: 1rem;
   display: grid;
   grid-template-columns: 20% 80%;
+  overflow: auto;
+  scroll-behavior: smooth;
 }
 
 
@@ -16,6 +18,10 @@
   background-color: #fff;
 }
 
+.index-input {
+  width: 10vw;
+}
+
 .calendar-card{
   flex-direction: column;
   background-color: #000064;
@@ -25,7 +31,14 @@
   border-radius: 8px;
   text-align: left;
   font-family: $body-font;
+  width: 130px;
   // width: 100px; define a width for the elipsies to show otherwise the pill will just expand
+  transition: background-color 1s;
+  opacity: 1;
+}
+
+.calendar-card:hover{
+  opacity: 0.5;
 }
 
 
@@ -48,6 +61,15 @@
   background: $sub-headers-color;
   transition: background 0.3s ease;
   font-weight: bold;
+}
+
+.btn-flat p {
+  color: white;
+}
+
+.btn-flat:hover {
+  background-color: #000064;
+  color: white;
 }
 
 .calendar-buttons {
@@ -165,13 +187,18 @@ span {
   flex-direction: column;
 }
 
+.switching {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
 .index-icon  {
 
   background-color: $headers-color;
 }
 
 .avatar-search {
-  margin-top: 3rem;
+  margin-top: 5rem;
   align-items: center;
   display: flex;
   background-color: $headers-color;
@@ -214,11 +241,15 @@ span {
 }
 
 .btn-organizing p:hover{
-  color: black;
+  color: white;
+}
+
+.btn-organizing:hover{
+  background-color: $sub-headers-color;
 }
 
 .btn-organizing i:hover{
-  color: black;
+  color: white;
 }
 
 .btn-organizing p {
@@ -238,20 +269,28 @@ span {
   display: none;
 }
 
-.created-meeting p {
-  font-size: medium;
-}
+
 
 .meeting-title {
   display: flex;
   align-items: center;
-  text-align: center;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.3s ease;
+}
+
+.meeting-title:hover{
+  background-color: darkgray;
 }
 
 .meeting-title p {
   margin-left: 1rem;
   padding-top: 1rem;
-  text-align: center;
+  text-align: left;
+}
+
+.meeting-title-a {
+  font-weight: bold;
 }
 
 
@@ -285,8 +324,4 @@ span {
 .meeting-attendees p {
   margin-left: 1rem;
   padding-top: 1rem;
-}
-
-.accepted {
-  border: 2px solid red;
 }
