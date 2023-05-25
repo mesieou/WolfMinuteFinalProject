@@ -26,7 +26,13 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = Meeting.new
-    if params[:description]
+    if params[:description] && params[:usersnames]
+      fetch_time_result
+      respond_to do |format|
+        format.html
+        format.text{ render partial: "optimal_time", locals: { result: @result }, formats: [:html] }
+      end
+    elsif params[:description]
       fetch_results
       respond_to do |format|
         format.html
@@ -126,34 +132,6 @@ class MeetingsController < ApplicationController
         <li>11: 25 to 11:30 Next Steps and Conclusion (5 minutes)</li>
       </ol>"
     OpenaiService.new(objectives_and_agenda_prompt).call
-    # objectives = ""
-    # agenda = ""
-
-    # if response.include?("Objectives:")
-    #   objectives = response[/Objectives:(.*?)(?=Agenda:)/m, 1]
-    # end
-
-    # if response.include?("Agenda:")
-    #   agenda = response[/Agenda:(.*)/m, 1]
-    # end
-
-    # formatted_objectives = objectives.lines.map(&:strip).reject(&:blank?).map do |objective|
-    #   "<li>#{objective}</li>"
-    # end.join
-
-    # formatted_agenda = agenda.lines.map(&:strip).reject(&:blank?).map do |agenda_item|
-    #   "<li>#{agenda_item}</li>"
-    # end.join
-
-    # "<h3>Objectives:</h3>
-    # <ul>
-    #   #{formatted_objectives}
-    # </ul>
-
-    # <h3>Agenda:</h3>
-    # <ol>
-    #   #{formatted_agenda}
-    # </ol>".html_safe
   end
 
   def fetch_results
@@ -161,6 +139,41 @@ class MeetingsController < ApplicationController
       params[:description],
       params[:start_date],
       params[:duration]
+    )
+    @result.html_safe
+  end
+
+  def get_optimal_time(description_reply, people_reply)
+    optimal_time_prompt = "Can you please provide the optimal duration for a meeting with
+    the following description: #{description_reply} and number of people: #{people_reply} , based on the following:
+    Type of meeting	Number of Attendees	Topic Complexity	Optimal Amount of Time
+    Brainstorming	1-4 people	Low	15
+    Brainstorming	5-10 people	Low	30
+    Brainstorming	1-4 people	High	45
+    Brainstorming	5-10 people	High	45
+    Decision Making	1-4 people	Low	15
+    Decision Making	5-10 people	Low	30
+    Decision Making	1-4 people	High	45
+    Decision Making	5-10 people	High	45
+    Updates	1-4 people	Low	15
+    Updates	5-10 people	Low	30
+    Updates	1-4 people	High	15
+    Updates	5-10 people	High	30
+    Team Building	1-4 people	Low	30
+    Team Building	5-10 people	Low	30
+    Team Building	1-4 people	High	45
+    Team Building	5-10 people	High	45
+    Training	1-10 people	Low	45
+        The reply should be a numbers(minutes) in html formal. Example answer:
+    <p> Optimal time: 30 min<p>
+    <p> Reason: small description <p>"
+    OpenaiService.new(optimal_time_prompt).call
+  end
+
+  def fetch_time_result
+    @result = get_optimal_time(
+      params[:description],
+      params[:usersnames]
     )
     @result.html_safe
   end
