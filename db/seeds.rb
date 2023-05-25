@@ -23,6 +23,26 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
+objectives = [
+  "Discuss the status of the project",
+  "Brainstorm new ideas for the project",
+  "Make decisions about the project",
+  "Assign tasks to team members",
+  "Review the project schedule",
+  "Resolve any issues with the project"
+]
+
+agendas = [
+  "Welcome everyone and review the agenda",
+  "Discuss the status of the project",
+  "Brainstorm new ideas for the project",
+  "Make decisions about the project",
+  "Assign tasks to team members",
+  "Review the project schedule",
+  "Resolve any issues with the project",
+  "Close the meeting"
+]
+
 
 
 test_user = User.create!(
@@ -56,7 +76,9 @@ test_meeting = Meeting.create!(
   end_date: Date.today + rand(4..6),
   description: Faker::Company.catch_phrase,
   location: location.sample,
-  duration: duration.sample
+  duration: duration.sample,
+  agenda: agendas.sample,
+  objectives: objectives.sample
 )
 
 
@@ -90,7 +112,7 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-rand(1..10).times do
+rand(1..7).times do
   day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -99,10 +121,12 @@ end
     title: Faker::Company.buzzword,
     user: user,
     start_date: day,
-    end_date: day + Rational(duration.sample, 24 * 60) ,
+    end_date: day + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample
+    duration: duration.sample,
+    agenda: agendas.sample,
+    objectives: objectives.sample
   )
 
   day2 = DateTime.new(2023, rand(1..4), rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -114,7 +138,7 @@ end
     end_date: day2 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample
+    duration: duration.sample,
   )
 
 end

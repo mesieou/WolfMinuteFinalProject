@@ -23,6 +23,12 @@
         </div>
         <div data-search-users-target="usersClicked" class="hidden"></div>
       </div>
+      <%= link_to meetings_analytics_path,  class: "text-decoration-none" do%>
+        <div class="btn btn-analytics" >
+          <i class="fa-solid fa-chart-line fa-2xl" style="color: #E24429;"></i>
+          <p>Analytics</p>
+        </div>
+      <% end %>
       <div class="btn btn-organizing" data-action="click->calendar#toggle">
         <i class="fa-solid fa-clipboard fa-2xl" style="color: #E24429;"></i>
         <p>Created Meetings</p>
@@ -75,7 +81,7 @@
           </div>
         <% end %>
       <% else %>
-        <p class="text-muted" style="font-size: 12px">There's no past meetings</p>
+        <p class="text-muted" style="font-size: 12px">There are no past meetings</p>
       <% end %>
       <p class="meeting-title-a mt-3">Upcoming Meetings</p>
       <% if @upcoming_meetings.any?  %>
@@ -124,7 +130,7 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-muted" style="font-size: 12px">There's no upcoming meetings</p>
+      <p class="text-muted" style="font-size: 12px">There are no upcoming meetings</p>
     <% end %>
   </div>
 </div>

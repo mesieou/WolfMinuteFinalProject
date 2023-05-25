@@ -262,6 +262,41 @@ span {
   margin-right: 1rem;
 }
 
+.btn-analytics {
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  background-color: $headers-color;
+  padding: 1rem;
+  margin-left: 5px;
+  border-radius: 1rem;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.btn-analytics p:hover{
+  color: white;
+}
+
+.btn-analytics:hover{
+  background-color: $sub-headers-color;
+}
+
+.btn-analytics i:hover{
+  color: white;
+}
+
+.btn-analytics p {
+  margin: 2px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-analytics i {
+  margin-right: 1rem;
+}
+
+
 .created-meeting {
   align-items: center;
   padding: 2rem;
