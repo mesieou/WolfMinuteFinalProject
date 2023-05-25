@@ -38,6 +38,15 @@ class MeetingsController < ApplicationController
         format.html
         format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
       end
+    elsif params[:usersnames]
+      @users_names = params[:usersnames].split(",")
+      @users = []
+      @users_names.each { |name| @users << User.where(name: name).first }
+      @next_available_time = User.find_available(@users)
+      respond_to do |format|
+        format.html
+        format.text{ render partial: "next_available_time", locals: {next_available_time: @next_available_time}, formats: [:html] }
+      end
     else
       @users_filtered = []
     end
@@ -48,10 +57,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
-    @users_names = params[:users]
-    @users = []
-    @users_names.each { |name| @users << User.where(name: name).first }
-    @next_available_time = User.find_available(@users)
     authorize @meeting
     if @meeting.save
       @users_names.each do |name|
@@ -106,46 +111,49 @@ class MeetingsController < ApplicationController
       the following description: #{description_reply}.
       Provide only 3 objectives starting from the highest priority to the lowest.
       The meeting starts at #{start_time} and the duration is #{duration} min should have an itemised date(maximum 5 items).
-      reply with bullet points. Your reply should only be the Objectives and Agenda. Example answer:
-      Objectives:
-      - Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
-      - Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
-      - Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
-
-      Agenda:
-      1.  11: 00 to 11:05 Introduction and Welcome (5 minutes)
-      2.  11: 05 to 11:15 Review of the New Accounting Software (10 minutes)
-      3.  11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
-      4.  11: 25 to 11:30 Next Steps and Conclusion (5 minutes) '"
+      reply with bullet points. Your reply should only be the Objectives and Agenda.The reply should be in html formal. Example answer:
+      <h3>Objectives:</h3>
+      <ul>
+        <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+        <li>Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+        <li>Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+      </ul>
+      <h3>Agenda:</h3>
+      <ol>
+        <li>11: 00 to 11:05 Introduction and Welcome (5 minutes)</li>
+        <li>11: 05 to 11:15 Review of the New Accounting Software (10 minutes)</li>
+        <li>11: 15 to 11:25 Pros and Cons Discussion (10 minutes)</li>
+        <li>11: 25 to 11:30 Next Steps and Conclusion (5 minutes)</li>
+      </ol>"
     OpenaiService.new(objectives_and_agenda_prompt).call
-    objectives = ""
-    agenda = ""
+    # objectives = ""
+    # agenda = ""
 
-    if response.include?("Objectives:")
-      objectives = response[/Objectives:(.*?)(?=Agenda:)/m, 1]
-    end
+    # if response.include?("Objectives:")
+    #   objectives = response[/Objectives:(.*?)(?=Agenda:)/m, 1]
+    # end
 
-    if response.include?("Agenda:")
-      agenda = response[/Agenda:(.*)/m, 1]
-    end
+    # if response.include?("Agenda:")
+    #   agenda = response[/Agenda:(.*)/m, 1]
+    # end
 
-    formatted_objectives = objectives.lines.map(&:strip).reject(&:blank?).map do |objective|
-      "<li>#{objective}</li>"
-    end.join
+    # formatted_objectives = objectives.lines.map(&:strip).reject(&:blank?).map do |objective|
+    #   "<li>#{objective}</li>"
+    # end.join
 
-    formatted_agenda = agenda.lines.map(&:strip).reject(&:blank?).map do |agenda_item|
-      "<li>#{agenda_item}</li>"
-    end.join
+    # formatted_agenda = agenda.lines.map(&:strip).reject(&:blank?).map do |agenda_item|
+    #   "<li>#{agenda_item}</li>"
+    # end.join
 
-    "<h3>Objectives:</h3>
-    <ul>
-      #{formatted_objectives}
-    </ul>
+    # "<h3>Objectives:</h3>
+    # <ul>
+    #   #{formatted_objectives}
+    # </ul>
 
-    <h3>Agenda:</h3>
-    <ol>
-      #{formatted_agenda}
-    </ol>".html_safe
+    # <h3>Agenda:</h3>
+    # <ol>
+    #   #{formatted_agenda}
+    # </ol>".html_safe
   end
 
   def fetch_results
@@ -154,5 +162,6 @@ class MeetingsController < ApplicationController
       params[:start_date],
       params[:duration]
     )
+    @result.html_safe
   end
 end
