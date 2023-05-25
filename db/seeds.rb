@@ -141,7 +141,7 @@ Meeting.find_each do |meeting|
       Booking.create!(
         user: user,
         meeting: meeting,
-        status: Booking.statuses.keys.sample # or just 'accepted'
+        status: Booking.statuses.values.sample # or just 'accepted'
       )
     end
   end
