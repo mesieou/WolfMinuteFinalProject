@@ -38,25 +38,7 @@
     </div>
     <div class="g-col-4">
       <div class="meeting-card">
-        <%# <h1>#<%= @chatroom.name %>
-        <div class="messages">
-          <% if @chatroom.nil? %>
-            <p>No chatroom found.</p>
-          <% elsif @chatroom.messages.any? %>
-            <% @chatroom.messages.each do |message| %>
-              <div id="message-<%= message.id %>">
-                <small>
-                  <strong><%= message.user.nickname %></strong>
-                  <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-                </small>
-                <p><%= message.content %></p>
-              </div>
-            <% end %>
-          <% else %>
-            <p>No messages in this chatroom.</p>
-          <% end %>
-        </div>
+        <%= render "chatrooms/show" %>
       </div>
     </div>
   </div>
-</div>
