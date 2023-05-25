@@ -1,7 +1,7 @@
 <div class="container m-4" data-controller="search-users">
   <h1>New form</h1>
-  <div class="d-flex">
-    <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+  <div class="d-flex animate__animated animate__flash">
+    <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "tehepiyo.png",style: "width: 30px; height:30px; margin-right: 16px", class: "avatar", alt: "dropdown menu" %>
     <form action="/meetings/new" method="get" data-search-users-target="form">
       <input
         type="text"
@@ -29,40 +29,41 @@
         <div data-search-users-target="usersClicked" class="hidden"></div>
         <button type="button" data-action="click->form-steps#nextStep2" class="button-general ms-3" role="button">Next</button>
       </div>
-      <div data-form-steps-target="step" class="hidden">
+      <div data-form-steps-target="step" class="hidden animate__animated animate__flash">
         <div class="d-flex" style="margin-top: 20px;">
-          <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+          <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "tehepiyo.png",style: "width: 30px; height:30px; margin-right: 16px", class: "avatar", alt: "dropdown menu" %>
           <%= f.input :description, label: false, placeholder: "Type description", input_html:{style: "width: 400px; background: lavender; margin-right: 24px;", data: {form_steps_target: "description"}} %>
           <button type="button" data-action="click->form-steps#fetchDuration" class="button-general" role="button">Next</button>
         </div>
-          <div data-form-steps-target="gptTimeResult">
-            <%#= render "optimal_time", result: @result %>
+          <div class="optimaltime"data-form-steps-target="gptTimeResult">
           </div>
-
       </div>
-      <div data-form-steps-target="step" class="hidden" style="margin-left: 64px;">
-        <div class="d-flex" style="margin-top: 20px;">
+      <div data-form-steps-target="step" class="hidden animate__animated animate__fadeInRight" style="margin-left: 64px;">
+        <div class="d-flex" style="margin-top: 20px; animate__animated animate__fadeInRight">
           <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
-          <p data-form-steps-target="availabletime" style="margin-right: 185px; font-size: revert;">The next available time is<%= render 'next_available_time' %></p>
+          <p data-form-steps-target="availabletime" style="margin-right: 185px; font-size: revert;"><%= render 'next_available_time' %></p>
           <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button">Next</button>
         </div>
       </div>
-      <div data-form-steps-target="step" class="hidden mb-3">
+      <div data-form-steps-target="step" class="hidden mb-3 animate__animated animate__flash">
         <div class="d-flex" style="margin-top: 20px;">
-          <img src="<%=asset_path('logo.png')%>" style="height: 50px; margin-top: 31px;" alt="">
+          <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "tehepiyo.png",style: "width: 30px; height:30px; margin-right: 16px", class: "avatar", alt: "dropdown menu" %>
           <%= f.input :start_date, as: :string, input_html: {style: "margin-right: 22px; background: lavender", data: { flatpickr_target: "startTime", form_steps_target: "startTime" } } %>
           <%= f.input :end_date, as: :string, input_html: { style: "background: lavender", data: { flatpickr_target: "endTime", form_steps_target: "endTime" }, id: 'end_time' } %>
           <button type="button" data-action="click->form-steps#nextStep" class="button-general" role="button" style="margin-top: 33px; margin-left: 24px;">Next</button>
         </div>
       </div>
-      <div data-form-steps-target="step" class="hidden">
-        <%= f.input :location, input_html:{data: {form_steps_target: "location"}} %>
-        <div data-form-steps-target="gptResult">
-          <%# <%= f.input %> %>
-          <%= render "objectives_and_agenda", result: @result %>
+      <div data-form-steps-target="step" class="hidden animate__animated animate__flash">
+        <div class="d-flex" style="margin-top: 20px;">
+          <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "tehepiyo.png",style: "width: 30px; height:30px; margin-right: 16px", class: "avatar", alt: "dropdown menu" %>
+          <%= f.input :location, input_html:{style: "width: 400px; background: lavender", data: {form_steps_target: "location"}} %>
         </div>
-        <button type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
-        <%= f.submit class:"button-general", role:"button"%>
+          <div data-form-steps-target="gptResult">
+          </div>
+          <div style="margin-top: 32px; margin-left: 24px;">
+            <button style="margin-right: 16px;"type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
+            <%= f.submit class:"button-general", role:"button"%>
+          </div>
       </div>
       <div data-form-steps-target="step" class="hidden">
       </div>
