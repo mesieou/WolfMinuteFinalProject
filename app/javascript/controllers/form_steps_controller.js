@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="form-steps"
 export default class extends Controller {
-  static targets = ["step", "description", "startTime", "location", "duration", "gptResult", "checkbox", "availabletime", "gptTimeResult"];
+  static targets = ["step", "description", "startTime", "location", "duration", "gptResult", "checkbox", "availabletime", "endTime", "gptTimeResult"];
 
   connect() {
     this.currentStep = 0;
@@ -45,7 +45,7 @@ export default class extends Controller {
   }
 
   fetchResultsFromForm() {
-    const url = `/meetings/new?description=${this.descriptionTarget.value}&startTime=${this.startTimeTarget.value}&location=${this.locationTarget.value}&duration=${this.durationTarget.value}`;
+    const url = `/meetings/new?description=${this.descriptionTarget.value}&startTime=${this.startTimeTarget.value}&location=${this.locationTarget.value}&endTime=${this.endTimeTarget.value}`;
     fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
       .then((response) => response.text())
       .then((data) => {

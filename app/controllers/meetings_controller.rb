@@ -61,6 +61,7 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
+    @duration = (meeting_params[:end_date] - @meeting.start_date) / 60
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
     authorize @meeting
@@ -101,7 +102,7 @@ class MeetingsController < ApplicationController
   private
 
   def meeting_params
-    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :duration, :title)
+    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :end_date, :title)
   end
 
   def get_title_from_chatgpt(user_reply)
@@ -112,11 +113,11 @@ class MeetingsController < ApplicationController
     OpenaiService.new(title_prompt).call
   end
 
-  def get_objectives_and_agenda_from_chatgpt(description_reply, start_time, duration)
+  def get_objectives_and_agenda_from_chatgpt(description_reply, start_time, end_date)
     objectives_and_agenda_prompt = "Can you please provide a objectives and agenda for a meeting with
       the following description: #{description_reply}.
       Provide only 3 objectives starting from the highest priority to the lowest.
-      The meeting starts at #{start_time} and the duration is #{duration} min should have an itemised date(maximum 5 items).
+      The meeting starts at #{start_time} and it ends at #{end_date} min should have an itemised date(maximum 5 items).
       reply with bullet points. Your reply should only be the Objectives and Agenda.The reply should be in html formal. Example answer:
       <h3>Objectives:</h3>
       <ul>
@@ -138,7 +139,7 @@ class MeetingsController < ApplicationController
     @result = get_objectives_and_agenda_from_chatgpt(
       params[:description],
       params[:start_date],
-      params[:duration]
+      params[:end_date]
     )
     @result.html_safe
   end
