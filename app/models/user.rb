@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :meetings, through: :bookings
-  has_many :messages
+  has_many :meetings_as_owner, class_name: "Meeting", foreign_key: "user_id"
   has_one_attached :photo
 
   validates :name, presence: true
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   if today_meetings.count >= 1
   time_slots.each do |hour|
     hash[hour] = true
-    today_meetings.each { |meeting| (meeting.start_date.hour...meeting.start_date.hour + meeting.duration.to_i).to_a.each { |hour| hash[hour] = false } }
+    today_meetings.each { |meeting| (meeting.start_date.hour...meeting.start_date.hour + (meeting.duration.to_i / 60)).to_a.each { |hour| hash[hour] = false } }
     end
   hash
   else

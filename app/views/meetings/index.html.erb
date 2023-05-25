@@ -12,7 +12,7 @@
           >
         </form>
       </div>
-      <div id="form-container" >
+      <div id="form-container" class="avataravatar">
         <div>
           <div data-search-users-target="users">
             <% if @users_filtered.present? && @users_filtered.length.positive? %>
@@ -22,61 +22,100 @@
         </div>
         <div data-search-users-target="usersClicked" class="hidden"></div>
       </div>
-    </div>
-    <div class="right">
-      <div class="container"  >
-        <div class="calendar-buttons">
-          <div class="switching">
-            <div class="btn btn-flat" data-action="click->calendar#monthly">
-              Monthly
-            </div>
-            <div class="btn btn-flat" data-action="click->calendar#weekly">
-              Weekly
-            </div>
+      <div class="btn btn-organizing" data-action="click->calendar#toggle">
+        <i class="fa-solid fa-clipboard fa-2xl" style="color: #E24429;"></i>
+        <p>Created Meetings</p>
+      </div>
+      <div class="created-meeting" data-calendar-target="meetings">
+        <% @user.meetings_as_owner.each do |meeting| %>
+          <div class="meeting-title">
+            <i class="fa-solid fa-hand-back-fist"></i>
+            <p><%= meeting.title %></p>
           </div>
-          <div class="add-button" data-bs-toggle="modal" data-bs-target="#newMeeting" >
-            <%# <%= render 'modal', meeting: @meeting %> %>
-            <%= link_to new_meeting_path do%>
-              <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #E24429;"></i>
-            <% end %>
+          <div class="meeting-start-time">
+            <i class="fa-solid fa-clock"></i>
+            <p><%= meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %></p>
           </div>
-        </div>
-        <div class="monthly-calendar" data-calendar-target="month">
-          <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-            <div class="dayday">
-              <%= date.mday  %>
+          <div class="meeting-duration">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <p> <%= meeting.duration %> minutes</p>
+          </div>
+          <div class="meeting-attendees">
+            <i class="fa-solid fa-people-group"></i>
+            <p>Attendees</p>
+          </div>
+          <% meeting.bookings.sort_by(&:status).each do |booking|%>
+            <% case booking.status %>
+            <%   when "accepted"%>
+            <div class="accepted">
+              <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1"%>
             </div>
-            <% meetings.each do |meeting| %>
-              <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-                <div class="calendar-card">
-                  <div class="calendar-title">
-                    <%= meeting.title.capitalize %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
+            <%   when "pending"%>
+            <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1"%>
+            <p>Pending</p>
+            <%   when "rejected"%>
+            <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1"%>
+            <p>Rejected</p>
+          <% else %>
           <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="right">
+    <div class="container"  >
+      <div class="calendar-buttons">
+        <div class="switching">
+          <div class="btn btn-flat" data-action="click->calendar#monthly">
+            Monthly
+          </div>
+          <div class="btn btn-flat" data-action="click->calendar#weekly">
+            Weekly
+          </div>
         </div>
-        <div class="weekly-calendar hidden" data-calendar-target="week">
-          <%= week_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
-            <div class="dayday">
-              <%= date.mday  %>
-            </div>
-            <% meetings.each do |meeting| %>
-              <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-                <div class="calendar-card-week">
-                  <div class="calendar-time">
-                    <%= meeting.start_date.strftime("%k:%M ~") %>
-                  </div>
-                  <div class="calendar-title">
-                    <%= meeting.title.capitalize %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
+        <div class="add-button" data-bs-toggle="modal" data-bs-target="#newMeeting" >
+          <%# <%= render 'modal', meeting: @meeting %>
+          <%= link_to new_meeting_path do%>
+            <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #E24429;"></i>
           <% end %>
         </div>
       </div>
+      <div class="monthly-calendar" data-calendar-target="month">
+        <%= month_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
+          <div class="dayday">
+            <%= date.mday  %>
+          </div>
+          <% meetings.each do |meeting| %>
+            <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
+              <div class="calendar-card">
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="weekly-calendar hidden" data-calendar-target="week">
+        <%= week_calendar(events: @meetings, attribute: :start_date) do |date, meetings| %>
+          <div class="dayday">
+            <%= date.mday  %>
+          </div>
+          <% meetings.each do |meeting| %>
+            <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
+              <div class="calendar-card-week">
+                <div class="calendar-time">
+                  <%= meeting.start_date.strftime("%k:%M ~") %>
+                </div>
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
+</div>
 </div>
