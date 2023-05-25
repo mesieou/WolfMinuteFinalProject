@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_134823) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_25_062146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,12 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_134823) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
-  create_table "chatrooms", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "meetings", force: :cascade do |t|
     t.datetime "start_date"
     t.string "description"
@@ -75,11 +69,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_134823) do
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
-    t.bigint "chatroom_id", null: false
+    t.bigint "meeting_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["meeting_id"], name: "index_messages_on_meeting_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -117,6 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_134823) do
   add_foreign_key "bookings", "users"
   add_foreign_key "meetings", "users"
   add_foreign_key "meetings", "videos"
-  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "meetings"
   add_foreign_key "messages", "users"
 end

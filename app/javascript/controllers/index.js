@@ -7,8 +7,8 @@ import { application } from "./application"
 import CalendarController from "./calendar_controller"
 application.register("calendar", CalendarController)
 
-import ChatroomSubscriptionController from "./chatroom_subscription_controller"
-application.register("chatroom-subscription", ChatroomSubscriptionController)
+import MeetingSubscriptionController from "./meeting_subscription_controller"
+application.register("meeting-subscription", MeetingSubscriptionController)
 
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
