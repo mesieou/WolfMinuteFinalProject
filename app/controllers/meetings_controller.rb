@@ -10,17 +10,73 @@ class MeetingsController < ApplicationController
       format.html
       format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
     end
-
+    @past_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
+    @upcoming_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
     @users = User.where.not(id: current_user)
     @meetings = policy_scope(@user.meetings.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
     ))
   end
 
+  def analytics
+    @user = User.find_by(id: params[:user_id]) || current_user
+    @users = User.all
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+    respond_to do |format|
+      format.html
+      format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
+    end
+    @meetings = Meeting.all
+    @meetings_user = current_user.meetings
+    @bookings = Booking.all
+    @bookings_user = current_user.bookings
+    authorize @meetings
+
+    @date = Date.today
+    total_duration = 0
+    @total_duration = @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).each { |meeting| total_duration += meeting.duration.to_i }
+    @average = total_duration / @meetings.count
+
+    @chart_data = {
+      labels: %w[January February March April May],
+      datasets: [{
+        label: 'top created',
+        backgroundColor: 'transparent',
+        borderColor: '#39B54A',
+        data: [36, 80, 72, 68, 55]
+      }, {
+        label: 'Total duration of MTG',
+        backgroundColor: 'transparent',
+        borderColor: '#3B82F6',
+        data: [476, 580, 374, 462, 333]
+      }, {
+        label: 'Average duration',
+        backgroundColor: 'transparent',
+        borderColor: '#E24328',
+        data: [61, 72, 43, 34, 29]
+      }]
+    }
+
+    @chart_options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  end
+
   def show
     @meeting = Meeting.find(params[:id])
     @booking = @meeting.bookings
     @attendance = @meeting.bookings.map { |booking| booking.user }
+    @message = Message.new
     authorize @meeting
   end
 

@@ -1,5 +1,7 @@
 <div class="container" data-controller="meeting">
-  <%= link_to "Calendar", meetings_path, class: "button-general"%>
+  <%= link_to meetings_path, class: "btn btn-primary my-2" do%>
+    <i class="fa-solid fa-calendar-days fa-lg"></i>
+  <% end %>
   <div class="grid">
     <div class='g-col-8'>
       <div class="meeting-card mb-2">
@@ -9,7 +11,7 @@
             <p> <i class="fa-solid fa-clock me-1"></i> <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %>- <%= @meeting.end_date.strftime("%l:%M %p") %></p>
             <p><i class="fa-solid fa-clock-rotate-left me-1"></i> <%= @meeting.duration  %> minutes</p>
             <p><i class="fa-solid fa-house-circle-exclamation me-1"></i> <%= @meeting.location.capitalize  %></p>
-            <p><i class="fa-solid fa-link"></i> <%= @meeting.video_id %></p>
+            <p><i class="fa-solid fa-link"> </i> Google Meet </p>
           </div>
           <div class="g-col-6">
             <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
@@ -26,15 +28,35 @@
         </div>
       </div>
       <div class="meeting-card">
+        <p class="text-center"><strong>Hello, everyone</strong></p>
         <h3>Objectives:</h3>
         <p>
         </p>
         <h3>Agenda:</h3>
+        <p><%= link_to "Edit", edit_meeting_path %></p>
       </div>
-      <p><%= link_to "Edit", edit_meeting_path %></p>
     </div>
     <div class="g-col-4">
-      list
+      <div class="chatroom">
+        <div class="container chatroom"
+              data-controller="meeting-subscription"
+              data-meeting-subscription-meeting-id-value="<%= @meeting.id %>">
+          <%# <h1>#<%= @meeting.name %>
+          <div class="messages" data-meeting-subscription-target="messages">
+            <% @meeting.messages.each do |message| %>
+              <%= render "messages/message", message: message %>
+            <% end %>
+          </div>
+          <% if @meeting.nil? # || @message.nil? %>
+            <p>Cannot render the form. Missing meeting or message.</p>
+          <% else %>
+            <%= simple_form_for [@meeting, @message],html: {class: "d-flex"} do |f|%>
+              <%= f.input :content,label: false,placeholder: "Message ##{@meeting.title}",wrapper_html: {class: "flex-grow-1"}%>
+              <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
