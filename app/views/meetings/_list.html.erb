@@ -1,13 +1,13 @@
  <% if users.length >= 1 %>
-    <% users.each_with_index do |user, index| %>
-          <input
+  <% users.each_with_index do |user, index| %>
+    <input
             id= "name<%=index%>"
             type="checkbox"
             name="users[]"
-            value= "<%= user.name%>"
-          <label for="name<%=index%>">
-          <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
-          <%= user.name %>
-          </label>
-     <% end %>
- <% end %>
+            value= "<%= user.name%>">
+      <label for="name<%=index%>">
+        <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
+        <%= user.name %>
+      </label>
+    <% end %>
+  <% end %>

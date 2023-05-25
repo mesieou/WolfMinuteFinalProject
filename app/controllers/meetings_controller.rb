@@ -30,13 +30,13 @@ class MeetingsController < ApplicationController
       fetch_results
       respond_to do |format|
         format.html
-        format.text{ render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+        format.text { render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
       respond_to do |format|
         format.html
-        format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
+        format.text { render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
       end
     else
       @users_filtered = []
@@ -65,11 +65,23 @@ class MeetingsController < ApplicationController
   def edit
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
   end
 
   def update
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+
     if @meeting.update(meeting_params)
       redirect_to meetings_path
     else
