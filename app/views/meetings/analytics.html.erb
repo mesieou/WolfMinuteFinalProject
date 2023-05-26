@@ -4,7 +4,7 @@
     <%# tab %>
     <ul class="nav tabs-underlined d-flex justify-content-center" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <span class="nav-link tab-underlined active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane" role="tab" aria-controls="all-tab-pane" aria-selected="true">All</span>
+        <span class="nav-link tab-underlined <%= params[:tab] == "conversations-tab" ? '' : 'active' %>" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane" role="tab" aria-controls="all-tab-pane" aria-selected="true">All</span>
       </li>
       <li class="nav-item" role="presentation">
         <span class="nav-link tab-underlined" id="thismonth-tab" data-bs-toggle="tab" data-bs-target="#thismonth-tab-pane" role="tab" aria-controls="thismonth-tab-pane" aria-selected="false">This Month</span>
@@ -13,12 +13,12 @@
         <span class="nav-link tab-underlined" id="lastmonth-tab" data-bs-toggle="tab" data-bs-target="#lastmonth-tab-pane" role="tab" aria-controls="lastmonth-tab-pane" aria-selected="false">Last Month</span>
       </li>
       <li class="nav-item" role="presentation">
-        <span class="nav-link tab-underlined" id="conversations-tab" data-bs-toggle="tab" data-bs-target="#conversations-tab-pane" role="tab" aria-controls="conversations-tab-pane" aria-selected="false">Individual</span>
+        <span class="nav-link tab-underlined <%= 'active' if params[:tab] == "conversations-tab" %>" id="conversations-tab" data-bs-toggle="tab" data-bs-target="#conversations-tab-pane" role="tab" aria-controls="conversations-tab-pane" aria-selected="false">Individual</span>
       </li>
     </ul>
     <%# tab %>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade py-3 show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
+      <div class="tab-pane fade py-3  <%= params[:tab] == "conversations-tab" ? '' : 'show active' %>" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
         <div class="d-flex justify-content-between">
           <%# all from here %>
           <h2>Number of users : </h2>
@@ -48,11 +48,10 @@
           <h2><%= top[0]%>, <%= top[1] %> meetings</h2>
         </div>
         <div class="chart-container">
-          <canvas
-  data-controller="chart"
-  data-chart-data-value="<%= @chart_data.to_json %>"
-  data-chart-options-value="<%= @chart_options.to_json %>"
-></canvas>
+          <canvas data-controller="chart"
+              data-chart-data-value="<%= @chart_data.to_json %>"
+              data-chart-options-value="<%= @chart_options.to_json %>">
+          </canvas>
         </div>
         <%# all until here  %>
       </div>
@@ -113,12 +112,12 @@
         </div>
         <%# last month until here %>
       </div>
-      <div class="tab-pane fade py-3" id="conversations-tab-pane" role="tabpanel" aria-labelledby="conversations-tab" tabindex="0">
+      <div class="tab-pane fade py-3 <%= 'show active' if params[:tab] == "conversations-tab" %>" id="conversations-tab-pane" role="tabpanel" aria-labelledby="conversations-tab" tabindex="0">
         <%# individual from here %>
         <div class="analytics-container d-flex justify-content-center">
           <div class="avatar-search-a" data-controller="search-users">
             <i class="fa-solid fa-user-group fa-2xl" style="color: #E24429;"></i>
-            <form action="/meetings_analytics" method="get" data-search-users-target="form">
+            <form action="/meetings/analytics" method="get" data-search-users-target="form">
               <input
           type="text"
           name="query"
@@ -127,38 +126,58 @@
                 value="<%= params[:query] %>"
                 >
               </form>
-            </div>
-          </div>
-          <div id="form-container" class="avataravatar">
-            <div>
-              <div data-search-users-target="users">
-                <% if @users_filtered.present? && @users_filtered.length.positive? %>
-                  <%= render 'avatars', users: @users_filtered %>
-                <% end %>
+              <div id="form-container" class="avataravatar">
+                <div>
+                  <div data-search-users-target="users">
+                    <% if @users_filtered.present? && @users_filtered.length.positive? %>
+                      <%= render 'avatarsfa', users: @users_filtered %>
+                    <% end %>
+                  </div>
+                </div>
+                <div data-search-users-target="usersClicked" class="hidden"></div>
               </div>
             </div>
-            <div data-search-users-target="usersClicked" class="hidden"></div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h2>User name :</h2>
+            <h2><%= @user.name%></h2>
           </div>
           <div class="d-flex justify-content-between">
             <h2>Total duration : </h2>
             <% total_duration = 0 %>
-            <%# <% @meetings.where(user_id: ).each { |meeting| total_duration += meeting.duration.to_i} %>
+            <% @meetings.where(user_id: @user).each { |meeting| total_duration += meeting.duration.to_i} %>
             <h2><%= total_duration %> min</h2>
           </div>
           <div class="d-flex justify-content-between">
             <h2>Average duration : </h2>
-            <%# <h2><%= total_duration / @meetings.where(user_id: ).count rescue 0 %>
-            <h2>min</h2>
+            <h2><%= total_duration / @meetings.where(user_id: @user).count rescue 0 %> min</h2>
           </div>
           <div class="d-flex justify-content-between">
             <h2>Total number of meetings : </h2>
-            <%# <h2><%= @meetings.where(user_id: ).count %>
+            <h2><%= @meetings.where(user_id: @user).count %>
+            </div>
+            <%# individual until here %>
           </div>
-          <%# individual until here %>
         </div>
       </div>
-    </div>
-    <%# tab %>
-  <% else %>
-    <h1>You are not admin user. Bye bye! 🤪</h1>
-  <% end %>
+      <%# tab %>
+    <% else %>
+      <%# non-admin users page %>
+      <div class="analytics-container">
+        <h1>Analytics</h1>
+        <div class="d-flex justify-content-between">
+          <h2>Total number of meetings : </h2>
+          <h2><%= current_user.meetings.count %></h2>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h2>Total duration :</h2>
+          <% user_total_d = 0 %>
+          <% current_user.meetings.each { |meeting| user_total_d += meeting.duration.to_i} %>
+          <h2><%= user_total_d %></h2>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h2>Average duration</h2>
+          <h2><%= user_total_d / current_user.meetings.count %></h2>
+        </div>
+      </div>
+    <% end %>

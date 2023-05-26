@@ -33,4 +33,3 @@ application.register('popover', Popover)
 
 import Chart from 'stimulus-chartjs'
 application.register('chart', Chart)
-
