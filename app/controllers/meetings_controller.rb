@@ -139,6 +139,7 @@ class MeetingsController < ApplicationController
   end
 
   def create
+    @users = []
     @meeting = Meeting.new(meeting_params)
     @duration = ((DateTime.parse(meeting_params[:end_date]).to_time - DateTime.parse(meeting_params[:start_date]).to_time) / 60).to_i
     @meeting.duration = @duration
@@ -146,7 +147,6 @@ class MeetingsController < ApplicationController
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
-    raise
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
