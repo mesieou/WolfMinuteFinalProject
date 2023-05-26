@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-
-
 ActiveRecord::Schema[7.0].define(version: 2023_05_26_021722) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_021722) do
     t.bigint "video_id"
     t.datetime "end_date"
     t.string "title"
+    t.text "agenda"
     t.text "objectives"
     t.index ["user_id"], name: "index_meetings_on_user_id"
     t.index ["video_id"], name: "index_meetings_on_video_id"
@@ -96,8 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_021722) do
     t.string "job_title"
     t.string "mobile"
     t.string "role"
-    t.string "nickname"
     t.boolean "admin", default: false
+    t.string "nickname"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
