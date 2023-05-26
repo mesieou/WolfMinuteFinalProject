@@ -222,8 +222,10 @@ class MeetingsController < ApplicationController
     Team Building	5-10 people	High	45
     Training	1-10 people	Low	45
         The reply should be a numbers(minutes) in html formal. Example answer:
-    <p> Optimal time: 30 min<p>
-    <p> Reason: small description <p>"
+    <h3> Optimal time:</h3>
+    <p> 30 min </p>
+    <h3> Reason:</h3>
+    <p> small description </p>"
     OpenaiService.new(optimal_time_prompt).call
   end
 

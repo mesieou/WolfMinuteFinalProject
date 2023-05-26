@@ -6,3 +6,20 @@ img .avatar {
     height: 30px;
     margin-right: 8px;
 }
+
+.optimaltime p {
+  font-size: revert;
+}
+
+.outer-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 8px;
+    background: lavender;
+}
+.container {
+  background: white;
+  box-shadow: 0px 0px 11px antiquewhite;
+  border-radius: 2px;
+  padding: 24px;
+}
