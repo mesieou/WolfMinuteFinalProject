@@ -29,18 +29,17 @@
       </div>
       <div class="meeting-card">
         <p class="text-center"><strong>Hello, everyone</strong></p>
-        <h3>Objectives:</h3>
-        <p>
-        </p>
-        <h3>Agenda:</h3>
-        <div class="d-flex">
-          <%= link_to edit_meeting_path do %>
-            <i class="fa-regular fa-pen-to-square me-1"></i>
-          <% end %>
-          <%= link_to meeting_path(@meeting), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete the #{@meeting.title.capitalize}? "} do %>
-            <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-        </div>
+        <%= @meeting.objectives.html_safe%>
+        <% if current_user == @organizer %>
+          <div class="d-flex">
+            <%= link_to edit_meeting_path do %>
+              <i class="fa-regular fa-pen-to-square me-1"></i>
+            <% end %>
+            <%= link_to meeting_path(@meeting), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete the #{@meeting.title.capitalize}? "} do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="g-col-4">
@@ -59,7 +58,7 @@
           <% else %>
             <%= simple_form_for [@meeting, @message],html: {class: "d-flex"} do |f|%>
               <%= f.input :content,label: false,placeholder: "Message ##{@meeting.title}",wrapper_html: {class: "flex-grow-1"}%>
-              <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+              <%= f.submit "Send", class: "btn btn-primary mb-3 fa-fade" %>
             <% end %>
           <% end %>
         </div>

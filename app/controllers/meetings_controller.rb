@@ -76,6 +76,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     @booking = @meeting.bookings
     @attendance = @meeting.bookings.map { |booking| booking.user }
+    @organizer = User.find(@meeting.user_id)
     @message = Message.new
     authorize @meeting
   end
@@ -147,6 +148,7 @@ class MeetingsController < ApplicationController
   end
 
   def update
+
     @meeting = Meeting.find(params[:id])
     authorize @meeting
 
@@ -155,6 +157,8 @@ class MeetingsController < ApplicationController
     else
       @users_filtered = []
     end
+
+    @meeting.duration = params["meeting"]["duration"]
 
     if @meeting.update(meeting_params)
       redirect_to meetings_path
