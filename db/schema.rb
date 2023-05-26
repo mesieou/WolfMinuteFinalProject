@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_021722) do
     t.bigint "video_id"
     t.datetime "end_date"
     t.string "title"
-    t.text "agenda"
     t.text "objectives"
     t.index ["user_id"], name: "index_meetings_on_user_id"
     t.index ["video_id"], name: "index_meetings_on_video_id"
