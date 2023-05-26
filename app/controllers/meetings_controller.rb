@@ -118,9 +118,12 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     @duration = ((DateTime.parse(meeting_params[:end_date]).to_time - DateTime.parse(meeting_params[:start_date]).to_time) / 60).to_i
+    @meeting.duration = @duration
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
+    @users_names = params[:users]
     authorize @meeting
+    raise
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
