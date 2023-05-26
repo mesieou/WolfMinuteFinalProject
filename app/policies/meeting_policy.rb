@@ -29,4 +29,8 @@ class MeetingPolicy < ApplicationPolicy
   def destroy?
     record.user == user
   end
+
+  def analytics?
+    true
+  end
 end

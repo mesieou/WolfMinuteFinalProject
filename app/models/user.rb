@@ -40,9 +40,14 @@ def self.find_available(users)
     ava = array.select { |value| array.count(value) >= count }.uniq
     while ava.count.zero?
       date = Date.tomorrow + 1
+      if date.saturday?
+        date + 2
+      elsif date.sunday?
+        date + 1
+      end
       array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
       ava = array.select { |value| array.count(value) >= count }.uniq
     end
-    "Next available time is on #{date.day}/#{date.month} at #{ava.min}:00."
+    return "Next available time is on #{date.day}/#{date.month} at #{ava.min}:00."
 end
 end

@@ -2,6 +2,8 @@
   margin-top: 1rem;
   display: grid;
   grid-template-columns: 20% 80%;
+  overflow: auto;
+  scroll-behavior: smooth;
 }
 
 
@@ -16,6 +18,10 @@
   background-color: #fff;
 }
 
+.index-input {
+  width: 10vw;
+}
+
 .calendar-card{
   flex-direction: column;
   background-color: #000064;
@@ -25,7 +31,14 @@
   border-radius: 8px;
   text-align: left;
   font-family: $body-font;
+  width: 130px;
   // width: 100px; define a width for the elipsies to show otherwise the pill will just expand
+  transition: background-color 1s;
+  opacity: 1;
+}
+
+.calendar-card:hover{
+  opacity: 0.5;
 }
 
 
@@ -38,6 +51,12 @@
   border-radius: 8px;
   text-align: left;
   font-family: $body-font;
+  transition: background-color 1s;
+  opacity: 1;
+}
+
+.calendar-card-week:hover{
+  opacity: 0.5;
 }
 
 .btn-flat {
@@ -48,6 +67,15 @@
   background: $sub-headers-color;
   transition: background 0.3s ease;
   font-weight: bold;
+}
+
+.btn-flat p {
+  color: white;
+}
+
+.btn-flat:hover {
+  background-color: #000064;
+  color: white;
 }
 
 .calendar-buttons {
@@ -165,13 +193,38 @@ span {
   flex-direction: column;
 }
 
+.switching {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
 .index-icon  {
 
   background-color: $headers-color;
 }
 
+.refresh {
+  margin: 0.7rem;
+  text-align: center;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.refresh i:hover {
+  opacity: 0.5;
+}
+
+.add-button {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.add-button:hover {
+  opacity: 0.5;
+}
+
 .avatar-search {
-  margin-top: 3rem;
+  margin-top: 1rem;
   align-items: center;
   display: flex;
   background-color: $headers-color;
@@ -214,11 +267,15 @@ span {
 }
 
 .btn-organizing p:hover{
-  color: black;
+  color: white;
+}
+
+.btn-organizing:hover{
+  background-color: $sub-headers-color;
 }
 
 .btn-organizing i:hover{
-  color: black;
+  color: white;
 }
 
 .btn-organizing p {
@@ -231,6 +288,41 @@ span {
   margin-right: 1rem;
 }
 
+.btn-analytics {
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  background-color: $headers-color;
+  padding: 1rem;
+  margin-left: 5px;
+  border-radius: 1rem;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.btn-analytics p:hover{
+  color: white;
+}
+
+.btn-analytics:hover{
+  background-color: $sub-headers-color;
+}
+
+.btn-analytics i:hover{
+  color: white;
+}
+
+.btn-analytics p {
+  margin: 2px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-analytics i {
+  margin-right: 1rem;
+}
+
+
 .created-meeting {
   align-items: center;
   padding: 2rem;
@@ -238,20 +330,29 @@ span {
   display: none;
 }
 
-.created-meeting p {
-  font-size: medium;
-}
+
 
 .meeting-title {
   display: flex;
   align-items: center;
-  text-align: center;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.meeting-title:hover{
+  background-color: darkgray;
 }
 
 .meeting-title p {
   margin-left: 1rem;
   padding-top: 1rem;
-  text-align: center;
+  text-align: left;
+}
+
+.meeting-title-a {
+  font-weight: bold;
 }
 
 
@@ -285,8 +386,4 @@ span {
 .meeting-attendees p {
   margin-left: 1rem;
   padding-top: 1rem;
-}
-
-.accepted {
-  border: 2px solid red;
 }

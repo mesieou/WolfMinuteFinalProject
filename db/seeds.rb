@@ -23,32 +23,27 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
-room_1 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
+objectives = [
+  "Discuss the status of the project",
+  "Brainstorm new ideas for the project",
+  "Make decisions about the project",
+  "Assign tasks to team members",
+  "Review the project schedule",
+  "Resolve any issues with the project"
+]
 
-room_2 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
+agendas = [
+  "Welcome everyone and review the agenda",
+  "Discuss the status of the project",
+  "Brainstorm new ideas for the project",
+  "Make decisions about the project",
+  "Assign tasks to team members",
+  "Review the project schedule",
+  "Resolve any issues with the project",
+  "Close the meeting"
+]
 
-room_3 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
+
 
 test_user = User.create!(
   name: "testuser",
@@ -56,7 +51,8 @@ test_user = User.create!(
   role: role.sample,
   password: "123456",
   job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone
+  mobile: Faker::PhoneNumber.cell_phone,
+  admin: true
 )
 
   url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
@@ -68,9 +64,9 @@ test_user = User.create!(
 
 puts "created test user"
 
-day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
 
 test_meeting = Meeting.create!(
@@ -80,7 +76,9 @@ test_meeting = Meeting.create!(
   end_date: Date.today + rand(4..6),
   description: Faker::Company.catch_phrase,
   location: location.sample,
-  duration: duration.sample
+  duration: duration.sample,
+  agenda: agendas.sample,
+  objectives: objectives.sample
 )
 
 
@@ -114,16 +112,42 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-rand(1..10).times do
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+rand(1..7).times do
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
     start_date: day,
-    end_date: day + rand(4..6),
+    end_date: day + Rational(duration.sample, 24 * 60),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    agenda: agendas.sample,
+    objectives: objectives.sample
+  )
+
+  day2 = DateTime.new(2023, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+
+  meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: user,
+    start_date: day2,
+    end_date: day2 + Rational(duration.sample, 24 * 60),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+  )
+
+  day3 = DateTime.new(2023, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+
+  meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: user,
+    start_date: day3,
+    end_date: day3 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample
@@ -141,7 +165,7 @@ Meeting.find_each do |meeting|
       Booking.create!(
         user: user,
         meeting: meeting,
-        status: Booking.statuses.values.sample # or just 'accepted'
+        status: Booking.statuses.keys.sample # or just 'accepted'
       )
     end
   end
@@ -152,84 +176,111 @@ puts "created #{Booking.count} bookings!"
 
 # fortesting by Rika start from here!!!
 
-tesuser1 = User.create(
-  name: "tes1user",
-  email: "tes1@email.com",
-  role: role.sample,
-  password: "123456",
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone
-)
-tesuser2 = User.create(
-  name: "tes2user",
-  email: "tes2@email.com",
-  role: role.sample,
-  password: "123456",
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone
-)
-puts "created #{User.count} testusers for Rika"
+# tesuser1 = User.create(
+#   name: "tes1user",
+#   email: "tes1@email.com",
+#   role: role.sample,
+#   password: "123456",
+#   job_title: Faker::Job.title,
+#   mobile: Faker::PhoneNumber.cell_phone
+# )
+# tesuser2 = User.create(
+#   name: "tes2user",
+#   email: "tes2@email.com",
+#   role: role.sample,
+#   password: "123456",
+#   job_title: Faker::Job.title,
+#   mobile: Faker::PhoneNumber.cell_phone
+# )
+# puts "created #{User.count} testusers for Rika"
 
-tesmeeting1 = Meeting.create!(
-  title: "for tes1",
-  user: tesuser1,
-  start_date: Time.local(2023, 5, 23, 9, 0),
-  end_date: Time.local(2023, 5, 23, 11, 0),
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: 2
-)
+# tesmeeting1 = Meeting.create!(
+#   title: "for tes1",
+#   user: tesuser1,
+#   start_date: Time.local(2023, 5, 23, 9, 0),
+#   end_date: Time.local(2023, 5, 23, 11, 0),
+#   description: Faker::Company.catch_phrase,
+#   location: location.sample,
+#   duration: 2
+# )
 
-testbooking1 = Booking.create!(
-  user: tesuser1,
-  meeting: tesmeeting1
-)
+# testbooking1 = Booking.create!(
+#   user: tesuser1,
+#   meeting: tesmeeting1
+# )
 
-tesmeeting2 = Meeting.create!(
-  title: "for tes1-2",
-  user: tesuser1,
-  start_date: Time.local(2023, 5, 23, 15, 0),
-  end_date: Time.local(2023, 5, 23, 16, 0),
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: 1
-)
+# tesmeeting2 = Meeting.create!(
+#   title: "for tes1-2",
+#   user: tesuser1,
+#   start_date: Time.local(2023, 5, 23, 15, 0),
+#   end_date: Time.local(2023, 5, 23, 16, 0),
+#   description: Faker::Company.catch_phrase,
+#   location: location.sample,
+#   duration: 1
+# )
 
-testbooking1 = Booking.create!(
-  user: tesuser1,
-  meeting: tesmeeting2
-)
+# testbooking1 = Booking.create!(
+#   user: tesuser1,
+#   meeting: tesmeeting2
+# )
 
-tesmeeting3 = Meeting.create!(
-  title: "for tes2",
-  user: tesuser2,
-  start_date: Time.local(2023, 5, 23, 10, 0),
-  end_date: Time.local(2023, 5, 23, 13, 0),
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: 2
-)
+# tesmeeting3 = Meeting.create!(
+#   title: "for tes2",
+#   user: tesuser2,
+#   start_date: Time.local(2023, 5, 23, 10, 0),
+#   end_date: Time.local(2023, 5, 23, 13, 0),
+#   description: Faker::Company.catch_phrase,
+#   location: location.sample,
+#   duration: 2
+# )
 
-testbooking3 = Booking.create!(
-  user: tesuser2,
-  meeting: tesmeeting3
-)
+# testbooking3 = Booking.create!(
+#   user: tesuser2,
+#   meeting: tesmeeting3
+# )
 
-tesmeeting4 = Meeting.create!(
-  title: "for tes2-2",
-  user: tesuser2,
-  start_date: Time.local(2023, 5, 23, 17, 0),
-  end_date: Time.local(2023, 5, 23, 18, 0),
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: 1
-)
+# tesmeeting4 = Meeting.create!(
+#   title: "for tes2-2",
+#   user: tesuser2,
+#   start_date: Time.local(2023, 5, 23, 17, 0),
+#   end_date: Time.local(2023, 5, 23, 18, 0),
+#   description: Faker::Company.catch_phrase,
+#   location: location.sample,
+#   duration: 1
+# )
 
-testbooking4 = Booking.create!(
-  user: tesuser2,
-  meeting: tesmeeting4
-)
+# testbooking4 = Booking.create!(
+#   user: tesuser2,
+#   meeting: tesmeeting4
+# )
 
-puts "created #{Booking.count} bookings for Rika"
-puts "created #{Meeting.count} meetings for Rika"
+# puts "created #{Booking.count} bookings for Rika"
+# puts "created #{Meeting.count} meetings for Rika"
 # fortesting by Rika until here!!!
+
+room_1 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_2 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
+
+room_3 = User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  role: role.sample,
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  password: "123456"
+)
