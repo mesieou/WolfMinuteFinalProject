@@ -1,9 +1,15 @@
 .index-container {
-  margin-top: 1rem;
+  padding-top: 1rem;
   display: grid;
   grid-template-columns: 20% 80%;
   overflow: auto;
   scroll-behavior: smooth;
+  background-color: lavender;
+}
+
+.right .container {
+  background-color: lavender;
+  box-shadow: none;
 }
 
 
