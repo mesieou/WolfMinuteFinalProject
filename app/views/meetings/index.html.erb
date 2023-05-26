@@ -188,14 +188,25 @@
         </div>
         <% meetings.each do |meeting| %>
           <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-            <div class="calendar-card-week">
-              <div class="calendar-time">
-                <%= meeting.start_date.strftime("%k:%M ~") %>
+            <% if  meeting.user == current_user%>
+              <div class="calendar-card-week" style="background-color: #E24429">
+                <div class="calendar-time">
+                  <%= meeting.start_date.strftime("%k:%M ~") %>
+                </div>
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
               </div>
-              <div class="calendar-title">
-                <%= meeting.title.capitalize %>
+            <% else %>
+              <div class="calendar-card-week">
+                <div class="calendar-time">
+                  <%= meeting.start_date.strftime("%k:%M ~") %>
+                </div>
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
