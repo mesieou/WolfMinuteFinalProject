@@ -28,8 +28,9 @@ class MeetingsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
+      format.text { render partial: "avatarsfa", locals: { users: @users_filtered }, formats: [:html] }
     end
+
     @meetings = Meeting.all
     @meetings_user = current_user.meetings
     @bookings = Booking.all
@@ -41,23 +42,45 @@ class MeetingsController < ApplicationController
     @total_duration = @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).each { |meeting| total_duration += meeting.duration.to_i }
     @average = total_duration / @meetings.count
 
+    user_total = {}
+    @users.map { |user| user_total[user.name] = user.meetings.count }
+    top = user_total.max { |x, y| x[1] <=> y[1] }
+
+    thistotal = @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).count
+    thisave = total_duration / @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).count
+
+    lastdate = Date.new(2023, @date.month - 1, 1)
+    lasttotal = @meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count
+    last_user_total = {}
+    @users.map { |user| last_user_total[user.name] = user.meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count }
+    top = user_total.max { |x, y| x[1] <=> y[1] }
+    lastave = total_duration / @meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count
+
+    twodate = Date.new(2023, @date.month - 2, 1)
+    lasttop = last_user_total.max { |x, y| x[1] <=> y[1] }
+    twototal = @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
+    two_user_total = {}
+    @users.map { |user| two_user_total[user.name] = user.meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count }
+    twotop = two_user_total.max { |x, y| x[1] <=> y[1] }
+    twoave = total_duration / @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
+
     @chart_data = {
       labels: %w[January February March April May],
       datasets: [{
         label: 'top created',
         backgroundColor: 'transparent',
         borderColor: '#39B54A',
-        data: [36, 80, 72, 68, 55]
+        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1]]
       }, {
-        label: 'Total duration of MTG',
+        label: 'Total number of MTG',
         backgroundColor: 'transparent',
         borderColor: '#3B82F6',
-        data: [476, 580, 374, 462, 333]
+        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal]
       }, {
         label: 'Average duration',
         backgroundColor: 'transparent',
         borderColor: '#E24328',
-        data: [61, 72, 43, 34, 29]
+        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave]
       }]
     }
 
