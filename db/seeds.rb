@@ -106,17 +106,13 @@ test_user = User.create!(
 
 puts "created test user"
 
-past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
-while past_day.wday == 0 || past_day.wday == 6
-past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
-end
 
-future_day = DateTime.new(now.year, now.month, rand(27..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-while future_day.wday == 0 || future_day.wday == 6
-future_day = DateTime.new(now.year, now.month, rand(27..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-end
 
 2.times do
+  past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while past_day.wday == 0 || past_day.wday == 6
+    past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: test_user,
@@ -136,6 +132,10 @@ end
 end
 
 2.times do
+  future_day = DateTime.new(now.year, now.month, rand(27..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while future_day.wday == 0 || future_day.wday == 6
+    future_day = DateTime.new(now.year, now.month, rand(27..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: test_user,
