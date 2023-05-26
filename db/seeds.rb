@@ -23,6 +23,20 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
+objectives = "<h3>Objectives:</h3>
+<ul>
+  <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+  <li>Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+  <li>Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+</ul>
+<h3>Agenda:</h3>
+<ol>
+  <li>11: 00 to 11:05 Introduction and Welcome (5 minutes)</li>
+  <li>11: 05 to 11:15 Review of the New Accounting Software (10 minutes)</li>
+  <li>11: 15 to 11:25 Pros and Cons Discussion (10 minutes)</li>
+  <li>11: 25 to 11:30 Next Steps and Conclusion (5 minutes)</li>
+</ol>"
+
 
 
 test_user = User.create!(
@@ -56,7 +70,8 @@ test_meeting = Meeting.create!(
   end_date: Date.today + rand(4..6),
   description: Faker::Company.catch_phrase,
   location: location.sample,
-  duration: duration.sample
+  duration: duration.sample,
+  objectives: objectives
 )
 
 
@@ -90,7 +105,7 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-rand(1..10).times do
+rand(1..7).times do
   day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -99,7 +114,7 @@ end
     title: Faker::Company.buzzword,
     user: user,
     start_date: day,
-    end_date: day + Rational(duration.sample, 24 * 60) ,
+    end_date: day + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample
@@ -233,30 +248,3 @@ puts "created #{Booking.count} bookings!"
 # puts "created #{Booking.count} bookings for Rika"
 # puts "created #{Meeting.count} meetings for Rika"
 # fortesting by Rika until here!!!
-
-room_1 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
-
-room_2 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
-
-room_3 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)

@@ -10,8 +10,8 @@ class MeetingsController < ApplicationController
       format.html
       format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
     end
-    @past_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
-    @upcoming_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
+    @past_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
+    @upcoming_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
     @users = User.where.not(id: current_user)
     @meetings = policy_scope(@user.meetings.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
@@ -92,13 +92,13 @@ class MeetingsController < ApplicationController
       fetch_results
       respond_to do |format|
         format.html
-        format.text{ render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+        format.text { render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
       respond_to do |format|
         format.html
-        format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
+        format.text { render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
       end
     elsif params[:usersnames]
       @users_names = params[:usersnames].split(",")
@@ -136,11 +136,23 @@ class MeetingsController < ApplicationController
   def edit
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
   end
 
   def update
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+
     if @meeting.update(meeting_params)
       redirect_to meetings_path
     else
@@ -222,8 +234,10 @@ class MeetingsController < ApplicationController
     Team Building	5-10 people	High	45
     Training	1-10 people	Low	45
         The reply should be a numbers(minutes) in html formal. Example answer:
-    <p> Optimal time: 30 min<p>
-    <p> Reason: small description <p>"
+    <h3> Optimal time:</h3>
+    <p> 30 min </p>
+    <h3> Reason:</h3>
+    <p> small description </p>"
     OpenaiService.new(optimal_time_prompt).call
   end
 
