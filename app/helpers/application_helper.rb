@@ -94,8 +94,6 @@ module ApplicationHelper
     options[:alt] ||= name.to_s.humanize
     options[:width] ||= "32px" # Set the width of the icon
     options[:height] ||= "32px"
-
     image_tag(file_path, options)
   end
-
 end
