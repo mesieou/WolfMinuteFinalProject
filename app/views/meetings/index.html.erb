@@ -164,11 +164,19 @@
         </div>
         <% meetings.each do |meeting| %>
           <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
-            <div class="calendar-card">
-              <div class="calendar-title">
-                <%= meeting.title.capitalize %>
+            <% if  meeting.user == current_user%>
+              <div class="calendar-card" style="background-color: #E24429">
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
               </div>
-            </div>
+            <% else %>
+              <div class="calendar-card">
+                <div class="calendar-title">
+                  <%= meeting.title.capitalize %>
+                </div>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>

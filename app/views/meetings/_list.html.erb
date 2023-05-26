@@ -1,6 +1,7 @@
  <% if users.length >= 1 %>
   <% users.each_with_index do |user, index| %>
     <input
+            data-form-steps-target="checkbox"
             id= "name<%=index%>"
             type="checkbox"
             name="users[]"

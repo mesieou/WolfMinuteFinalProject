@@ -18,6 +18,8 @@ export default class extends Controller {
     this.checkboxTargets.forEach((checkbox) => {
       if (checkbox.checked) {
         users_names.push(checkbox.value)
+
+        console.log(users_names)
         this.fetchNextAvailableTime(users_names)
       }
     });
@@ -30,6 +32,7 @@ export default class extends Controller {
     fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
       .then((response) => response.text())
       .then((data) => {
+        console.log(data)
         this.availabletimeTarget.innerHTML = data;
       })
       .catch((error) => {

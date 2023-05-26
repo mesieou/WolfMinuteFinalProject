@@ -127,6 +127,12 @@ end
     duration: duration.sample,
     objectives: objectives.sample
   )
+
+  Booking.create!(
+    user: test_user,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
 end
 
 2.times do
@@ -139,6 +145,11 @@ end
     location: location.sample,
     duration: duration.sample,
     objectives: objectives.sample
+  )
+  Booking.create!(
+    user: test_user,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
   )
 end
 
@@ -177,6 +188,12 @@ end
     duration: duration.sample,
     objectives: objectives.sample
   )
+
+  Booking.create!(
+    user: user,
+    meeting: meeting,
+    status: "accepted" # or just 'accepted'
+  )
 end
 
 rand(1..5).times do
@@ -193,6 +210,12 @@ end
     location: location.sample,
     duration: duration.sample,
     objectives: objectives.sample
+  )
+
+  Booking.create!(
+    user: user,
+    meeting: meeting_april,
+    status: "accepted" # or just 'accepted'
   )
 end
 
@@ -211,6 +234,35 @@ end
     duration: duration.sample,
     objectives: objectives.sample
   )
+
+  Booking.create!(
+    user: user,
+    meeting: meeting_march,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+rand(1..5).times do
+  day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+while day4.wday == 0 || day4.wday == 6
+  day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
+  meeting_june = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: user,
+    start_date: day4,
+    end_date: day4 + Rational(duration.sample, 24 * 60),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample
+  )
+
+  Booking.create!(
+    user: user,
+    meeting: meeting_june,
+    status: "accepted" # or just 'accepted'
+  )
 end
 
   puts "created #{Meeting.count} meetings!"
@@ -219,7 +271,7 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    if rand(0..3) == 0
+    if user.id != meeting.user_id && rand(0..3) == 0
       Booking.create!(
         user: user,
         meeting: meeting,
