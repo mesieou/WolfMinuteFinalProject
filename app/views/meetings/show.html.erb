@@ -17,9 +17,9 @@
             <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
             <p><i class="fa-solid fa-sitemap me-1"></i> <%= @meeting.user.name  %></p>
             <div class="d-flex">
-              <p><%= noun_project_icon("iconattendee", class: "my-custom-class me-1") %></p>
+              <p><i class="fa-solid fa-users-line me-4"></i></p>
               <% @meeting.users.each do |user| %>
-                <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1", data: {"bs-toggle": "modal" ,"bs-target": "#user_#{user.id}"}) : image_tag(
+                <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1 overlap", data: {"bs-toggle": "modal" ,"bs-target": "#user_#{user.id}"}) : image_tag(
               "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar")%>
                 <%= render "users/modal", user: user%>
               <% end %>
@@ -33,7 +33,14 @@
         <p>
         </p>
         <h3>Agenda:</h3>
-        <p><%= link_to "Edit", edit_meeting_path %></p>
+        <div class="d-flex">
+          <%= link_to edit_meeting_path do %>
+            <i class="fa-regular fa-pen-to-square me-1"></i>
+          <% end %>
+          <%= link_to meeting_path(@meeting), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete the #{@meeting.title.capitalize}? "} do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="g-col-4">

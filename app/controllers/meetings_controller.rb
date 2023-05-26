@@ -10,8 +10,8 @@ class MeetingsController < ApplicationController
       format.html
       format.text{ render partial: "avatars", locals: { users: @users_filtered }, formats: [:html] }
     end
-    @past_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
-    @upcoming_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
+    @past_meetings = @user.meetings_as_owner.where("start_date < ?", DateTime.now).order(:start_date)
+    @upcoming_meetings = @user.meetings_as_owner.where("start_date > ?", DateTime.now).order(:start_date)
     @users = User.where.not(id: current_user)
     @meetings = policy_scope(@user.meetings.where(
       start_date: Time.now.beginning_of_month.beginning_of_week..Time.now.end_of_month.end_of_week
@@ -115,13 +115,13 @@ class MeetingsController < ApplicationController
       fetch_results
       respond_to do |format|
         format.html
-        format.text{ render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+        format.text { render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
       respond_to do |format|
         format.html
-        format.text{ render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
+        format.text { render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
       end
     elsif params[:usersnames]
       @users_names = params[:usersnames].split(",")
@@ -140,10 +140,13 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
-    @duration = (meeting_params[:end_date] - @meeting.start_date) / 60
+    @duration = ((DateTime.parse(meeting_params[:end_date]).to_time - DateTime.parse(meeting_params[:start_date]).to_time) / 60).to_i
+    @meeting.duration = @duration
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
+    @users_names = params[:users]
     authorize @meeting
+    raise
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
@@ -159,11 +162,23 @@ class MeetingsController < ApplicationController
   def edit
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
   end
 
   def update
     @meeting = Meeting.find(params[:id])
     authorize @meeting
+
+    if params[:query] && params[:query] != ""
+      @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @users_filtered = []
+    end
+
     if @meeting.update(meeting_params)
       redirect_to meetings_path
     else
@@ -181,7 +196,7 @@ class MeetingsController < ApplicationController
   private
 
   def meeting_params
-    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :end_date, :title)
+    params.require(:meeting).permit(:status, :user_id, :start_date, :description, :location, :end_date, :title, :objectives)
   end
 
   def get_title_from_chatgpt(user_reply)

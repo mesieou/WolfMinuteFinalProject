@@ -23,27 +23,69 @@ location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
 
-objectives = [
-  "Discuss the status of the project",
-  "Brainstorm new ideas for the project",
-  "Make decisions about the project",
-  "Assign tasks to team members",
-  "Review the project schedule",
-  "Resolve any issues with the project"
-]
+objective1 = "<h3>Objectives:</h3>
+<ul>
+  <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
+  <li>Middle Priority: Evaluate the impact of implementing the new accounting software</li>
+  <li>Low Priority: Identify potential challenges and risks associated with adopting the new accounting software</li>
+</ul>
+<h3>Agenda:</h3>
+<ol>
+  <li>09:30 to 09:35 - Introduction and Welcome (5 minutes)</li>
+  <li>09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)</li>
+  <li>09:45 to 09:55 - Pros and Cons Discussion (10 minutes)</li>
+  <li>09:55 to 10:00 - Next Steps and Conclusion (5 minutes)</li>
+</ol>
+"
 
-agendas = [
-  "Welcome everyone and review the agenda",
-  "Discuss the status of the project",
-  "Brainstorm new ideas for the project",
-  "Make decisions about the project",
-  "Assign tasks to team members",
-  "Review the project schedule",
-  "Resolve any issues with the project",
-  "Close the meeting"
-]
+objective2 = "<h3>Objectives:</h3>
+<ul>
+  <li>Highest Priority: Evaluate the potential benefits and drawbacks of adopting the new accounting software</li>
+  <li>Middle Priority: Determine the implementation requirements and timeline for the new accounting software</li>
+  <li>Low Priority: Establish a communication plan for stakeholders regarding the new accounting software</li>
+</ul>
+<h3>Agenda:</h3>
+<ol>
+  <li>10:00 to 10:05 - Welcome and Introductions (5 minutes)</li>
+  <li>10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)</li>
+  <li>10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)</li>
+  <li>10:45 to 11:00 - Q&A and Wrap-up (15 minutes)</li>
+</ol>
+"
 
+objective3 = "<h3>Objectives:</h3>
+<ul>
+  <li>Highest Priority: Assess the readiness of the organization for adopting the new accounting software</li>
+  <li>Middle Priority: Identify the training needs and resources required for successful implementation</li>
+  <li>Low Priority: Define the key performance indicators to measure the effectiveness of the new accounting software</li>
+</ul>
+<h3>Agenda:</h3>
+<ol>
+  <li>14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)</li>
+  <li>14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)</li>
+  <li>14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)</li>
+  <li>14:50 to 15:00 - Action Planning and Next Steps (10 minutes)</li>
+</ol>
+"
 
+objective4 = "<h3>Objectives:</h3>
+<ul>
+  <li>Highest Priority: Determine the cost-benefit analysis of adopting the new accounting software</li>
+  <li>Middle Priority: Assess the impact on existing processes and workflows</li>
+  <li>Low Priority: Identify potential training needs and strategies for successful implementation</li>
+</ul>
+<h3>Agenda:</h3>
+<ol>
+  <li>13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)</li>
+  <li>13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)</li>
+  <li>13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)</li>
+  <li>14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)</li>
+  <li>14:25 to 14:40 - Brainstorming Training Needs and Strategies (15 minutes)</li>
+  <li>14:40 to 14:45 - Wrap-up and Next Steps (5 minutes)</li>
+</ol>
+"
+
+objectives = [objective1, objective2, objective3, objective4]
 
 test_user = User.create!(
   name: "testuser",
@@ -64,32 +106,43 @@ test_user = User.create!(
 
 puts "created test user"
 
-day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
+while past_day.wday == 0 || past_day.wday == 6
+past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
 
-test_meeting = Meeting.create!(
-  title: Faker::Company.buzzword,
-  user: test_user,
-  start_date: day,
-  end_date: Date.today + rand(4..6),
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: duration.sample,
-  agenda: agendas.sample,
-  objectives: objectives.sample
-)
+future_day = DateTime.new(now.year, now.month, rand(27..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+while future_day.wday == 0 || future_day.wday == 6
+future_day = DateTime.new(now.year, now.month, rand(27..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
 
-
-puts "created meating"
-
-test_booking = Booking.create!(
+2.times do
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
     user: test_user,
-    meeting: test_meeting,
-    status: "pending"
-)
-puts "created booking"
+    start_date: past_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample
+  )
+end
+
+2.times do
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: test_user,
+    start_date: future_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample
+  )
+end
+
+puts "created meeting"
 
 20.times do
   user = User.create!(
@@ -100,9 +153,6 @@ puts "created booking"
     mobile: Faker::PhoneNumber.cell_phone,
     password: "123456"
   )
-
-
-
     url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
     json = URI.open(url).read
     src = JSON.parse(json)['src']
@@ -112,10 +162,10 @@ puts "created booking"
     user.save
   puts "created #{User.count} users!"
 
-rand(1..7).times do
-  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+rand(1..5).times do
+  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -125,13 +175,16 @@ end
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample,
-    agenda: agendas.sample,
     objectives: objectives.sample
   )
+end
 
-  day2 = DateTime.new(2023, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
-
-  meeting = Meeting.create!(
+rand(1..5).times do
+  day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+while day2.wday == 0 || day2.wday == 6
+  day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
+  meeting_april = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
     start_date: day2,
@@ -139,20 +192,25 @@ end
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample,
+    objectives: objectives.sample
   )
+end
 
-  day3 = DateTime.new(2023, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
-
-  meeting = Meeting.create!(
+rand(1..5).times do
+  day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+while day3.wday == 0 || day3.wday == 6
+  day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+end
+  meeting_march = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
     start_date: day3,
     end_date: day3 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample
+    duration: duration.sample,
+    objectives: objectives.sample
   )
-
 end
 
   puts "created #{Meeting.count} meetings!"
@@ -161,7 +219,7 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    if rand(0..1) == 0
+    if rand(0..3) == 0
       Booking.create!(
         user: user,
         meeting: meeting,
@@ -257,30 +315,3 @@ puts "created #{Booking.count} bookings!"
 # puts "created #{Booking.count} bookings for Rika"
 # puts "created #{Meeting.count} meetings for Rika"
 # fortesting by Rika until here!!!
-
-room_1 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
-
-room_2 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
-
-room_3 = User.create!(
-  name: Faker::Name.name,
-  email: Faker::Internet.email,
-  role: role.sample,
-  job_title: Faker::Job.title,
-  mobile: Faker::PhoneNumber.cell_phone,
-  password: "123456"
-)
