@@ -88,7 +88,7 @@
           </div>
           <div style="margin-top: 32px; margin-left: 24px;">
             <button style="margin-right: 16px;" type="button" data-action="click->form-steps#fetchResultsFromForm" class="button-general" role="button">Generate</button>
-            <%= f.input :objectives_and_agenda, as: :hidden, input_html: { value: @result } %>
+            <%= f.input :objectives, as: :hidden, input_html: { value: @result } %>
             <%= f.submit class:"button-general", role:"button"%>
           </div>
         </div>
