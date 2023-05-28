@@ -107,7 +107,6 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     if params[:description] && params[:usersnames]
-      raise
       # Class call to get Next Available Date time meeting
       @users_names = params[:usersnames].split(",")
       @users = []

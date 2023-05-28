@@ -60,7 +60,8 @@ export default class extends Controller {
         console.error(error)});
   }
   fetchDuration(users_names) {
-    const url = `/meetings/new?description=${this.descriptionTarget.value}&usersnames=${users_names}`;
+    const description = encodeURIComponent(this.descriptionTarget.value);
+    const url = `/meetings/new?description=${description}&usersnames=${users_names}`;
     fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
       .then((response) => response.text())
       .then((data) => {
