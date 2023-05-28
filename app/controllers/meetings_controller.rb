@@ -107,16 +107,30 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     if params[:description] && params[:usersnames]
-      fetch_time_result
+      raise
+      # Class call to get Next Available Date time meeting
+      @users_names = params[:usersnames].split(",")
+      @users = []
+      @users_names.each { |name| @users << User.where(name: name).first }
+      @next_available_start_date = User.find_available(@users)
+      # Chatgpt call to get the optinal duration
+      fetch_optimal_duration
+      puts(@duration)
+      #calculate the start date and end date
+      @next_available_end_date = @next_available_start_date + Rational(@duration.to_i, 1140)
+      #fetch the objectives and agenda
+      fetch_objectives_and_agenda(@next_available_start_date, @next_available_end_date)
       respond_to do |format|
         format.html
-        format.text{ render partial: "optimal_time", locals: { result: @result }, formats: [:html] }
+        format.text{ render partial: "meeting_result", locals: {
+          duration: @duration,
+          objectives_and_agenda_text: @objectives_and_agenda_text, next_available_start_date: @next_available_start_date,next_available_end_date: @next_available_end_date  }, formats:[:html] }
       end
     elsif params[:description]
-      fetch_results
+      fetch_objectives_and_agenda
       respond_to do |format|
         format.html
-        format.text { render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+        format.text { render partial: "objectives_and_agenda", locals: { objectives_and_agenda_text: @objectives_and_agenda_text }, formats: [:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
@@ -128,10 +142,10 @@ class MeetingsController < ApplicationController
       @users_names = params[:usersnames].split(",")
       @users = []
       @users_names.each { |name| @users << User.where(name: name).first }
-      @next_available_time = User.find_available(@users)
+      @next_available_start_date = User.find_available(@users)
       respond_to do |format|
         format.html
-        format.text{ render partial: "next_available_time", locals: {next_available_time: @next_available_time}, formats: [:html] }
+        format.text{ render partial: "next_available_start_date", locals: {next_available_start_date: @next_available_start_date}, formats: [:html] }
       end
     else
       @users_filtered = []
@@ -233,13 +247,13 @@ class MeetingsController < ApplicationController
     OpenaiService.new(objectives_and_agenda_prompt).call
   end
 
-  def fetch_results
-    @result = get_objectives_and_agenda_from_chatgpt(
+  def fetch_objectives_and_agenda(next_available_start_date, next_available_end_date)
+    @objectives_and_agenda_text = get_objectives_and_agenda_from_chatgpt(
       params[:description],
-      params[:start_date],
-      params[:end_date]
+      next_available_start_date,
+      next_available_end_date
     )
-    @result.html_safe
+    @objectives_and_agenda_text.html_safe
   end
 
   def get_optimal_time(description_reply, people_reply)
@@ -271,11 +285,13 @@ class MeetingsController < ApplicationController
     OpenaiService.new(optimal_time_prompt).call
   end
 
-  def fetch_time_result
-    @result = get_optimal_time(
+  def fetch_optimal_duration
+    @duration_text = get_optimal_time(
       params[:description],
       params[:usersnames]
     )
-    @result.html_safe
+    @matched_duration = @duration_text.match(/\b(\d{2})\smin\b/)
+    @duration = @matched_duration[1] if @matched_duration
+    # @duration.html_safe
   end
 end
