@@ -107,6 +107,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     if params[:description] && params[:usersnames]
+      raise
       # Class call to get Next Available Date time meeting
       @users_names = params[:usersnames].split(",")
       @users = []
@@ -114,7 +115,7 @@ class MeetingsController < ApplicationController
       @next_available_start_date = User.find_available(@users)
       # Chatgpt call to get the optinal duration
       fetch_optimal_duration
-      puts(@duration)
+      # puts(@duration)
       #calculate the start date and end date
       @next_available_end_date = @next_available_start_date + Rational(@duration.to_i, 1140)
       #fetch the objectives and agenda
