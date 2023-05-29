@@ -132,6 +132,7 @@ GEM
     gems (1.2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    holiday_japan (1.4.4)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
       google-apis-generator (~> 0.1)
@@ -351,6 +352,7 @@ DEPENDENCIES
   faker
   flatpickr
   font-awesome-sass (~> 6.1)
+  holiday_japan
   google-api-client
   jbuilder
   jsbundling-rails

@@ -32,22 +32,35 @@ class User < ApplicationRecord
   hash.select { |key, value| value == true }.keys
 end
 
-def self.find_available(users)
-    # users should be the array of attendees
-    date = Date.tomorrow
-    count = users.count
-    array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
-    ava = array.select { |value| array.count(value) >= count }.uniq
-    while ava.count.zero?
-      date = Date.tomorrow + 1
-      if date.saturday?
-        date + 2
-      elsif date.sunday?
-        date + 1
-      end
-      array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
-      ava = array.select { |value| array.count(value) >= count }.uniq
-    end
-    return "Next available time is on #{date.day}/#{date.month} at #{ava.min}:00."
+def self.hyphenize(str)
+  nums = str.scan(/\d+/).map(&:to_i)
+  nums.inject([]) { |arr, n| arr[n-1] = n; arr }
+      .chunk { |n| !n.nil? || nil }
+      .map { |_, gr| gr.size > 1 ? "#{gr.first}-#{gr.last}" : "#{gr.first}" }
+      .join(', ') + '.'
 end
-end
+
+# def self.find_available(users)
+#   # users should be the array of attendees
+#   date = Date.tomorrow
+#   while date.saturday? || date.sunday?
+#     date += 1
+#   end
+#   count = users.count
+#   array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
+#   ava = array.select { |value| array.count(value) >= count }.uniq
+#   avas = ava.join(' ')
+#   avass = User.hyphenize(avas)
+#   while ava.count.zero?
+#     date = Date.tomorrow + 1
+#     while date.saturday? || date.sunday?
+#       date + 1
+#     end
+#     array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
+#     ava = array.select { |value| array.count(value) >= count }.uniq
+#     avas = ava.join(' ')
+#     avass = User.hyphenize(avas)
+#   end
+#   return "Next available time is on #{date.day}/#{date.month} at #{avass}"
+# end
+# end

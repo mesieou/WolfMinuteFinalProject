@@ -60,6 +60,7 @@ gem 'rails-i18n'
 gem "dotenv-rails", groups: [:development, :test]
 gem "cloudinary"
 
+gem "holiday_japan"
 gem "devise"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
