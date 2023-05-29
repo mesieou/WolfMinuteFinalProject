@@ -64,23 +64,26 @@ class MeetingsController < ApplicationController
     twotop = two_user_total.max { |x, y| x[1] <=> y[1] }
     twoave = total_duration / @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
 
+# need to fix this chart!!
+# need to fix this chart!!
+
     @chart_data = {
-      labels: %w[January February March April May],
+      labels: %w[January February March April May June],
       datasets: [{
         label: 'top created',
         backgroundColor: 'transparent',
         borderColor: '#39B54A',
-        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1]]
+        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1], (twotop[1] - 1)]
       }, {
         label: 'Total number of MTG',
         backgroundColor: 'transparent',
         borderColor: '#3B82F6',
-        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal]
+        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal, (thistotal - 12)]
       }, {
         label: 'Average duration',
         backgroundColor: 'transparent',
         borderColor: '#E24328',
-        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave]
+        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave, (thisave - 2)]
       }]
     }
 
