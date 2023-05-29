@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "logo.png" %>
+      <%= image_tag "logo-with-name.png" %>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
         <% if user_signed_in? %>
           <li class="nav-item active">
             <%= link_to meetings_path, class: "nav-link" do%>
-              <i class="fa-solid fa-house" style="color: #d84026;"></i>
+              <i class="fa-solid fa-house fa-lg" style="color: #000064;"></i>
             <% end %>
           </li>
           <li class="nav-item">

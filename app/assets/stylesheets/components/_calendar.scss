@@ -4,12 +4,12 @@
   grid-template-columns: 20% 80%;
   overflow: auto;
   scroll-behavior: smooth;
-  background-color: lavender;
+  background-color: $background-color;
   padding-bottom: 10rem;
 }
 
 .right .container {
-  background-color: lavender;
+  background-color: $background-color;
   box-shadow: none;
 }
 
