@@ -4,14 +4,8 @@ class VideoController < ApplicationController
   skip_after_action :verify_authorized
   skip_after_action :verify_policy_scoped
 
-  def set_opentok_vars
-    @api_key = ENV['OPENTOK_API_KEY']
-    @api_secret = ENV['OPENTOK_API_SECRET']
-    @session_id = Session.create_or_load_session_id
-    @moderator_name = ENV['MODERATOR_NAME']
-    @meeting = Meeting.find(params[:meeting_id])
-    @name ||= @meeting.title
-    @token = Session.create_token(@name, @moderator_name, @session_id)
+
+  def party
   end
 
   def name
@@ -23,6 +17,16 @@ class VideoController < ApplicationController
   end
 
   private
+
+  def set_opentok_vars
+    @api_key = ENV['OPENTOK_API_KEY']
+    @api_secret = ENV['OPENTOK_API_SECRET']
+    @session_id = Session.create_or_load_session_id
+    @moderator_name = ENV['MODERATOR_NAME']
+    @meeting = Meeting.find(params[:meeting_id])
+    @name ||= @meeting.title
+    @token = Session.create_token(@name, @moderator_name, @session_id)
+  end
 
   def name_params
     params.permit(:name, :password, :authenticity_token, :commit)
