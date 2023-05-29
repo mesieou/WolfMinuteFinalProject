@@ -13,7 +13,7 @@ class Session < ApplicationRecord
 
   def self.create_or_load_session_id
     if Session.any?
-      last_session = Session.last_session
+      last_session = Session.last
       if last_session && last_session.expired == false
         @session_id = last_session.session_id
         @session_id
@@ -26,8 +26,8 @@ class Session < ApplicationRecord
       @session_id = create_new_session
     end
   end
-end
 
-def self.create_token(user_name, moderator_name, session_id)
-  @token = user_name == moderator_name ? @opentok.generate_token(session_id, { role: :moderator }) : @opentok.generate_token(session_id)
+  def self.create_token(user_name, moderator_name, session_id)
+    @token = user_name == moderator_name ? @opentok.generate_token(session_id, { role: :moderator }) : @opentok.generate_token(session_id)
+  end
 end

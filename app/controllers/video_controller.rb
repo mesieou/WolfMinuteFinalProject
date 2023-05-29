@@ -1,36 +1,30 @@
 require 'opentok'
 class VideoController < ApplicationController
   before_action :set_opentok_vars
+  skip_after_action :verify_authorized
+  skip_after_action :verify_policy_scoped
 
   def set_opentok_vars
-  @api_key = ENV['OPENTOK_API_KEY']
-  @api_secret = ENV['OPENTOK_API_SECRET']
-  @session_id = Session.create_or_load_session_id
-  @moderator_name = ENV['MODERATOR_NAME']
-  @name ||= params[:name]
-  @token = Session.create_token(@name, @moderator_name, @session_id)
+    @api_key = ENV['OPENTOK_API_KEY']
+    @api_secret = ENV['OPENTOK_API_SECRET']
+    @session_id = Session.create_or_load_session_id
+    @moderator_name = ENV['MODERATOR_NAME']
+    @meeting = Meeting.find(params[:meeting_id])
+    @name ||= @meeting.title
+    @token = Session.create_token(@name, @moderator_name, @session_id)
   end
 
   def name
-     @name = name_params[:name]
-    if name_params[:password] == ENV['PARTY_PASSWORD']
-      redirect_to party_url(name: @name)
-    else
-      redirect_to('/', flash: { error: 'Incorrect password' })
-    end
+    redirect_to meeting_party_url(@meeting)
   end
 
   def screenshare
     @darkmode = 'dark'
   end
 
-
-
   private
 
   def name_params
     params.permit(:name, :password, :authenticity_token, :commit)
   end
-
-
 end
