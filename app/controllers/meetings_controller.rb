@@ -149,6 +149,7 @@ class MeetingsController < ApplicationController
     @users_names = params[:users]
     authorize @meeting
     if @meeting.save
+      # @meeting.sync_to_google_calendar(@users_names)
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
         @booking = Booking.create(user: @user_instance, meeting: @meeting)
