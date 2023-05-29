@@ -107,45 +107,28 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     if params[:description] && params[:usersnames]
-      raise
-      # Class call to get Next Available Date time meeting
       @users_names = params[:usersnames].split(",")
       @users = []
       @users_names.each { |name| @users << User.where(name: name).first }
       @next_available_start_date = User.find_available(@users)
-      # Chatgpt call to get the optinal duration
       fetch_optimal_duration
-      # puts(@duration)
-      #calculate the start date and end date
-      @next_available_end_date = @next_available_start_date + Rational(@duration.to_i, 1140)
-      #fetch the objectives and agenda
+      @location = "Room 1"
+      @next_available_end_date = @next_available_start_date + Rational(@duration.to_i, 1440)
       fetch_objectives_and_agenda(@next_available_start_date, @next_available_end_date)
+      f = ActionView::Helpers::FormBuilder.new(:meeting, @meeting, self, {})
       respond_to do |format|
         format.html
-        format.text{ render partial: "meeting_result", locals: {
+        format.text { render partial: "meeting_result", locals: {
           duration: @duration,
-          objectives_and_agenda_text: @objectives_and_agenda_text, next_available_start_date: @next_available_start_date,next_available_end_date: @next_available_end_date  }, formats:[:html] }
-      end
-    elsif params[:description]
-      fetch_objectives_and_agenda
-      respond_to do |format|
-        format.html
-        format.text { render partial: "objectives_and_agenda", locals: { objectives_and_agenda_text: @objectives_and_agenda_text }, formats: [:html] }
+          objectives_and_agenda_text: @objectives_and_agenda_text,
+          next_available_start_date: @next_available_start_date,
+          next_available_end_date: @next_available_end_date}, formats:[:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
       respond_to do |format|
         format.html
         format.text { render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
-      end
-    elsif params[:usersnames]
-      @users_names = params[:usersnames].split(",")
-      @users = []
-      @users_names.each { |name| @users << User.where(name: name).first }
-      @next_available_start_date = User.find_available(@users)
-      respond_to do |format|
-        format.html
-        format.text{ render partial: "next_available_start_date", locals: {next_available_start_date: @next_available_start_date}, formats: [:html] }
       end
     else
       @users_filtered = []
@@ -156,12 +139,16 @@ class MeetingsController < ApplicationController
   def create
     @users = []
     @meeting = Meeting.new(meeting_params)
-    @duration = ((DateTime.parse(meeting_params[:end_date]).to_time - DateTime.parse(meeting_params[:start_date]).to_time) / 60).to_i
+    @duration = ((DateTime.parse(params[:end_date]).to_time - DateTime.parse(params[:start_date]).to_time) / 60).to_i
+    @meeting.start_date = DateTime.parse(params[:start_date])
+    @meeting.end_date = DateTime.parse(params[:end_date])
     @meeting.duration = @duration
+    @meeting.location = "Room 1"
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
+    Booking.create(user: current_user, meeting: @meeting)
     if @meeting.save
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
@@ -231,19 +218,15 @@ class MeetingsController < ApplicationController
       Provide only 3 objectives starting from the highest priority to the lowest.
       The meeting starts at #{start_time} and it ends at #{end_date} min should have an itemised date(maximum 5 items).
       reply with bullet points. Your reply should only be the Objectives and Agenda.The reply should be in html formal. Example answer:
-      <h3>Objectives:</h3>
-      <ul>
-        <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-        <li>Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-        <li>Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-      </ul>
-      <h3>Agenda:</h3>
-      <ol>
-        <li>11: 00 to 11:05 Introduction and Welcome (5 minutes)</li>
-        <li>11: 05 to 11:15 Review of the New Accounting Software (10 minutes)</li>
-        <li>11: 15 to 11:25 Pros and Cons Discussion (10 minutes)</li>
-        <li>11: 25 to 11:30 Next Steps and Conclusion (5 minutes)</li>
-      </ol>"
+      Objectives:
+        - Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+        - Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+        - Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+      Agenda:
+        - From 11: 00 to 11:05 Introduction and Welcome (5 minutes)
+        - From 11: 05 to 11:15 Review of the New Accounting Software (10 minutes)
+        - From 11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
+        - From 11: 25 to 11:30 Next Steps and Conclusion (5 minutes)"
     OpenaiService.new(objectives_and_agenda_prompt).call
   end
 
@@ -292,6 +275,6 @@ class MeetingsController < ApplicationController
     )
     @matched_duration = @duration_text.match(/\b(\d{2})\smin\b/)
     @duration = @matched_duration[1] if @matched_duration
-    # @duration.html_safe
+    @duration.html_safe
   end
 end

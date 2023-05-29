@@ -14,13 +14,13 @@ export default class extends Controller {
     this.showCurrentStep();
   }
   nextStep2(event) {
-    let users_names = []
+    this.users_names = []
     this.checkboxTargets.forEach((checkbox) => {
       if (checkbox.checked) {
-        users_names.push(checkbox.value)
+        this.users_names.push(checkbox.value)
 
-        console.log(users_names)
-        this.fetchNextAvailableTime(users_names)
+        console.log(this.users_names)
+        this.fetchNextAvailableTime(this.users_names)
       }
     });
     this.currentStep++;
@@ -47,21 +47,10 @@ export default class extends Controller {
     });
   }
 
-  fetchResultsFromForm() {
-    const url = `/meetings/new?description=${this.descriptionTarget.value}&startTime=${this.startTimeTarget.value}&location=${this.locationTarget.value}&endTime=${this.endTimeTarget.value}`;
-    fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
-      .then((response) => response.text())
-      .then((data) => {
-        this.gptResultTarget.innerHTML = data;
-        console.log(data)
-
-      })
-      .catch((error) => {
-        console.error(error)});
-  }
-  fetchDuration(users_names) {
+  fetchMeetingInfo() {
+    console.log(this.users_names)
     const description = encodeURIComponent(this.descriptionTarget.value);
-    const url = `/meetings/new?description=${description}&usersnames=${users_names}`;
+    const url = `/meetings/new?description=${description}&usersnames=${this.users_names}`;
     fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
       .then((response) => response.text())
       .then((data) => {
