@@ -63,4 +63,4 @@ end
 #   end
 #   return "Next available time is on #{date.day}/#{date.month} at #{avass}"
 # end
-# end
+end
