@@ -96,13 +96,7 @@ GEM
     cloudinary (1.25.0)
       aws_cf_signer
       rest-client (>= 2.0.0)
-
-    cloudmersive-voice-recognition-api-client (2.0.2)
-      json (~> 2.1, >= 2.1.0)
-      typhoeus (~> 1.0, >= 1.0.1)
-
     colorize (0.8.1)
-
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -123,8 +117,6 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
-    ethon (0.16.0)
-      ffi (>= 1.15.0)
     execjs (2.8.1)
     faker (3.2.0)
       i18n (>= 1.8.11, < 2)
@@ -186,7 +178,6 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
-    json (2.6.1)
     jwt (2.7.0)
     loofah (2.21.3)
       crass (~> 1.0.2)
@@ -332,8 +323,6 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
-    typhoeus (1.4.0)
-      ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -370,11 +359,7 @@ DEPENDENCIES
   bootsnap
   capybara
   cloudinary
-
-  cloudmersive-voice-recognition-api-client
-
   colorize
-
   debug
   devise
   dotenv-rails
