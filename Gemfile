@@ -57,7 +57,7 @@ gem 'google-api-client'
 gem 'rails-i18n'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
-gem "dotenv-rails", groups: [:development, :test]
+# gem "dotenv-rails", groups: [:development, :test]
 gem "cloudinary"
 
 gem "holiday_japan"
@@ -94,7 +94,7 @@ gem "ruby-openai"
 gem "pundit"
 
 gem 'opentok'
-gem 'dotenv-rails'
+# gem 'dotenv-rails'
 
 gem 'terminal-table'
 
