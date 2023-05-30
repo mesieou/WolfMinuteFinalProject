@@ -6,6 +6,12 @@ class VideoController < ApplicationController
 
 
   def party
+    @meeting = Meeting.find(params[:meeting_id])
+    agenda_string = @meeting.objectives
+    time_title_regex = /(\d{2}:\d{2}) to \d{2}:\d{2} - (.*?) \(\d+ minutes\)/
+    matches = agenda_string.scan(time_title_regex)
+    @agenda_items = matches.flatten
+
   end
 
   def name

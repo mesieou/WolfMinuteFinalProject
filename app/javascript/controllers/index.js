@@ -7,9 +7,6 @@ import { application } from "./application"
 import CalendarController from "./calendar_controller"
 application.register("calendar", CalendarController)
 
-import MeetingSubscriptionController from "./meeting_subscription_controller"
-application.register("meeting-subscription", MeetingSubscriptionController)
-
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 
@@ -22,14 +19,14 @@ application.register("hello", HelloController)
 import MeetingController from "./meeting_controller"
 application.register("meeting", MeetingController)
 
-// import PopoverController from "./popover_controller"
-// application.register("popover", PopoverController)
+import MeetingSubscriptionController from "./meeting_subscription_controller"
+application.register("meeting-subscription", MeetingSubscriptionController)
+
+import PopoverController from "./popover_controller"
+application.register("popover", PopoverController)
+
+import ProgressBarController from "./progress_bar_controller"
+application.register("progress-bar", ProgressBarController)
 
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
-
-import Popover from 'stimulus-popover'
-application.register('popover', Popover)
-
-import Chart from 'stimulus-chartjs'
-application.register('chart', Chart)

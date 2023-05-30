@@ -95,3 +95,7 @@ gem "pundit"
 
 gem 'opentok'
 gem 'dotenv-rails'
+
+gem 'terminal-table'
+
+gem 'colorize'
