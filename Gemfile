@@ -92,3 +92,6 @@ end
 
 gem "ruby-openai"
 gem "pundit"
+
+gem 'opentok'
+gem 'dotenv-rails'
