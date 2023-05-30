@@ -14,10 +14,11 @@
   // align-self: auto;
   // display: grid;
   // grid-template-columns: 1fr 1fr;
-
+  background-color: $containers-color;
 }
 
 .chat-card {
+  background-color: $containers-color;
   box-shadow: 0 0px 16px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   border-color: 1px;
@@ -28,7 +29,6 @@
   // background-color: white;
   // position: sticky;
   top: 80px;
-  background-color: e8ebf9;
 }
 .fa-clock {
   color: #757575;
