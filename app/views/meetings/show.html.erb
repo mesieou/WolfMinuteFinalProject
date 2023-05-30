@@ -1,4 +1,4 @@
-  <div style= "background: lavender;"class="container" data-controller="meeting">
+<div style= "background: lavender;"class="container" data-controller="meeting">
   <div class="grid">
     <div class='g-col-8'>
       <div class="meeting-card mb-2">
@@ -13,12 +13,15 @@
           <div class="g-col-6">
             <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
             <p><i class="fa-solid fa-sitemap me-1"></i> <%= @meeting.user.name  %></p>
-            <div class="d-flex">
+            <div class="d-flex" >
               <p><i class="fa-solid fa-users-line me-4"></i></p>
               <% @meeting.users.each do |user| %>
-                <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1 overlap", data: {"bs-toggle": "modal" ,"bs-target": "#user_#{user.id}"}) : image_tag(
+                <div data-controller="popover" data-popover-url-value="<%= user_card_path(user)%>">
+                  <div data-action="mouseenter->popover#show mouseleave->popover#hide" class="user-card-container">
+                    <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1 overlap") : image_tag(
               "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar")%>
-                <%= render "users/modal", user: user%>
+                  </div>
+                </div>
               <% end %>
             </div>
             <div class="landing">
@@ -36,7 +39,14 @@
       </div>
       <div class="meeting-card mt-4">
         <p class="text-center"><strong>Hello, everyone</strong></p>
-        <%= @meeting.objectives.html_safe%>
+        <h3>Objectives</h3>
+        <% @objectives.each do |objective|%>
+          <p><%= objective %></p>
+        <% end %>
+        <h3>Agenda</h3>
+        <% @agenda.each do |time|%>
+          <p><%= time %></p>
+        <% end %>
         <% if current_user == @organizer %>
           <div class="d-flex">
             <%= link_to edit_meeting_path do %>

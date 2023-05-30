@@ -1,5 +1,4 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">End meeting</button>
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="margin-left:100px;">
     <div class="modal-content" style="width: 1300px;">
@@ -8,33 +7,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name" value="<%= image_tag(current_user.photo.key ? cl_image_path(current_user.photo.key) :  'tehepiyo.png', style: 'width: 30px; height: 30px; margin-right: 16px', class: 'avatar', alt: 'dropdown menu') %>">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" style="height: 400px;">
-Summary:
-  -We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
-  -Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
-  -Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
-  -Due to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.",
-
-Actions:
-  1. Develop an advertising campaign to focus on the particular needs of rural customers.
-  Responsible: John Ruting
-  2. Provide better customer information reporting to the rural sales teams.
-  Responsible: Alice Linnes
-  3. Conduct a survey to collect data on spending habits in rural areas.
-  Responsible: To be assigned (not specified in the meeting transcript)"</textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <%= simple_form_for([@video]) do |f| %>
+          <%= f.input :summary, input_html: { rows: 10, value: "-We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
+-Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
+-Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
+-Due to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock."} %>
+          <%= f.input :actions, input_html: { value:"1. Develop an advertising campaign to focus on the particular needs of rural customers.
+Responsible: John Ruting
+2. Provide better customer information reporting to the rural sales teams.
+Responsible: Alice Linnes
+3. Conduct a survey to collect data on spending habits in rural areas.
+Responsible: To be assigned (not specified in the meeting transcript "}%>
+          <%= f.submit "Send message", class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>
