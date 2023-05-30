@@ -31,8 +31,6 @@ module WolfMinute
     config.i18n.available_locales = [:en, :de, :fr]
     config.i18n.default_locale = :en
 
-    config.force_ssl = true
-
-    config.action_controller.forgery_protection_origin_check = false
+    # config.action_controller.forgery_protection_origin_check = false
   end
 end
