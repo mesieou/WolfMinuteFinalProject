@@ -1,7 +1,4 @@
-<div class="container" data-controller="meeting">
-  <%= link_to meetings_path, class: "btn btn-primary my-2" do%>
-    <i class="fa-solid fa-calendar-days fa-lg"></i>
-  <% end %>
+  <div style= "background: lavender;"class="container" data-controller="meeting">
   <div class="grid">
     <div class='g-col-8'>
       <div class="meeting-card mb-2">
@@ -27,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="meeting-card">
+      <div class="meeting-card mt-4">
         <p class="text-center"><strong>Hello, everyone</strong></p>
         <%= @meeting.objectives.html_safe%>
         <% if current_user == @organizer %>
@@ -44,7 +41,7 @@
     </div>
     <div class="g-col-4">
       <div class="chatroom">
-        <div class="container chatroom"
+        <div class="container chatroom" style="background: white;"
               data-controller="meeting-subscription"
               data-meeting-subscription-meeting-id-value="<%= @meeting.id %>">
           <%# <h1>#<%= @meeting.name %>
