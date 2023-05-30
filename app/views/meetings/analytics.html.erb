@@ -1,6 +1,6 @@
 <% if current_user.admin? %>
   <div class="analytics-container">
-    <h1 class="p-3" >Analytics</h1>
+    <h1 class="pt-3" >Analytics</h1>
     <%# tab %>
     <ul class="nav tabs-underlined d-flex justify-content-center" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -19,50 +19,52 @@
     <%# tab %>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade py-3  <%= params[:tab] == "conversations-tab" ? '' : 'show active' %>" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-        <div class="d-flex justify-content-between">
-          <%# all from here %>
-          <h2>Number of users : </h2>
-          <h2> <%= @users.count %> </h2>
-        </div>
-        <div class="d-flex justify-content-between">
-          <% total_duration_a = 0 %>
-          <% @users.each do |user|
-          user.meetings.each do |meeting|
-          total_duration_a += meeting.duration.to_i
-          end
-          end
-           %>
-          <%# <% @meetings.each { |meeting| total_duration += meeting.duration.to_i} %>
-          <h2>Total duration : </h2>
-          <h2><%= total_duration_a %> min</h2>
-        </div>
-        <div class="d-flex justify-content-between">
-          <h2>Average duration : </h2>
-          <% allcount = 0 %>
-          <% @users.each do |user|
-          allcount += user.meetings.count
-          end
-           %>
-          <h2><%= total_duration_a / allcount %> min</h2>
-        </div>
-        <div class="d-flex justify-content-between">
-          <h2>Total number of meetings : </h2>
-          <h2><%= allcount %></h2>
-        </div>
-        <div class="d-flex justify-content-between">
-          <h2 class="text-left">The top creator : </h2>
-          <% user_total = {} %>
-          <% @users.map do |user| %>
-            <% user_total[user.name] = user.meetings.count %>
-          <% end %>
-          <% top = user_total.max{ |x, y| x[1] <=> y[1] } %>
-          <h2><%= top[0]%>, <%= top[1] %> meetings</h2>
-        </div>
-        <div class="chart-container">
-          <canvas data-controller="chart"
-              data-chart-data-value="<%= @chart_data.to_json %>"
-              data-chart-options-value="<%= @chart_options.to_json %>">
-          </canvas>
+          <div class="chart-container">
+            <canvas data-controller="chart"
+                data-chart-data-value="<%= @chart_data.to_json %>"
+                data-chart-options-value="<%= @chart_options.to_json %>">
+            </canvas>
+          </div>
+        <div class="data-container pt-5" style="padding-left:150px; padding-right:150px;">
+          <div class="d-flex justify-content-between">
+            <%# all from here %>
+            <p style="color:">Number of users : </p>
+            <p> <%= @users.count %> </p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <% total_duration_a = 0 %>
+            <% @users.each do |user|
+            user.meetings.each do |meeting|
+            total_duration_a += meeting.duration.to_i
+            end
+            end
+            %>
+            <%# <% @meetings.each { |meeting| total_duration += meeting.duration.to_i} %>
+            <p>Total duration : </p>
+            <p><%= total_duration_a %> min</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p>Average duration : </p>
+            <% allcount = 0 %>
+            <% @users.each do |user|
+            allcount += user.meetings.count
+            end
+            %>
+            <p><%= total_duration_a / allcount %> min</p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p>Total number of meetings : </p>
+            <p><%= allcount %></p>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p class="text-left">The top creator : </p>
+            <% user_total = {} %>
+            <% @users.map do |user| %>
+              <% user_total[user.name] = user.meetings.count %>
+            <% end %>
+            <% top = user_total.max{ |x, y| x[1] <=> y[1] } %>
+            <p><%= top[0]%>, <%= top[1] %> meetings</p>
+          </div>
         </div>
         <%# all until here  %>
       </div>
@@ -75,29 +77,29 @@
           user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).each { |meeting| total_duration += meeting.duration.to_i}
           end %>
           <%# <% @meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).each { |meeting| total_duration += meeting.duration.to_i} %>
-          <h2>Total duration : </h2>
-          <h2><%= total_duration %> min</h2>
+          <p>Total duration : </p>
+          <p><%= total_duration %> min</p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2>Average duration : </h2>
+          <p>Average duration : </p>
           <% thiscount = 0 %>
           <% @users.each do |user|
           thiscount += user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count
           end %>
-          <h2><%= total_duration / thiscount %> min</h2>
+          <p><%= total_duration / thiscount %> min</p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2>Total number of meetings : </h2>
-          <h2><%= thiscount %></h2>
+          <p>Total number of meetings : </p>
+          <p><%= thiscount %></p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2 class="text-left">The top creator : </h2>
+          <p class="text-left">The top creator : </p>
           <% user_total = {} %>
           <% @users.map do |user| %>
             <% user_total[user.name] = user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count %>
           <% end %>
           <% top = user_total.max{ |x, y| x[1] <=> y[1] } %>
-          <h2><%= top[0]%>, <%= top[1] %> meetings</h2>
+          <p><%= top[0]%>, <%= top[1] %> meetings</p>
         </div>
         <%# calculate wages here %>
         <%# calculate wages here %>
@@ -115,29 +117,29 @@
           user.meetings.where(start_date: lastmonth.beginning_of_month..lastmonth.end_of_month).each { |meeting| total_duration_l += meeting.duration.to_i}
           end %>
           <%# <% @meetings.where(start_date: lastmonth.beginning_of_month..lastmonth.end_of_month).each { |meeting| total_duration += meeting.duration.to_i} %>
-          <h2>Total duration : </h2>
-          <h2><%= total_duration_l %> min</h2>
+          <p>Total duration : </p>
+          <p><%= total_duration_l %> min</p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2>Average duration : </h2>
+          <p>Average duration : </p>
           <% last_count = 0 %>
           <% @users.each do |user|
           last_count += user.meetings.where(start_date: lastmonth.beginning_of_month..lastmonth.end_of_month).count
           end %>
-          <h2><%= total_duration / last_count %> min</h2>
+          <p><%= total_duration / last_count %> min</p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2>Total number of meetings : </h2>
-          <h2><%= last_count %></h2>
+          <p>Total number of meetings : </p>
+          <p><%= last_count %></p>
         </div>
         <div class="d-flex justify-content-between">
-          <h2 class="text-left">The top creator : </h2>
+          <p class="text-left">The top creator : </p>
           <% user_total = {} %>
           <% @users.map do |user| %>
             <% user_total[user.name] = user.meetings.where(start_date: lastmonth.beginning_of_month..lastmonth.end_of_month).count %>
           <% end %>
           <% top = user_total.max{ |x, y| x[1] <=> y[1] } %>
-          <h2><%= top[0]%>, <%= top[1] %> meetings</h2>
+          <p><%= top[0]%>, <%= top[1] %> meetings</p>
         </div>
         <%# last month until here %>
       </div>
@@ -168,45 +170,45 @@
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>User name :</h2>
-            <h2><%= @user.name%></h2>
+            <p>User name :</p>
+            <p><%= @user.name%></p>
             <% thismonth = Date.today %>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>Wages per month</h2>
-            <h2>¥ <%= @user.wage%></h2>
+            <p>Wages per month</p>
+            <p>¥ <%= @user.wage%></p>
           </div>
           <p></p>
-          <h2>Result of this month</h2>
+          <p>Result of this month</p>
           <p></p>
           <div class="d-flex justify-content-between">
-            <h2>Total duration : </h2>
+            <p>Total duration : </p>
             <% total_duration = 0 %>
             <%# <% @meetings.where(user_id: @user).where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).each { |meeting| total_duration += meeting.duration.to_i} %>
             <% @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).each { |meeting| total_duration += meeting.duration.to_i} %>
-            <h2><%= total_duration %> min</h2>
+            <p><%= total_duration %> min</p>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>Average duration : </h2>
-            <h2><%= total_duration / @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count rescue 0 %> min</h2>
+            <p>Average duration : </p>
+            <p><%= total_duration / @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count rescue 0 %> min</p>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>Total number of meetings : </h2>
-            <h2><%= @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count %></h2>
+            <p>Total number of meetings : </p>
+            <p><%= @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).count %></p>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>Percentage of meetings :</h2>
+            <p>Percentage of meetings :</p>
             <% wd = 0 %>
             <% (Date.new(thismonth.year, thismonth.month, 1)..Date.new(thismonth.year, thismonth.month, -1)).each { |date| wd += 1 if !(date.saturday? || date.sunday? ) } %>
             <% wdh = wd * 8 %>
             <% thismonth_total = 0%>
             <% @user.meetings.where(start_date: thismonth.beginning_of_month..thismonth.end_of_month).each { |meeting| thismonth_total += meeting.duration.to_i} %>
             <% mh = thismonth_total / 60 %>
-            <h2><%= ((mh / wdh.to_f) * 100).round(2) %> %</h2>
+            <p><%= ((mh / wdh.to_f) * 100).round(2) %> %</p>
           </div>
           <div class="d-flex justify-content-between">
-            <h2>Wages for meetings :</h2>
-            <h2>¥ <%= (@user.wage * (mh / wdh.to_f)).round(0) %></h2>
+            <p>Wages for meetings :</p>
+            <p>¥ <%= (@user.wage * (mh / wdh.to_f)).round(0) %></p>
           </div>
           <%# individual until here %>
         </div>
@@ -218,18 +220,18 @@
     <div class="analytics-container">
       <h1>Analytics</h1>
       <div class="d-flex justify-content-between">
-        <h2>Total number of meetings : </h2>
-        <h2><%= current_user.meetings.count %></h2>
+        <p>Total number of meetings : </p>
+        <p><%= current_user.meetings.count %></p>
       </div>
       <div class="d-flex justify-content-between">
-        <h2>Total duration :</h2>
+        <p>Total duration :</p>
         <% user_total_d = 0 %>
         <% current_user.meetings.each { |meeting| user_total_d += meeting.duration.to_i} %>
-        <h2><%= user_total_d %></h2>
+        <p><%= user_total_d %></p>
       </div>
       <div class="d-flex justify-content-between">
-        <h2>Average duration</h2>
-        <h2><%= user_total_d / current_user.meetings.count %></h2>
+        <p>Average duration</p>
+        <p><%= user_total_d / current_user.meetings.count %></p>
       </div>
     </div>
   <% end %>

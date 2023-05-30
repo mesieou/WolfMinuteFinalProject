@@ -143,17 +143,51 @@ rika = User.create!(
 )
 
 
-
+test_video = Video.create!(
+  start_date: DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0),
+  duration: duration.sample,
+  transcript: "Meeting Chairman: If we are all here, let's get started. First of all, I'd like you to please join me in welcoming Jack Peterson, our Southwest Area Sales Vice President.
+              Jack Peterson: Thank you for having me, I'm looking forward to today's meeting.
+              Meeting Chairman: I'd also like to introduce Margaret Simmons who recently joined our team.
+              Margaret Simmons: May I also introduce my assistant, Bob Hamp.
+              Meeting Chairman: Welcome Bob. I'm afraid our national sales director, Anne Trusting, can't be with us today. She is in Kobe at the moment, developing our Far East sales force.
+              Meeting Chairman: Let's get started. We're here today to discuss ways of improving sales in rural market areas. First, let's go over the report from the last meeting which was held on June 24th. Right, Tom, over to you.
+              Tom Robbins: Thank you Mark. Let me just summarize the main points of the last meeting. We began the meeting by approving the changes in our sales reporting system discussed on May 30th. After briefly revising the changes that will take place, we moved on to a brainstorming session concerning after customer support improvements. You'll find a copy of the main ideas developed and discussed in these sessions in the photocopies in front of you. The meeting was declared closed at 11.30.
+              Meeting Chairman: Thank you Tom. So, if there is nothing else we need to discuss, let's move on to today's agenda. Have you all received a copy of today's agenda? If you don't mind, I'd like to skip item 1 and move on to item 2: Sales improvement in rural market areas. Jack has kindly agreed to give us a report on this matter. Jack?
+              Jack Peterson: Before I begin the report, I'd like to get some ideas from you all. How do you feel about rural sales in your sales districts? I suggest we go round the table first to get all of your input.
+              John Ruting: In my opinion, we have been focusing too much on urban customers and their needs. The way I see things, we need to return to our rural base by developing an advertising campaign to focus on their particular needs.
+              Alice Linnes: I'm afraid I can't agree with you. I think rural customers want to feel as important as our customers living in cities. I suggest we give our rural sales teams more help with advanced customer information reporting.
+              Donald Peters: Excuse me, I didn't catch that. Could you repeat that, please?
+              Alice Linnes: I just stated that we need to give our rural sales teams better customer information reporting.
+              John Ruting: I don't quite follow you. What exactly do you mean?
+              Alice Linnes: Well, we provide our city sales staff with database information on all of our larger clients. We should be providing the same sort of knowledge on our rural customers to our sales staff there.
+              Jack Peterson: Would you like to add anything, Jennifer?
+              Jennifer Miles: I must admit I never thought about rural sales that way before. I have to agree with Alice.
+              Jack Peterson: Well, let me begin with this Power Point presentation (Jack presents his report). As you can see, we are developing new methods to reach out to our rural customers.
+              John Ruting: I suggest we break up into groups and discuss the ideas we've seen presented.
+              Meeting Chairman: Unfortunately, we're running short of time. We'll have to leave that to another time.
+              Jack Peterson: Before we close, let me just summarize the main points:
+              Rural customers need special help to feel more valued.
+              Our sales teams need more accurate information on our customers.
+              A survey will be completed to collect data on spending habits in these areas.
+              The results of this survey will be delivered to our sales teaMs
+              We are considering specific data mining procedures to help deepen our understanding.
+              Meeting Chairman: Thank you very much Jack. Right, it looks as though we've covered the main items Is there any other business?
+              Donald Peters: Can we fix the next meeting, please?
+              Meeting Chairman: Good idea Donald. How does Friday in two weeks time sound to everyone? Let's meet at the same time, 9 o'clock. Is that OK for everyone? Excellent. I'd like to thank Jack for coming to our meeting today. The meeting is closed.",
+  summary: "We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
+            \nTom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
+            \nJack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
+            \nDue to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.",
+  actions: "1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned (not specified in the meeting transcript)"
+)
+puts "created a video sample"
   url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
   json = URI.open(url).read
   src = JSON.parse(json)['src']
   photo_url = "https://this-person-does-not-exist.com#{src}"
   file = URI.open(photo_url)
   test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
-
-
-
-
 
 2.times do
   past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -168,8 +202,11 @@ rika = User.create!(
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample,
-    objectives: objectives.sample
+    objectives: objectives.sample,
+    video: test_video
   )
+
+  test_meeting.video = test_video
 
   Booking.create!(
     user: test_user,
