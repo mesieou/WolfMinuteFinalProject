@@ -30,7 +30,13 @@ class VideoController < ApplicationController
     @session_id = Session.create_or_load_session_id
     @moderator_name = ENV['MODERATOR_NAME']
     @meeting = Meeting.find(params[:meeting_id])
-    @video = Video.new
+    if @meeting.video.nil?
+    @video = Video.create
+    @meeting.video = @video
+    @meeting.save
+    else
+      @video = @meeting.video
+    end
     @name ||= @meeting.title
     @token = Session.create_token(@name, @moderator_name, @session_id)
   end

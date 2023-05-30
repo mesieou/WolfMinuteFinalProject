@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for([@meeting, @video]) do |f| %>
+        <%= simple_form_for([@video]) do |f| %>
           <%= f.input :summary, input_html: { rows: 10, value: "-We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
 -Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
 -Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
