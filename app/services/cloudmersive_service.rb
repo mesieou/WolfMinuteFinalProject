@@ -1,7 +1,7 @@
 # app/services/openai_service.rb
 # require 'cloudmersive-voice-recognition-api-client'
 
-# class CloudmersiveService
+class CloudmersiveService
 #     # setup authorization
 #   CloudmersiveVoiceRecognitionApiClient.configure do |config|
 #     # Configure API key authorization: Apikey
@@ -18,4 +18,4 @@
 #   rescue CloudmersiveVoiceRecognitionApiClient::ApiError => e
 #     puts "Exception when calling RecognizeApi->recognize_file: #{e}"
 #   end
-# end
+end
