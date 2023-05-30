@@ -4,12 +4,12 @@
   grid-template-columns: 20% 80%;
   overflow: auto;
   scroll-behavior: smooth;
-  background-color: lavender;
+  background-color: $background-color;
   padding-bottom: 10rem;
 }
 
 .right .container {
-  background-color: lavender;
+  background-color: $background-color;
   box-shadow: none;
 }
 
@@ -38,7 +38,7 @@
   border-radius: 8px;
   text-align: left;
   font-family: $body-font;
-  width: 130px;
+  width: 8vw;
   // width: 100px; define a width for the elipsies to show otherwise the pill will just expand
   transition: background-color 1s;
   opacity: 1;
@@ -123,26 +123,56 @@ span {
   font-size: xx-large;
 }
 
+
+
+td {
+  padding: 6px;
+  vertical-align: top;
+  width: 14%;
+
+  border: 1px solid #ddd;
+  border-top-color: rgb(221, 221, 221);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: rgb(221, 221, 221);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: rgb(221, 221, 221);
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+
 .dayday{
   text-align: right;
   font-family: $body-font;
   color: $body-color;
-  font-size: x-large;;;
+  font-size: 1rem;
 }
 
 .simple-calendar thead {
   text-align: center;
   font-family: $headers-font;
   color: $sub-headers-color;
-  font-size: x-large;
+  font-size: 1.5rem;
   background-color: rgba(244,105,26,0.06);
+  th {
+    text-align: center;
+  }
 }
+
+
 
 
 
 .hidden {
   display: none;
 }
+
+.simple-calendar {
 
 .wday-0 {
   color: #f00;
@@ -192,6 +222,8 @@ span {
 
 .has-events {
   background-color: #f0f0f0;
+}
+
 }
 
 .index-icons {
@@ -393,4 +425,37 @@ span {
 .meeting-attendees p {
   margin-left: 1rem;
   padding-top: 1rem;
+}
+
+
+
+
+@media (max-width: 800px) {
+  .index-container {
+    grid-template-columns: 1fr;
+
+  .right {
+    width: 100%;
+
+    .container{
+      margin: 1rem;
+      padding: 1rem;
+      .simple-calendar {
+        width: 90vw;
+      }
+      .calendar-buttons {
+        width: 90vw;
+      }
+    }
+  }
+
+  .left {
+    padding: 1rem;
+    input {
+      width: 60vw;
+    }
+
+  }
+
+  }
 }

@@ -15,11 +15,31 @@ img .avatar {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 8px;
-    background: lavender;
+    background: $background-color;
 }
 .container {
   background: white;
   box-shadow: 0px 0px 11px antiquewhite;
   border-radius: 2px;
   padding: 24px;
+}
+.form-output {
+  border: none;
+    outline: none;
+    margin-right: 20px;
+    background: lavender;
+    border-radius: 5px;
+    padding: 6px;
+    box-shadow: 0px 0px 2px;
+}
+
+#meeting_objectives {
+  border: none;
+  width: 100%;
+  margin-top: 24px;
+  height: 350px;
+  background: lavender;
+  border-radius: 5px;
+  padding: 6px;
+  box-shadow: 0px 0px 2px;
 }

@@ -48,6 +48,30 @@ def self.find_available(users)
       array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
       ava = array.select { |value| array.count(value) >= count }.uniq
     end
-    return "Next available time is on #{date.day}/#{date.month} at #{ava.min}:00."
+    return DateTime.parse("2023-#{date.month}-#{date.day} #{ava.min}:00:00")
 end
+
+# def self.find_available(users)
+#   # users should be the array of attendees
+#   date = Date.tomorrow
+#   while date.saturday? || date.sunday?
+#     date += 1
+#   end
+#   count = users.count
+#   array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
+#   ava = array.select { |value| array.count(value) >= count }.uniq
+#   avas = ava.join(' ')
+#   avass = User.hyphenize(avas)
+#   while ava.count.zero?
+#     date = Date.tomorrow + 1
+#     while date.saturday? || date.sunday?
+#       date + 1
+#     end
+#     array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
+#     ava = array.select { |value| array.count(value) >= count }.uniq
+#     avas = ava.join(' ')
+#     avass = User.hyphenize(avas)
+#   end
+#   return "Next available time is on #{date.day}/#{date.month} at #{avass}"
+# end
 end

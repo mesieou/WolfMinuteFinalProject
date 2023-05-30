@@ -64,23 +64,26 @@ class MeetingsController < ApplicationController
     twotop = two_user_total.max { |x, y| x[1] <=> y[1] }
     twoave = total_duration / @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
 
+# need to fix this chart!!
+# need to fix this chart!!
+
     @chart_data = {
-      labels: %w[January February March April May],
+      labels: %w[January February March April May June],
       datasets: [{
         label: 'top created',
         backgroundColor: 'transparent',
         borderColor: '#39B54A',
-        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1]]
+        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1], (twotop[1] - 1)]
       }, {
         label: 'Total number of MTG',
         backgroundColor: 'transparent',
         borderColor: '#3B82F6',
-        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal]
+        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal, (thistotal - 12)]
       }, {
         label: 'Average duration',
         backgroundColor: 'transparent',
         borderColor: '#E24328',
-        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave]
+        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave, (thisave - 2)]
       }]
     }
 
@@ -107,31 +110,28 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     if params[:description] && params[:usersnames]
-      fetch_time_result
+      @users_names = params[:usersnames].split(",")
+      @users = []
+      @users_names.each { |name| @users << User.where(name: name).first }
+      @next_available_start_date = User.find_available(@users)
+      fetch_optimal_duration
+      @location = "Room 1"
+      @next_available_end_date = @next_available_start_date + Rational(@duration.to_i, 1440)
+      fetch_objectives_and_agenda(@next_available_start_date, @next_available_end_date)
+      f = ActionView::Helpers::FormBuilder.new(:meeting, @meeting, self, {})
       respond_to do |format|
         format.html
-        format.text{ render partial: "optimal_time", locals: { result: @result }, formats: [:html] }
-      end
-    elsif params[:description]
-      fetch_results
-      respond_to do |format|
-        format.html
-        format.text { render partial: "objectives_and_agenda", locals: { result: @result }, formats: [:html] }
+        format.text { render partial: "meeting_result", locals: {
+          duration: @duration,
+          objectives_and_agenda_text: @objectives_and_agenda_text,
+          next_available_start_date: @next_available_start_date,
+          next_available_end_date: @next_available_end_date}, formats:[:html] }
       end
     elsif params[:query] && params[:query] != ""
       @users_filtered = User.where("name ILIKE ?", "%#{params[:query]}%")
       respond_to do |format|
         format.html
         format.text { render partial: "list", locals: { users: @users_filtered }, formats: [:html] }
-      end
-    elsif params[:usersnames]
-      @users_names = params[:usersnames].split(",")
-      @users = []
-      @users_names.each { |name| @users << User.where(name: name).first }
-      @next_available_time = User.find_available(@users)
-      respond_to do |format|
-        format.html
-        format.text{ render partial: "next_available_time", locals: {next_available_time: @next_available_time}, formats: [:html] }
       end
     else
       @users_filtered = []
@@ -142,13 +142,18 @@ class MeetingsController < ApplicationController
   def create
     @users = []
     @meeting = Meeting.new(meeting_params)
-    @duration = ((DateTime.parse(meeting_params[:end_date]).to_time - DateTime.parse(meeting_params[:start_date]).to_time) / 60).to_i
+    @duration = ((DateTime.parse(params[:end_date]).to_time - DateTime.parse(params[:start_date]).to_time) / 60).to_i
+    @meeting.start_date = DateTime.parse(params[:start_date])
+    @meeting.end_date = DateTime.parse(params[:end_date])
     @meeting.duration = @duration
+    @meeting.location = "Room 1"
     @meeting.title = get_title_from_chatgpt(params[:meeting][:description])
     @meeting.user = current_user
     @users_names = params[:users]
     authorize @meeting
+    Booking.create(user: current_user, meeting: @meeting)
     if @meeting.save
+      # @meeting.sync_to_google_calendar(@users_names)
       @users_names.each do |name|
         @user_instance = User.where(name: name).first
         @booking = Booking.create(user: @user_instance, meeting: @meeting)
@@ -217,29 +222,25 @@ class MeetingsController < ApplicationController
       Provide only 3 objectives starting from the highest priority to the lowest.
       The meeting starts at #{start_time} and it ends at #{end_date} min should have an itemised date(maximum 5 items).
       reply with bullet points. Your reply should only be the Objectives and Agenda.The reply should be in html formal. Example answer:
-      <h3>Objectives:</h3>
-      <ul>
-        <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-        <li>Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-        <li>Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-      </ul>
-      <h3>Agenda:</h3>
-      <ol>
-        <li>11: 00 to 11:05 Introduction and Welcome (5 minutes)</li>
-        <li>11: 05 to 11:15 Review of the New Accounting Software (10 minutes)</li>
-        <li>11: 15 to 11:25 Pros and Cons Discussion (10 minutes)</li>
-        <li>11: 25 to 11:30 Next Steps and Conclusion (5 minutes)</li>
-      </ol>"
+      Objectives:
+        - Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+        - Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+        - Low Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+      Agenda:
+        - From 11: 00 to 11:05 Introduction and Welcome (5 minutes)
+        - From 11: 05 to 11:15 Review of the New Accounting Software (10 minutes)
+        - From 11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
+        - From 11: 25 to 11:30 Next Steps and Conclusion (5 minutes)"
     OpenaiService.new(objectives_and_agenda_prompt).call
   end
 
-  def fetch_results
-    @result = get_objectives_and_agenda_from_chatgpt(
+  def fetch_objectives_and_agenda(next_available_start_date, next_available_end_date)
+    @objectives_and_agenda_text = get_objectives_and_agenda_from_chatgpt(
       params[:description],
-      params[:start_date],
-      params[:end_date]
+      next_available_start_date,
+      next_available_end_date
     )
-    @result.html_safe
+    @objectives_and_agenda_text.html_safe
   end
 
   def get_optimal_time(description_reply, people_reply)
@@ -271,11 +272,13 @@ class MeetingsController < ApplicationController
     OpenaiService.new(optimal_time_prompt).call
   end
 
-  def fetch_time_result
-    @result = get_optimal_time(
+  def fetch_optimal_duration
+    @duration_text = get_optimal_time(
       params[:description],
       params[:usersnames]
     )
-    @result.html_safe
+    @matched_duration = @duration_text.match(/\b(\d{2})\smin\b/)
+    @duration = @matched_duration[1] if @matched_duration
+    @duration.html_safe
   end
 end

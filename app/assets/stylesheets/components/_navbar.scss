@@ -8,14 +8,12 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: $sub-headers-color ;
+  width: 200px;
+  background-color: $containers-color ;
 }
 
 .navbar {
-  background-color: $headers-color ;
+  background-color: $containers-color ;
   color: $sub-headers-color;
   width: 100vw;
 }

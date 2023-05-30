@@ -1,9 +1,9 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Jura:wght@300&family=Rajdhani:wght@500&display=swap');
-// Define fonts for body and headers
-$headers-font: 'Audiowide', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@600&family=Poppins&family=Taviraj:wght@600&display=swap');// Define fonts for body and headers
+
+$headers-font: 'Taviraj', serif;
 $sub-headers-font: 'Rajdhani', sans-serif;
-$body-font: 'Jura', sans-serif;
+$body-font: 'Poppins', sans-serif;
 // To use a font file (.woff) uncomment following lines
 // @font-face {
 //   font-family: "Font Name";

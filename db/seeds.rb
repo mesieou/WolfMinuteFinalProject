@@ -18,7 +18,9 @@ age = '26-35'
 # ethnicity options: 'all' or 'asian' or 'white' or 'black' or 'indian' or 'middle_eastern' or 'latino_hispanic'
 ethnicity = 'all'
 
-role = ["manager", "employee"]
+wage = [250000, 350000, 450000, 550000, 650000, 750000, 850000, 950000, 1500000, 3000000]
+
+role = ["Manager", "Employee", "Director", "Chief", "CEO", "Member of the board", "Temporary Employee"]
 location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 duration = [15, 20, 30, 60]
 now = DateTime.now
@@ -89,13 +91,58 @@ objectives = [objective1, objective2, objective3, objective4]
 
 test_user = User.create!(
   name: "testuser",
-  email: "test@email.com",
+  email: "test@wolfminute.com",
   role: role.sample,
   password: "123456",
   job_title: Faker::Job.title,
   mobile: Faker::PhoneNumber.cell_phone,
-  admin: true
+  admin: true,
+  wage: wage.sample
 )
+
+puts "created test user of test@wolfminute.com"
+
+juan = User.create!(
+  name: "Juan Bernal",
+  email: "juan-bernal@wolfminute.com",
+  role: role.sample,
+  password: "123456",
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  wage: wage.sample
+)
+
+jun = User.create!(
+  name: "Jun Ukemori",
+  email: "jun-ukemori@wolfminute.com",
+  role: role.sample,
+  password: "123456",
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  wage: wage.sample
+)
+
+mei = User.create!(
+  name: "Mei",
+  email: "mei@wolfminute.com",
+  role: role.sample,
+  password: "123456",
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  wage: wage.sample
+)
+
+rika = User.create!(
+  name: "Rika Saito",
+  email: "rika-saito@wolfminute.com",
+  role: role.sample,
+  password: "123456",
+  job_title: Faker::Job.title,
+  mobile: Faker::PhoneNumber.cell_phone,
+  wage: wage.sample
+)
+
+
 
   url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
   json = URI.open(url).read
@@ -104,7 +151,7 @@ test_user = User.create!(
   file = URI.open(photo_url)
   test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-puts "created test user"
+
 
 
 
@@ -158,11 +205,13 @@ puts "created meeting"
 20.times do
   user = User.create!(
     name: Faker::Name.name,
-    email: Faker::Internet.email,
+    email: Faker::Name.first_name + "-" + Faker::Name.last_name + "@wolfminute.com",
+    # email: Faker::Internet.email,
     role: role.sample,
     job_title: Faker::Job.title,
     mobile: Faker::PhoneNumber.cell_phone,
-    password: "123456"
+    password: "123456",
+    wage: wage.sample
   )
     url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
     json = URI.open(url).read
@@ -173,7 +222,7 @@ puts "created meeting"
     user.save
   puts "created #{User.count} users!"
 
-rand(1..5).times do
+rand(3..8).times do
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -196,7 +245,7 @@ end
   )
 end
 
-rand(1..5).times do
+rand(3..8).times do
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -219,7 +268,7 @@ end
   )
 end
 
-rand(1..5).times do
+rand(3..8).times do
   day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day3.wday == 0 || day3.wday == 6
   day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -242,7 +291,7 @@ end
   )
 end
 
-rand(1..5).times do
+rand(3..8).times do
   day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
   day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -282,88 +331,3 @@ Meeting.find_each do |meeting|
 end
 
 puts "created #{Booking.count} bookings!"
-
-
-# fortesting by Rika start from here!!!
-
-# tesuser1 = User.create(
-#   name: "tes1user",
-#   email: "tes1@email.com",
-#   role: role.sample,
-#   password: "123456",
-#   job_title: Faker::Job.title,
-#   mobile: Faker::PhoneNumber.cell_phone
-# )
-# tesuser2 = User.create(
-#   name: "tes2user",
-#   email: "tes2@email.com",
-#   role: role.sample,
-#   password: "123456",
-#   job_title: Faker::Job.title,
-#   mobile: Faker::PhoneNumber.cell_phone
-# )
-# puts "created #{User.count} testusers for Rika"
-
-# tesmeeting1 = Meeting.create!(
-#   title: "for tes1",
-#   user: tesuser1,
-#   start_date: Time.local(2023, 5, 23, 9, 0),
-#   end_date: Time.local(2023, 5, 23, 11, 0),
-#   description: Faker::Company.catch_phrase,
-#   location: location.sample,
-#   duration: 2
-# )
-
-# testbooking1 = Booking.create!(
-#   user: tesuser1,
-#   meeting: tesmeeting1
-# )
-
-# tesmeeting2 = Meeting.create!(
-#   title: "for tes1-2",
-#   user: tesuser1,
-#   start_date: Time.local(2023, 5, 23, 15, 0),
-#   end_date: Time.local(2023, 5, 23, 16, 0),
-#   description: Faker::Company.catch_phrase,
-#   location: location.sample,
-#   duration: 1
-# )
-
-# testbooking1 = Booking.create!(
-#   user: tesuser1,
-#   meeting: tesmeeting2
-# )
-
-# tesmeeting3 = Meeting.create!(
-#   title: "for tes2",
-#   user: tesuser2,
-#   start_date: Time.local(2023, 5, 23, 10, 0),
-#   end_date: Time.local(2023, 5, 23, 13, 0),
-#   description: Faker::Company.catch_phrase,
-#   location: location.sample,
-#   duration: 2
-# )
-
-# testbooking3 = Booking.create!(
-#   user: tesuser2,
-#   meeting: tesmeeting3
-# )
-
-# tesmeeting4 = Meeting.create!(
-#   title: "for tes2-2",
-#   user: tesuser2,
-#   start_date: Time.local(2023, 5, 23, 17, 0),
-#   end_date: Time.local(2023, 5, 23, 18, 0),
-#   description: Faker::Company.catch_phrase,
-#   location: location.sample,
-#   duration: 1
-# )
-
-# testbooking4 = Booking.create!(
-#   user: tesuser2,
-#   meeting: tesmeeting4
-# )
-
-# puts "created #{Booking.count} bookings for Rika"
-# puts "created #{Meeting.count} meetings for Rika"
-# fortesting by Rika until here!!!
