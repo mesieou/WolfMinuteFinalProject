@@ -39,7 +39,10 @@
                   data-action="click->recording#reset"
         data-recording-target="reset_playback">Reset</button>
       <%# <%= f.input :file, as: :file, class: "d-none" %>
-      <%= link_to "Back Home", root_path, class: "btn btn-secondary", style: "font-family: 'Lato', sans-serif;font-weight: 300;" %>
+      <%= simple_form_for @video,html: {data: { recording_target: "form" }} do |f| %>
+        <%= f.input :audio, as: :hidden %>
+        <%= f.submit "Upload", class: "btn btn-primary d-none", data: { recording_target: 'upload', action: "click->recording#upload" } %>
+      <% end %>
     </div>
   </div>
 </div>

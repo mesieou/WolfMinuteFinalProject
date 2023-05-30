@@ -7,6 +7,7 @@
     "@hotwired/turbo-rails": "^7.3.0",
     "@popperjs/core": "^2.11.7",
     "@rails/actioncable": "^7.0.5",
+    "@rails/ujs": "^7.0.5",
     "@vonage/vivid": "^3.13.0",
     "bootstrap": "^5.2.3",
     "flatpickr": "^4.6.13",

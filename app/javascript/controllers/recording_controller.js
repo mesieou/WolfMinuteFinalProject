@@ -1,11 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="recording"
-// import Rails from "@rails/ujs";
+import Rails from "@rails/ujs";
 
 
 export default class extends Controller {
-  static targets = ["start_recording", "stop_recording", 'ear', "clip", "start_playback", "reset_playback", "upload", "milliseconds"]
+  static targets = ["start_recording", "stop_recording", 'ear', "clip", "start_playback", "reset_playback", "upload", "milliseconds", "form"]
   isRecording = false;
   // clip = null;
 
@@ -88,7 +88,7 @@ export default class extends Controller {
       this.earTarget.classList.add("d-none")
       this.start_playbackTarget.classList.remove("d-none")
       this.stop_recordingTarget.classList.add("d-none")
-      // this.uploadTarget.classList.remove("d-none")
+      this.uploadTarget.classList.remove("d-none")
       this.reset_playbackTarget.classList.remove("d-none")
       this.clipTarget.classList.remove("d-none")
       this.isRecording = false;
@@ -97,23 +97,22 @@ export default class extends Controller {
   }
 
   upload(ev) {
-    const form = document.querySelector("#new_speech");
+    const form = this.formTarget
     const clipUpload = this.clip;
 
     ev.preventDefault()
     const formData = new FormData(form);
-    const fileName = formData.get("speech[title]")
+    const fileName = "audio"
     console.log("Upload this clip ", clipUpload);
-    console.log(formData.get("speech[title]"));
-    formData.append('speech[audio]', clipUpload, `${fileName}.webm`)
-    console.log(formData.get("speech[audio]"));
+    formData.append('video[audio]', clipUpload, `${fileName}.webm`)
+    console.log(formData.get("video[audio]"));
     // formData.append('length', this.totalMilliseconds)
     // console.log(formData.get("length"));
     console.log(formData);
 
     Rails.ajax({
-      url: "/speeches",
-      type: "post",
+      url: form.action,
+      type: "patch",
       data: formData
     })
   }

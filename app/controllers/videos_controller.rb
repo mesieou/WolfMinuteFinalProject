@@ -10,7 +10,12 @@ class VideosController < ApplicationController
     redirect_to meeting_path(@meeting)
   end
 
+  def update
+    @video = Video.find(params[:id])
+    @video.update(video_params)
+
+  end
   def video_params
-    params.require(:video).permit(:summary, :actions)
+    params.require(:video).permit(:summary, :actions, :audio)
   end
 end
