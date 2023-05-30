@@ -5,7 +5,7 @@ ruby "3.1.2"
 
 #added gems
 gem 'flatpickr'
-gem 'cloudmersive-voice-recognition-api-client'
+# gem 'cloudmersive-voice-recognition-api-client'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
