@@ -1,0 +1,9 @@
+<vwc-top-app-bar-fixed alternate="true">
+  <span slot="title" id="title"><%= @meeting.title %></span>
+  <% if @name == @moderator_name  %>
+    <span slot="actionItems" id="mode-name">Chill Mode</span>
+    <vwc-switch slot="actionItems"></vwc-switch>
+  <% else %>
+    <span slot="actionItems"><%= @moderator_name %> is the host</span>
+  <% end %>
+</vwc-top-app-bar-fixed>
