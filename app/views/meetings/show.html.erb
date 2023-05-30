@@ -24,6 +24,16 @@
                 <%= render "users/modal", user: user%>
               <% end %>
             </div>
+            <div class="landing">
+              <h1><%= @welcome_message %></h1>
+              <p><%= @name_form_text %></p>
+              <%= form_with(url: meeting_name_path(@meeting), method: "post") do %>
+                <%= submit_tag "Join meeting", class: "btn btn-primary"%>
+                <% flash.each do |type, msg| %>
+                  <p class="error"><%= msg %></p>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -63,16 +73,6 @@
           <% end %>
         </div>
       </div>
-    </div>
-    <div class="landing">
-      <h1><%= @welcome_message %></h1>
-      <p><%= @name_form_text %></p>
-      <%= form_with(url: meeting_name_path(@meeting), method: "post") do %>
-        <%= submit_tag "Join meeting" %>
-        <% flash.each do |type, msg| %>
-          <p class="error"><%= msg %></p>
-        <% end %>
-      <% end %>
     </div>
   </div>
 </div>
