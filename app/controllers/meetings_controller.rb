@@ -104,6 +104,8 @@ class MeetingsController < ApplicationController
     @attendance = @meeting.bookings.map { |booking| booking.user }
     @organizer = User.find(@meeting.user_id)
     @message = Message.new
+    @objectives = @meeting.objectives.strip.gsub('Objectives:', '').split("Agenda:")[0].split("\n")
+    @agenda = @meeting.objectives.strip.split("Agenda:")[1].split("\n")
     authorize @meeting
   end
 
