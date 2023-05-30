@@ -19,13 +19,13 @@
     <%# tab %>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade py-3  <%= params[:tab] == "conversations-tab" ? '' : 'show active' %>" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-          <div class="chart-container">
+        <%# <div class="chart-container">
             <canvas data-controller="chart"
-                data-chart-data-value="<%= @chart_data.to_json %>"
-                data-chart-options-value="<%= @chart_options.to_json %>">
-            </canvas>
-          </div>
-        <div class="data-container pt-5" style="padding-left:150px; padding-right:150px;">
+                data-chart-data-value="<%= @chart_data.to_json %>
+        <%# data-chart-options-value="<%= @chart_options.to_json %>
+        <%# </canvas> %>
+        <%# </div> %>
+        <div class="data-container" style="padding-left:150px; padding-right:150px;">
           <div class="d-flex justify-content-between">
             <%# all from here %>
             <p style="color:">Number of users : </p>
