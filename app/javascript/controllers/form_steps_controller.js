@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="form-steps"
 export default class extends Controller {
-  static targets = ["step", "description", "startTime", "location", "duration", "gptResult", "checkbox", "availabletime", "endTime", "gptTimeResult"];
+  static targets = ["step", "spinner","description", "startTime", "location", "duration", "gptResult", "checkbox", "availabletime", "endTime", "gptTimeResult"];
 
   connect() {
     this.currentStep = 0;
@@ -48,9 +48,9 @@ export default class extends Controller {
   }
 
   fetchMeetingInfo() {
-    console.log(this.users_names)
     const description = encodeURIComponent(this.descriptionTarget.value);
     const url = `/meetings/new?description=${description}&usersnames=${this.users_names}`;
+    $("#loader").show();
     fetch(url, { headers: { "Accept": "text/plain", method: "get" } })
       .then((response) => response.text())
       .then((data) => {
@@ -59,6 +59,9 @@ export default class extends Controller {
 
       })
       .catch((error) => {
-        console.error(error)});
+        console.error(error)})
+      .finally(() => {
+        $("#loader").hide(); // Hide loader after the request completes (success or failure)
+      });
   }
 }

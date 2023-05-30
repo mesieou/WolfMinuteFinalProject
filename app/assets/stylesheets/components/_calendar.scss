@@ -264,13 +264,13 @@ td {
 
 .avatar-search {
   margin-top: 1rem;
+  margin-top: 44px;
   align-items: center;
   display: flex;
-  background-color: $headers-color;
+  background-color: white;
   padding: 2rem;
   margin-left: 5px;
-  border-radius: 1rem;
-
+  border-radius: 8px;
 }
 
 
@@ -297,16 +297,16 @@ td {
   margin-top: 2rem;
   align-items: center;
   display: flex;
-  background-color: $headers-color;
+  background-color: $containers-color;
   padding: 1rem;
   margin-left: 5px;
-  border-radius: 1rem;
+  border-radius: 8px;
   text-align: center;
   transition: background 0.3s ease;
 }
 
 .btn-organizing p:hover{
-  color: white;
+  color: $containers-color;
 }
 
 .btn-organizing:hover{
@@ -319,28 +319,31 @@ td {
 
 .btn-organizing p {
   margin: 2px;
-  color: white;
+  color: $sub-headers-color;
   font-weight: bold;
 }
 
 .btn-organizing i {
   margin-right: 1rem;
+  background-color: $containers-color;
+  color: black;
 }
 
 .btn-analytics {
-  margin-top: 2rem;
+  color: black;
   align-items: center;
   display: flex;
-  background-color: $headers-color;
+  background-color: $containers-color;
   padding: 1rem;
   margin-left: 5px;
-  border-radius: 1rem;
+  margin-bottom: 47px;
+  border-radius: 8px;
   text-align: center;
   transition: background 0.3s ease;
 }
 
 .btn-analytics p:hover{
-  color: white;
+  color: $containers-color;;
 }
 
 .btn-analytics:hover{
@@ -353,7 +356,7 @@ td {
 
 .btn-analytics p {
   margin: 2px;
-  color: white;
+  color: $sub-headers-color;
   font-weight: bold;
 }
 
@@ -376,7 +379,7 @@ td {
   align-items: center;
   padding: 0;
   margin: 0;
-  transition: background-color 0.3s ease;
+  transition: $containers-color 0.3s ease;
   border-radius: 8px;
 }
 
@@ -388,6 +391,7 @@ td {
   margin-left: 1rem;
   padding-top: 1rem;
   text-align: left;
+  color: #000064;
 }
 
 .meeting-title-a {

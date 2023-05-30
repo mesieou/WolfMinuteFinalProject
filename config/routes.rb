@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   root to: "pages#home"
   get "meetings/analytics", to: "meetings#analytics"
-
   resources :meetings do
     resources :bookings, only: [:edit, :update]
     resources :messages, only: :create
