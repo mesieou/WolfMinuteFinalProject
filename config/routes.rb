@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/screenshare', to: 'video#screenshare'
     post '/name', to: 'video#name'
   end
+  resources :videos, only: :update
   resources :bookings, only: [:destroy]
   get "users/:id/card", to: "users#card", as: "user_card"
 end
