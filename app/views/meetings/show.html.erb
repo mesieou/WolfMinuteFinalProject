@@ -19,7 +19,7 @@
                 <div data-controller="popover" data-popover-url-value="<%= user_card_path(user)%>">
                   <div data-action="mouseenter->popover#show mouseleave->popover#hide" class="user-card-container">
                     <%=  user.photo.attached? ? cl_image_tag(user.photo.key, class: "avatar me-1 overlap") : image_tag(
-              "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar")%>
+              "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar me-1 overlap")%>
                   </div>
                 </div>
               <% end %>
@@ -60,26 +60,40 @@
       </div>
     </div>
     <div class="g-col-4">
-      <div class="chatroom">
-        <div class="container chatroom" style="background: white;"
+      <div class="meeting-card mb-2">
+        <%#= @summary %>
+        <%#= @actions %>
+        <h5>Summary</h5>
+        <p>We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
+          Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
+          Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
+          Due to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.
+        </p>
+      </div>
+      <div class="meeting-card mb-2">
+        <h5>Actions</h5>
+        <p>1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned not specified in the meeting transcript</p>
+      </div>
+      <%# <div class="chatroom mt-4"> %>
+      <div class="container chatroom mt-4" style="background: white;"
               data-controller="meeting-subscription"
               data-meeting-subscription-meeting-id-value="<%= @meeting.id %>">
-          <%# <h1>#<%= @meeting.name %>
-          <div class="messages" data-meeting-subscription-target="messages">
-            <% @meeting.messages.each do |message| %>
-              <%= render "messages/message", message: message %>
-            <% end %>
-          </div>
-          <% if @meeting.nil? # || @message.nil? %>
-            <p>Cannot render the form. Missing meeting or message.</p>
-          <% else %>
-            <%= simple_form_for [@meeting, @message],html: {class: "d-flex"} do |f|%>
-              <%= f.input :content,label: false,placeholder: "Message ##{@meeting.title}",wrapper_html: {class: "flex-grow-1"}%>
-              <%= f.submit "Send", class: "btn btn-primary mb-3 fa-fade" %>
-            <% end %>
+        <%# <h1>#<%= @meeting.name %>
+        <div class="messages" data-meeting-subscription-target="messages">
+          <% @meeting.messages.each do |message| %>
+            <%= render "messages/message", message: message %>
           <% end %>
         </div>
+        <% if @meeting.nil? # || @message.nil? %>
+          <p>Cannot render the form. Missing meeting or message.</p>
+        <% else %>
+          <%= simple_form_for [@meeting, @message],html: {class: "d-flex"} do |f|%>
+            <%= f.input :content,label: false,placeholder: "Message ##{@meeting.title}",wrapper_html: {class: "flex-grow-1"}%>
+            <%= f.submit "Send", class: "btn btn-primary mb-3 fa-fade" %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
+</div>
 </div>
