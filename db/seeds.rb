@@ -267,6 +267,8 @@ rand(3..8).times do
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
+
+if day < DateTime.now
   meeting = Meeting.create!(
     title: Faker::Company.buzzword,
     user: user,
@@ -275,7 +277,8 @@ end
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample,
-    objectives: objectives.sample
+    objectives: objectives.sample,
+    video: test_video
   )
 
   Booking.create!(
@@ -283,6 +286,25 @@ end
     meeting: meeting,
     status: "accepted" # or just 'accepted'
   )
+
+else
+  meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: user,
+    start_date: day,
+    end_date: day + Rational(duration.sample, 24 * 60),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample,
+  )
+
+  Booking.create!(
+    user: user,
+    meeting: meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
 end
 
 rand(3..8).times do

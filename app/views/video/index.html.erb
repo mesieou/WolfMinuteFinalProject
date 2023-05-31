@@ -4,7 +4,6 @@
 <header>
   <%= render partial: 'header' %>
 </header>
-<%= render "video/timebar", agendas: @agendas %>
 <div class="video-chat">
   <div>
     <main class="app">
@@ -35,6 +34,7 @@
     </div>
   </div>
 </div>
+<%= render "video/timebar" %>
 <script>
   const room = new VideoExpress.Room({
    apiKey: '<%= @api_key %>', // add your OpenTok API key
