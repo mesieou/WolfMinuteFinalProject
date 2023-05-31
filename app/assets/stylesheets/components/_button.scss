@@ -1,5 +1,33 @@
-
 /* CSS */
+
+// .button-general {
+//   margin-top: 2rem;
+//   align-items: center;
+//   display: flex;
+//   background-color: $sub-headers-color;
+//   padding: 1rem;
+//   margin-left: 5px;
+//   border-radius: 8px;
+//   text-align: center;
+//   transition: 0.3s ease;
+//   text-decoration: none;
+
+//   a {
+//     text-decoration: none;
+//   }
+// }
+
+// .button-general:hover {
+//   background-color: $sub-headers-color;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+//   transform: scale(1.1, 1.1);
+//   background: white;
+
+//   a {
+//     text-decoration: none;
+//   }
+// }
+
 .button-general,
 .button-general:after {
   width: 65px;
@@ -90,6 +118,7 @@
 // }
 
 @media (min-width: 768px) {
+
   .button-general,
   .button-general:after {
     width: 80px;

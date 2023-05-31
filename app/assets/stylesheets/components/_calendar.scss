@@ -298,7 +298,10 @@ td {
   align-items: center;
   display: flex;
   background-color: white;
-  padding: 2rem;
+  // padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 18px;
+  padding-bottom: 18px;
   margin-left: 5px;
   border-radius: 8px;
 }
