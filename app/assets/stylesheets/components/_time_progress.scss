@@ -1,16 +1,102 @@
 /* app/assets/stylesheets/time_progress.css */
+.time-bar-container {
+  margin: 1rem;
+  padding: 3rem;
+}
+
 .progress-bar {
-  width: 70vw;
-  height: 20px;
-  background-color: #f2f2f2;
+  width: 100%;
+  height: 5px;
+  background-color: gray;
   position: relative;
+  z-index: 10;
+  overflow: visible;
 }
 
 .progress {
   height: 100%;
-  background-color: #4caf50;
+  background-color:gray;
   position: absolute;
   top: 0;
   left: 0;
   width: 0%;
+  z-index: 100;
+  padding-left: 0;
+  overflow: visible;
+  i {
+    overflow: visible;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    font-size: 2.5em;
+  }
+}
+
+.marker {
+  position: absolute;
+  top: -2.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+}
+
+p:has(.marker){
+  position: relative;
+}
+
+
+.time-bar {
+  display: grid;
+  grid-template-columns: 95% 5%;
+}
+
+.time-agenda {
+  position: absolute;
+  left: 1.7rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.time-description {
+  justify-content: space-between;
+  display: flex;
+  margin-right: 1rem;
+}
+
+.time-title {
+  font-size: 1rem;
+}
+
+.time-time {
+  margin-right: 1rem;
+}
+
+.end-time {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  position: absolute;
+  right: 3rem;
+}
+
+.timer-container {
+  position: relative;
+}
+
+.main-timer {
+  font-size: 2rem;
+  top: 50%;
+  display: flex;
+  position: absolute;
+  right: 10rem;
+  top: -45rem;
+  background-color: lavender;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
 }
