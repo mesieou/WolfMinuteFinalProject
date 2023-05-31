@@ -144,7 +144,7 @@
   </div>
 </div>
 <div class="right">
-  <div class="container"  >
+  <div class="container cindex"  >
     <div class="calendar-buttons">
       <div class="switching">
         <div class="btn btn-flat" data-action="click->calendar#monthly">
@@ -154,10 +154,11 @@
           Week
         </div>
       </div>
-      <div class="add-button" data-bs-toggle="modal" data-bs-target="#newMeeting" >
+      <div class="btn-organizing-new switching" data-bs-toggle="modal" data-bs-target="#newMeeting" >
         <%# <%= render 'modal', meeting: @meeting %>
         <%= link_to new_meeting_path do%>
-          <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #white;"></i>
+          <i class="fa-regular fa-calendar-plus fa-2xl" style="color: #000064;"></i>
+          New Meeting
         <% end %>
       </div>
     </div>
