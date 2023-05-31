@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :messages, only: :create
     resources :videos, only: :create
     get '/party', to: 'video#index'
+    patch '/party', to: 'video#index'
     get '/screenshare', to: 'video#screenshare'
     post '/name', to: 'video#name'
   end

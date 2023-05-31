@@ -16,9 +16,12 @@ class VideosController < ApplicationController
     @video.update(video_params)
     @transcript = GoogleService.new.transcript(@video.audio.url)
     @transcript_summary = summarise_transcript(@transcript)
+    @transcript_actions = actions_transcript(@transcript)
     @video.transcript = @transcript
     @video.summary = @transcript_summary
+    @video.actions = @transcript_actions
     @video.save
+    # redirect_to meeting_party_path(@video.meetings.first)
   end
 
   def video_params
@@ -26,7 +29,12 @@ class VideosController < ApplicationController
   end
 
   def summarise_transcript(transcript)
-    objectives_and_agenda_prompt = "your role is a meeting assistant. A meeting just ended and you need to send a summary email about the meeting discussion. Please create a concise summary in bullet points with the following transcript. Do not include the word summary: #{transcript}"
-    OpenaiService.new(objectives_and_agenda_prompt).call
+    summary_prompt = "your role is a meeting assistant. A meeting just ended and you need to send a summary email about the meeting discussion. Please create a concise summary in bullet points with the following transcript. Do not include the word summary: #{transcript}"
+    OpenaiService.new(summary_prompt).call
+  end
+
+  def actions_transcript(transcript)
+    actions_prompt = "your role is a meeting assitant. Please provide a list of discussed action points for the below transcript.Do not include a title in your answer: Meeting Chairman: If we are all here, let's get started. First of all, I'd like you to please join me in welcoming Jack Peterson, our Southwest Area Sales Vice President. Meeting transcript: #{transcript}"
+    OpenaiService.new(actions_prompt).call
   end
 end

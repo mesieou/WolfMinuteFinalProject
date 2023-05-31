@@ -64,6 +64,7 @@ export default class extends Controller {
         this.clip = audioBlob;
         console.log(this.clip);
         audioPlayer.src = audioUrl
+        this.uploadTarget.click()
       });
     }
     console.log(`Recording: ${this.isRecording}`)
@@ -88,9 +89,9 @@ export default class extends Controller {
       this.earTarget.classList.add("d-none")
       this.start_playbackTarget.classList.remove("d-none")
       this.stop_recordingTarget.classList.add("d-none")
-      this.uploadTarget.classList.remove("d-none")
-      this.reset_playbackTarget.classList.remove("d-none")
-      this.clipTarget.classList.remove("d-none")
+      // // this.uploadTarget.classList.remove("d-none")
+      // this.reset_playbackTarget.classList.remove("d-none")
+      // this.clipTarget.classList.remove("d-none")
       this.isRecording = false;
     }
     console.log(`Recording: ${this.isRecording}`)

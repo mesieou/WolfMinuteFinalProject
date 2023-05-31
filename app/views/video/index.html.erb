@@ -1,4 +1,6 @@
-<%= render partial: 'modal' %>
+<div id="name" class="name">
+  <%= render 'modal', video: @video %>
+</div>
 <p> <%= @transcript %> </p>
 <script src="https://static.opentok.com/v1/js/video-express.js"></script>
 <header>
