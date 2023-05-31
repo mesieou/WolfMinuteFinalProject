@@ -1,4 +1,5 @@
 <div class="time-bar-container">
+  <%= agendas %>
   <div class="progress-bar"  data-controller="progress-bar" data-progress-bar-duration-value="<%= @meeting.duration.to_i%>">
     <div class="progress" id="progress" data-progress-bar-target="progress" ><i class="fa-solid fa-clock fa-2xl" style="color: #c7d317;"></i></div>
   </div>

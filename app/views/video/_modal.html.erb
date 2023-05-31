@@ -7,6 +7,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div>
+          <p class="mb-0">Recipents</p>
+          <% @meeting.users.each do |user|%>
+            <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3"%>
+          <% end %>
+        </div>
         <%= simple_form_for([@video]) do |f| %>
           <%= f.input :summary, input_html: { rows: 10, value: "-We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
 -Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
