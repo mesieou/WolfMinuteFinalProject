@@ -6,12 +6,17 @@
   overflow: auto;
   scroll-behavior: smooth;
   background-color: $background-color;
-  padding-bottom: 10rem;
+  padding-bottom: 3rem;
 }
 
 .right .container {
   background-color: $background-color;
   box-shadow: none;
+}
+
+.container-c {
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 
@@ -91,6 +96,9 @@
 .calendar-buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  padding-top: 16px;
 }
 
 .calendar-buttons i {
@@ -247,9 +255,14 @@ td {
 }
 
 .switching {
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
   margin-left: 1rem;
-  align-items: center;
+
+  // align-items: center;
+  .btn-flat {
+    margin-bottom: 0;
+
+  }
 }
 
 .index-icon {
@@ -257,7 +270,7 @@ td {
 }
 
 .refresh {
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   margin: 0.7rem;
   text-align: center;
   opacity: 1;
@@ -352,6 +365,7 @@ td {
   text-align: center;
   transition: 0.3s ease;
   text-decoration: none;
+  margin-right: 16px;
 
   a {
     text-decoration: none;
