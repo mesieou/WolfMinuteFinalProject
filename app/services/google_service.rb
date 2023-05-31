@@ -9,7 +9,7 @@ class GoogleService
   private
 
   def speech_to_text(audio_file)
-    credentials = JSON.parse(File.read('app/controllers/concerns/credentials.json'))
+    credentials = JSON.parse(File.read('credentials.json'))
     client = ::Google::Cloud::Speech::V1::Speech::Client.new do |config|
     config.credentials = credentials
     end
