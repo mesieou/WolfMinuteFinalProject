@@ -111,11 +111,22 @@ export default class extends Controller {
     // console.log(formData.get("length"));
     console.log(formData);
 
-    Rails.ajax({
-      url: form.action,
-      type: "patch",
-      data: formData
+    // Rails.ajax({
+    //   url: form.action,
+    //   type: "patch",
+    //   dataType: "script",
+    //   data: formData
+    // })
+    fetch(form.action, {
+      method: "PATCH",
+      headers: { "Accept": "application/json" },
+      body: formData
     })
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data)
+        document.getElementById("form").innerHTML = data.form
+      })
   }
 
   reset() {

@@ -13,18 +13,24 @@ class VideosController < ApplicationController
 
   def update
     @video = Video.find(params[:id])
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = @video.meetings.first
     authorize @video
     @video.update(video_params)
-    @transcript = GoogleService.new.transcript(@video.audio.url)
-    @transcript_summary = summarise_transcript(@transcript)
-    @transcript_actions = actions_transcript(@transcript)
-    @video.transcript = @transcript
-    @video.summary = @transcript_summary
-    @video.actions = @transcript_actions
-    @video.save
     # redirect_to meeting_party_path(@video.meetings.first)
-    redirect_to meeting_path(@meeting)
+    # redirect_to meeting_path(@meeting)
+    respond_to do |format|
+      format.html { redirect_to meeting_path(@meeting) }
+      format.turbo_stream { redirect_to meeting_path(@meeting) }
+      format.json {
+        @transcript = GoogleService.new.transcript(@video.audio.url)
+        @transcript_summary = summarise_transcript(@transcript)
+        @transcript_actions = actions_transcript(@transcript)
+        @video.transcript = @transcript
+        @video.summary = @transcript_summary
+        @video.actions = @transcript_actions
+        @video.save
+      } # Follow the classic Rails flow and look for a create.json view
+    end
   end
 
   def video_params

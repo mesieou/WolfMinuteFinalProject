@@ -23,19 +23,21 @@
     <%= render 'chat' %>
   </div>
   <div class="recording-menu">
-    <div class="col" data-controller="recording">
-      <button data-action="click->recording#record" class="my-2 fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button"></button>
-      <button data-action="click->recording#stop_recording" class="my-2 fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
-      <button data-action="click->recording#record" class="my-2 far fa-check-circle d-none big-icon audio-button text-white" data-recording-target="start_playback" type="button"></button>
+    <div class="recording-button col" data-controller="recording">
+      <div class="many-buttons">
+        <button data-action="click->recording#record" class="my-2 fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button" style="height: 100%"></button>
+        <button data-action="click->recording#stop_recording" class="my-2 fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
+        <button data-action="click->recording#record" class="my-2 far fa-check-circle d-none big-icon audio-button text-white" data-recording-target="start_playback" type="button"></button>
+      </div>
       <div class="col">
         <article class="clip my-2 d-flex justify-content-center d-none"
                   data-recording-target="clip">
           <audio controls src=""></audio>
         </article>
-        <div class="d-grid gap-2">
+        <div>
           <button class="btn btn-danger stop d-none"
                     data-action="click->recording#stop_recording"
-            data-recording-target="stop_recording" type="button">Stop Recording</button>
+            data-recording-target="stop_recording" type="button" style="color: white">Stop Recording</button>
           <button class="btn btn-danger d-none" type="button"
                       data-recording-target="stop_playback">Stop Playback</button>
           <button class="btn btn-purple d-none" type="button"
