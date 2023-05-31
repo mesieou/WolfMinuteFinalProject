@@ -1,0 +1,18 @@
+<button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open Summary</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="margin-left:100px;">
+    <div class="modal-content" style="width: 1300px;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if @summary.nil?  %>
+          <p>No summary</p>
+        <% else %>
+          <p><%= @summary %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
