@@ -57,9 +57,21 @@ p {
   position: fixed;
   left: 0px;
   top: 0px;
-  width:100%;
+  width: 100%;
   height: 100%;
   z-index: 99999;
   background: url('https://media.giphy.com/media/feN0YJbVs0fwA/giphy.gif') center center no-repeat;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+.fa-house:hover {
+  transition: 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transform: scale(1.2, 1.2);
+}
+
+.navbar-brand:hover {
+  transition: 0.3s ease;
+  transform: scale(1.1, 1.1);
 }

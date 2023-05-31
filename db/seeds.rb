@@ -22,7 +22,9 @@ wage = [250000, 350000, 450000, 550000, 650000, 750000, 850000, 950000, 1500000,
 
 role = ["Manager", "Employee", "Director", "Chief", "CEO", "Member of the board", "Temporary Employee"]
 location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
-duration = [15, 20, 30, 60]
+durationm = [15, 20, 30, 45, 60]
+duration = [45, 50, 60]
+durationa = [30, 45, 50, 60]
 now = DateTime.now
 
 objective1 = "<h3>Objectives:</h3>
@@ -240,6 +242,25 @@ end
   )
 end
 
+dday = DateTime.new(now.year, 6, 5, 9, 0, 0)
+ddday = DateTime.new(now.year, 6, 5, 9, 45, 0)
+
+ttest = Meeting.create!(
+  title: Faker::Company.buzzword,
+  user: test_user,
+  start_date: dday,
+  end_date: ddday,
+  description: Faker::Company.catch_phrase,
+  location: location.sample,
+  duration: 45,
+  objectives: objectives.sample
+)
+Booking.create!(
+  user: test_user,
+  meeting: ttest,
+  status: "accepted" # or just 'accepted'
+)
+
 puts "created meeting"
 
 20.times do
@@ -262,7 +283,7 @@ puts "created meeting"
     user.save
   puts "created #{User.count} users!"
 
-rand(3..8).times do
+rand(7..9).times do
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -307,7 +328,7 @@ else
 end
 end
 
-rand(3..8).times do
+rand(6..8).times do
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -319,7 +340,7 @@ end
     end_date: day2 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample,
+    duration: durationa.sample,
     objectives: objectives.sample
   )
 
@@ -330,7 +351,7 @@ end
   )
 end
 
-rand(3..8).times do
+rand(6..7).times do
   day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day3.wday == 0 || day3.wday == 6
   day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -342,7 +363,7 @@ end
     end_date: day3 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample,
+    duration: durationm.sample,
     objectives: objectives.sample
   )
 
@@ -353,7 +374,7 @@ end
   )
 end
 
-rand(3..8).times do
+rand(7..9).times do
   day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
   day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
