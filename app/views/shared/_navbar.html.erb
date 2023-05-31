@@ -22,8 +22,8 @@
               <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "tehepiyo.png", class: "avatar", alt: "dropdown menu" %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Edit meeting", "#", class: "dropdown-item" %>
+              <%# <%= link_to "Action", "#", class: "dropdown-item" %>
+              <%# <%= link_to "Edit meeting", "#", class: "dropdown-item" %>
               <% if current_user.admin? %>
                 <%= link_to "Analytics", meetings_analytics_path, class: "dropdown-item" %>
               <% end %>
