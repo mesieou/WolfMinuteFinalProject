@@ -180,8 +180,8 @@ test_video = Video.create!(
             \nDue to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.",
   actions: "1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned (not specified in the meeting transcript)"
 )
-audio_file = File.open("/app/assets/audios/meeting_sample.m4a")
-test_video.video.attach(io: audio_file, filename: "meeting_sample.m4a", content_type: "audio/mp4")
+audio_file = File.open("app/assets/audios/meeting_sample.m4a")
+test_video.audio.attach(io: audio_file, filename: "meeting_sample.m4a", content_type: "audio/mp4")
 test_video.save
 
 puts "created a video sample"
