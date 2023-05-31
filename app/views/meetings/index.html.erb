@@ -144,7 +144,7 @@
   </div>
 </div>
 <div class="right">
-  <div class="container cindex"  >
+  <div class="container-c"  >
     <div class="calendar-buttons">
       <div class="switching">
         <div class="btn btn-flat" data-action="click->calendar#monthly">
@@ -194,7 +194,7 @@
         <% meetings.each do |meeting| %>
           <%= link_to meeting_path(meeting), class:"text-decoration-none" do %>
             <% if  meeting.user == current_user%>
-              <div class="calendar-card-week" style="background-color: #E24429">
+              <div class="calendar-card-week" style="background-color: #164BB5">
                 <div class="calendar-time">
                   <%= meeting.start_date.strftime("%k:%M ~") %>
                 </div>

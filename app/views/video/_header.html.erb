@@ -1,5 +1,5 @@
 <vwc-top-app-bar-fixed alternate="true">
-  <span slot="title" id="title"><%= @meeting.title %></span>
+  <span slot="title" id="title"><%= @meeting.title.capitalize %></span>
   <% if @name == @moderator_name  %>
     <span slot="actionItems" id="mode-name">Chill Mode</span>
     <vwc-switch slot="actionItems"></vwc-switch>
