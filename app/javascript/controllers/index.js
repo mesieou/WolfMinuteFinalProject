@@ -25,6 +25,9 @@ application.register("meeting-subscription", MeetingSubscriptionController)
 import PopoverController from "./popover_controller"
 application.register("popover", PopoverController)
 
+import ReadMoreController from "./readmore_controller"
+application.register("read-more", ReadMoreController)
+
 import ProgressBarController from "./progress_bar_controller"
 application.register("progress-bar", ProgressBarController)
 
