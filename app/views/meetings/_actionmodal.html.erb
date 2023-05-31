@@ -1,0 +1,18 @@
+<button type="button"  data-bs-toggle="modal" data-bs-target="#actionModal" data-bs-whatever="@mdo">Open Actions</button>
+<div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="margin-left:100px;">
+    <div class="modal-content" style="width: 1300px;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="actionModalLabel">Actions</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if @actions.nil?  %>
+          <p>No actions</p>
+        <% else %>
+          <p><%= @actions %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
