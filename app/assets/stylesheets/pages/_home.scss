@@ -36,35 +36,47 @@ video {
 
   h2 {
     font-size: 30px;
-    color:$containers-color;
+    color: $containers-color;
     text-shadow: 1px 1px 5px black;
     margin-bottom: 150px;
 
 
   }
-
-  .homebtn {
-    margin-left: auto;
-    margin-right: auto;
-    text-decoration: none;
-    color: white;
-    font-size: 24px;
-    font-weight: 100;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-right: 22px;
-    padding-left: 22px;
-    border-radius: 8px;
-    background-color: $sub-headers-color;
-  }
-
-  .homebtn:hover {
-    transition: 0.7s;
-    background-color: $headers-color;
-
-  }
-
 }
+
+.homebtn {
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+  font-weight: 100;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-right: 22px;
+  padding-left: 22px;
+  border-radius: 8px;
+  background-color: $sub-headers-color;
+  display: inline-block;
+  position: relative;
+  box-shadow: none;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.homebtn:hover {
+  transition: 0.3s;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1, 1.1);
+  display: inline-block;
+}
+
+.homebtn::before {
+  box-shadow: none;
+}
+
+
 
 .video {
   // width: 100%;
