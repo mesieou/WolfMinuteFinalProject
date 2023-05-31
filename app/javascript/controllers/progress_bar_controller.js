@@ -8,7 +8,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log(this.durationValue); // converted to milliseconds
+    console.log(this.durationValue); // converted to milliseconds (this.durationValue * 60 * 1000)
     this.countdown()
   }
 
@@ -17,7 +17,7 @@ export default class extends Controller {
     setInterval(() => {
       const progressEl = document.getElementById("progress")
       const elapsedTime = Date.now() - startTime;
-      let progress = (elapsedTime / 60000) * 100
+      let progress = (elapsedTime / 600000) * 100
       // console.log(progress, startTime, elapsedTime);
       progressEl.style.width = `${progress}%`;
     }, 1000);

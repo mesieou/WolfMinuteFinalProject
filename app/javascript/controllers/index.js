@@ -30,3 +30,6 @@ application.register("progress-bar", ProgressBarController)
 
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
+
+import TimerController from "./timer_controller"
+application.register("timer", TimerController)
