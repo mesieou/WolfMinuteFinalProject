@@ -1,16 +1,7 @@
 <p> <%= @transcript %> </p>
 <script src="https://static.opentok.com/v1/js/video-express.js"></script>
 <div class="video-container">
-  <div class="main-video-chat">
-    <div class="videochat-title">
-      <h2><%= @meeting.title.capitalize %></h2>
-    </div>
-    <div class="video-attendees">
-      <% @meeting.users.each do |user|%>
-        <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar  border border-3"%>
-      <% end %>
-    </div>
-  </div>
+  <%= render "video/timebar" %>
   <div class="video-chat">
     <div>
       <main class="app">
@@ -23,18 +14,35 @@
     <%= render 'chat' %>
   </div>
   <div class="recording-menu">
-    <div class="recording-button col" data-controller="recording">
-      <div class="many-buttons">
-        <button data-action="click->recording#record" class="my-2 fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button" style="height: 100%"></button>
-        <button data-action="click->recording#stop_recording" class="my-2 fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
-        <button data-action="click->recording#record" class="my-2 far fa-check-circle d-none big-icon audio-button text-white" data-recording-target="start_playback" type="button"></button>
+    <div class="main-video-chat">
+      <div class="videochat-title">
+        <p><%= @meeting.title.capitalize %></p>
       </div>
-      <div class="col">
+      <div class="video-attendees">
+        <% @meeting.users.each do |user|%>
+          <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar  border border-3"%>
+        <% end %>
+      </div>
+      <div class="timer-container">
+        <div class="main-timer">
+          <div class="clock" data-controller="timer">
+            <span data-target="timer.timerElement"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="recording-button" data-controller="recording">
+      <div class="many-buttons">
+        <button data-action="click->recording#record" class=" fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button" ></button>
+        <button data-action="click->recording#stop_recording" class=" fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
+        <button data-action="click->recording#record" class="far fa-check-circle d-none big-icon audio-button " data-recording-target="start_playback" type="button" ></button>
+      </div>
+      <div style="position: relative;">
         <article class="clip my-2 d-flex justify-content-center d-none"
                   data-recording-target="clip">
           <audio controls src=""></audio>
         </article>
-        <div>
+        <div class="pop-up-buttons">
           <button class="btn btn-danger stop d-none"
                     data-action="click->recording#stop_recording"
             data-recording-target="stop_recording" type="button" style="color: white">Stop Recording</button>
@@ -50,12 +58,11 @@
           <% end %>
         </div>
       </div>
-    </div>
-    <div id="name" class="name">
-      <%= render 'modal', video: @video %>
+      <div id="name" class="name">
+        <%= render 'modal', video: @video %>
+      </div>
     </div>
   </div>
-  <%= render "video/timebar" %>
 </div>
 <script>
   const room = new VideoExpress.Room({

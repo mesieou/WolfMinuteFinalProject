@@ -1,8 +1,8 @@
 /* app/assets/stylesheets/time_progress.css */
 .time-bar-container {
-  margin: 1rem;
-  padding: 3rem;
-  height: 20vh;
+  margin: 1rem 1rem 0 1rem;
+  padding: 1rem 3rem 0 3rem;
+  height: 15vh;
 }
 
 .progress-bar {
@@ -68,10 +68,15 @@ p:has(.marker){
 .time-title {
   font-size: 1rem;
   width: 18vw;
+  margin-bottom: 0;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .time-time {
   margin-right: 1rem;
+  margin-bottom: 0;
 }
 
 .end-time {
@@ -86,17 +91,15 @@ p:has(.marker){
 }
 
 .main-timer {
-  font-size: 2rem;
-  top: 50%;
+  font-size: 1.5rem;
+  top: -30rem;
+  right: -36rem;
   display: flex;
   position: absolute;
-  right: 19.5rem;
-  top: -42rem;
   background-color: lavender;
   padding: 0.5rem;
-  border-radius: 50%;
-  width: 7rem;
-  height: 7rem;
+  border-radius: 8px;
+  width: 5rem;
   text-align: center;
   vertical-align: middle;
   align-items: center;
