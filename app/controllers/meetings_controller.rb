@@ -224,8 +224,10 @@ class MeetingsController < ApplicationController
     @message = Message.new
     @objectives = @meeting.objectives.strip.gsub('Objectives:', '').split("Agenda:")[0].split("\n")
     @agenda = @meeting.objectives.strip.split("Agenda:")[1].split("\n")
-    @summary = @meeting.video.summary
-    @actions = @meeting.video.actions
+    if @meeting.video && @meeting.video.summary
+      @summary = @meeting.video.summary
+      @actions = @meeting.video.actions
+    end
     authorize @meeting
   end
 
