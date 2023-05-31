@@ -8,6 +8,12 @@
   grid-template-columns: 80% 20%;
 }
 
+.main-video-chat {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
 
 .video-attendees {
 padding: 0.5rem;
@@ -56,4 +62,8 @@ padding: 0.5rem;
       margin-bottom: 0;
     }
   }
+}
+
+.recording-menu {
+  display: flex;
 }

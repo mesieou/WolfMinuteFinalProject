@@ -6,12 +6,14 @@ class VideosController < ApplicationController
     authorize @video
     @meeting = Meeting.find(params[:meeting_id])
     @meeting.video = @video
+
     @meeting.save
     redirect_to meeting_path(@meeting)
   end
 
   def update
     @video = Video.find(params[:id])
+    @meeting = Meeting.find(params[:meeting_id])
     authorize @video
     @video.update(video_params)
     @transcript = GoogleService.new.transcript(@video.audio.url)
@@ -22,6 +24,7 @@ class VideosController < ApplicationController
     @video.actions = @transcript_actions
     @video.save
     # redirect_to meeting_party_path(@video.meetings.first)
+    redirect_to meeting_path(@meeting)
   end
 
   def video_params

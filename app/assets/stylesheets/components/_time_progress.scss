@@ -90,7 +90,7 @@ p:has(.marker){
   top: 50%;
   display: flex;
   position: absolute;
-  right: 20rem;
+  right: 19.5rem;
   top: -42rem;
   background-color: lavender;
   padding: 0.5rem;
@@ -101,4 +101,5 @@ p:has(.marker){
   vertical-align: middle;
   align-items: center;
   justify-content: center;
+  border:1px solid gray;
 }
