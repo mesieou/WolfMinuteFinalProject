@@ -21,7 +21,6 @@ class VideosController < ApplicationController
     @video.summary = @transcript_summary
     @video.actions = @transcript_actions
     @video.save
-    # redirect_to meeting_party_path(@video.meetings.first)
   end
 
   def video_params
