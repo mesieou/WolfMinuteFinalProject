@@ -1,16 +1,16 @@
 <div style= "background: lavender;"class="container" data-controller="meeting">
   <div class="grid">
     <div class='g-col-8'>
-      <div class="meeting-card mb-4">
+      <div class="meeting-card mt-4">
         <h3 class="text-center"><%= noun_project_icon("icon", class: "my-custom-class") %> <%= @meeting.title.capitalize %></h3>
         <div class="grid">
-          <div class="g-col-6">
+          <div class="g-col-4">
             <p> <i class="fa-solid fa-clock me-1"></i> <%= @meeting.start_date.strftime("%A, %d %b %Y %l:%M %p") %>- <%= @meeting.end_date.strftime("%l:%M %p") %></p>
             <p><i class="fa-solid fa-clock-rotate-left me-1"></i> <%= @meeting.duration  %> minutes</p>
             <p><i class="fa-solid fa-house-circle-exclamation me-1"></i> <%= @meeting.location.capitalize  %></p>
             <p><i class="fa-solid fa-link"> </i> Google Meet </p>
           </div>
-          <div class="g-col-6">
+          <div class="g-col-4">
             <p> <i class="fa-solid fa-comment me-1"></i> <%= @meeting.description %></p>
             <p><i class="fa-solid fa-sitemap me-1"></i> <%= @meeting.user.name  %></p>
             <div class="d-flex" >
@@ -34,6 +34,9 @@
                 <% end %>
               <% end %>
             </div>
+          </div>
+          <div class="g-col-4">
+            <%= render 'showmodal' %>
           </div>
         </div>
       </div>
@@ -60,10 +63,10 @@
       </div>
     </div>
     <div class="g-col-4">
-      <div class="meeting-card mb-4">
-        <%#= @summary %>
-        <%#= @actions %>
-        <h5>Summary</h5>
+      <%# <div class="meeting-card mb-4"> %>
+      <%#= @summary %>
+      <%#= @actions %>
+      <%# <h5>Summary</h5>
         <div data-controller="read-more" data-read-more-more-text-value="Read more" data-read-more-less-text-value="Read less">
           <p class="my-content" data-read-more-target="content">We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
             Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
@@ -79,7 +82,7 @@
           <p class="my-content" data-read-more-target="content">1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned not specified in the meeting transcript</p>
           <button data-action="read-more#toggle">Read more</button>
         </div>
-      </div>
+      </div> %>
       <%# <div class="chatroom mt-4"> %>
       <div class="container chatroom mt-4" style="background: white;"
               data-controller="meeting-subscription"
