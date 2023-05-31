@@ -4,12 +4,37 @@
 <header>
   <%= render partial: 'header' %>
 </header>
-<main class="app">
-  <div id="roomContainer"></div>
-  <toolbar>
-    <%#= render partial: 'toolbar' %>
-  </toolbar>
-</main>
+<%= render "video/timebar", agendas: @agendas %>
+<div class="video-chat">
+  <div>
+    <main class="app">
+      <div id="roomContainer"></div>
+      <toolbar>
+        <%#= render partial: 'toolbar' %>
+      </toolbar>
+    </main>
+  </div>
+  <div class="chatroom">
+    <div class="container chatroom" style="background: white;"
+              data-controller="meeting-subscription"
+              data-meeting-subscription-meeting-id-value="<%= @meeting.id %>">
+      <%# <h1>#<%= @meeting.name %>
+      <div class="messages" data-meeting-subscription-target="messages">
+        <% @meeting.messages.each do |message| %>
+          <%= render "messages/message", message: message %>
+        <% end %>
+      </div>
+      <% if @meeting.nil? # || @message.nil? %>
+        <p>Cannot render the form. Missing meeting or message.</p>
+      <% else %>
+        <%= simple_form_for [@meeting, Message.new],html: {class: "d-flex"} do |f|%>
+          <%= f.input :content,label: false,placeholder: "Message ##{@meeting.title}",wrapper_html: {class: "flex-grow-1"}%>
+          <%= f.submit "Send", class: "btn btn-primary mb-3 fa-fade" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 <script>
   const room = new VideoExpress.Room({
    apiKey: '<%= @api_key %>', // add your OpenTok API key
@@ -20,7 +45,6 @@
   });
   room.join();
 </script>
-<%= render "video/timebar" %>
 <div class="row" data-controller="recording">
   <button data-action="click->recording#record" class="my-2 fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button"></button>
   <button data-action="click->recording#stop_recording" class="my-2 fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
