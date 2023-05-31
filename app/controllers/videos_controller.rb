@@ -34,7 +34,7 @@ class VideosController < ApplicationController
   end
 
   def actions_transcript(transcript)
-    actions_prompt = "your role is a meeting assitant. Please provide a list of discussed action points for the below transcript.Do not include a title in your answer: Meeting Chairman: If we are all here, let's get started. First of all, I'd like you to please join me in welcoming Jack Peterson, our Southwest Area Sales Vice President. Meeting transcript: #{transcript}"
+    actions_prompt = "your role is a meeting assitant. Please provide a list of discussed action points for the below transcript.Do not include a title in your answer. Transcript: #{transcript}"
     OpenaiService.new(actions_prompt).call
   end
 end
