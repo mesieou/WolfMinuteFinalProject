@@ -16,6 +16,7 @@
     "stimulus-content-loader": "^4.1.0",
     "stimulus-dropdown": "^2.1.0",
     "stimulus-popover": "^6.2.0",
+    "stimulus-read-more": "^4.1.0",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1"
   },

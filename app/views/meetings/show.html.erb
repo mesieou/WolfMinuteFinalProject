@@ -64,15 +64,21 @@
         <%#= @summary %>
         <%#= @actions %>
         <h5>Summary</h5>
-        <p>We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
-          Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
-          Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
-          Due to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.
-        </p>
+        <div data-controller="read-more" data-read-more-more-text-value="Read more" data-read-more-less-text-value="Read less">
+          <p class="my-content" data-read-more-target="content">We welcomed Jack Peterson, our Southwest Area Sales Vice President, and introduced Margaret Simmons, a new team member.
+            Tom Robbins summarized the main points from our previous meeting, which focused on approving changes to the sales reporting system and discussing after customer support improvements.
+            Jack Peterson presented a report highlighting the need for special assistance for rural customers to feel valued, the importance of providing accurate customer information to our sales teams, and plans for conducting a survey on spending habits in rural areas.
+            Due to time constraints, further discussions were postponed, and we scheduled our next meeting for Friday in two weeks' time at 9 o'clock.
+          </p>
+          <button data-action="read-more#toggle">Read more</button>
+        </div>
       </div>
       <div class="meeting-card mb-2">
         <h5>Actions</h5>
-        <p>1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned not specified in the meeting transcript</p>
+        <div data-controller="read-more" data-read-more-more-text-value="Read more" data-read-more-less-text-value="Read less">
+          <p class="my-content" data-read-more-target="content">1. Develop an advertising campaign to focus on the particular needs of rural customers.\n   Responsible: John Ruting\n\n2. Provide better customer information reporting to the rural sales teams.\n   Responsible: Alice Linnes\n\n3. Conduct a survey to collect data on spending habits in rural areas.\n   Responsible: To be assigned not specified in the meeting transcript</p>
+          <button data-action="read-more#toggle">Read more</button>
+        </div>
       </div>
       <%# <div class="chatroom mt-4"> %>
       <div class="container chatroom mt-4" style="background: white;"

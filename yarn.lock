@@ -1413,6 +1413,11 @@ stimulus-popover@^6.2.0:
   resolved "https://registry.yarnpkg.com/stimulus-popover/-/stimulus-popover-6.2.0.tgz#67bcf725d9077f213869905e7b5c80212a92d802"
   integrity sha512-QJqGXA842qS9s+c0Si6JUKDHDZVnkClvgZPfl2KbHcT6G9BMrEK+21na00SVNpWmmzdc6E1qQrq/oVY7gGaf3w==
 
+stimulus-read-more@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/stimulus-read-more/-/stimulus-read-more-4.1.0.tgz#f34efb2dcb33fd091936d84c569937bc100506c8"
+  integrity sha512-SJyCJqZrhDSKpfrepnhStBaxtyv6Jnvr+b84GDg3l+/BzL5HaFLYmc6QkSNCeR6y0x+Zw7lwKuzv+XzyAm1KzQ==
+
 stimulus-use@^0.51.1:
   version "0.51.3"
   resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.51.3.tgz#d7ac671aff8d0db253296dec89d38aa6f4b27e2a"

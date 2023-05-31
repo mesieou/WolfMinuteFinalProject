@@ -147,12 +147,21 @@ const toolTipsToListen = [
 
 
 // Call all of our functions!
-toggleMuteAllButton(mute_all_btn, "mute", room.participants);
-toggleMuteAllButton(unmute_all_btn, "unmute", room.participants);
-listenForToggle(room.camera.isVideoEnabled, hide_self_btn, unhide_self_btn, room.camera.disableVideo, room.camera.enableVideo);
-listenForToggle(room.camera.isAudioEnabled, mute_self_btn, unmute_self_btn, room.camera.disableAudio, room.camera.enableAudio);
-getDeviceInputs("vwc-select#audio-input", "vwc-select#video-input");
-listenInputChange("vwc-select#audio-input");
-listenInputChange("vwc-select#video-input");
-audioOutputs();
-addToolTipListeners(toolTipsToListen);
+// if (mute_all_btn) {
+
+// }
+// if (unmute_all_btn) {
+
+// }
+if (typeof room !== "undefined") {
+  console.log(room)
+  toggleMuteAllButton(unmute_all_btn, "unmute", room.participants);
+  toggleMuteAllButton(mute_all_btn, "mute", room.participants);
+  listenForToggle(room.camera.isVideoEnabled, hide_self_btn, unhide_self_btn, room.camera.disableVideo, room.camera.enableVideo);
+  listenForToggle(room.camera.isAudioEnabled, mute_self_btn, unmute_self_btn, room.camera.disableAudio, room.camera.enableAudio);
+  getDeviceInputs("vwc-select#audio-input", "vwc-select#video-input");
+  listenInputChange("vwc-select#audio-input");
+  listenInputChange("vwc-select#video-input");
+  audioOutputs();
+  addToolTipListeners(toolTipsToListen);
+}
