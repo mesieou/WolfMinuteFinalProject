@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   resources :videos, only: :update
   resources :bookings, only: [:destroy]
   get "users/:id/card", to: "users#card", as: "user_card"
+  get "meetings/:id/duration", to: "meetings#duration", as: "meeting_reason"
 end
