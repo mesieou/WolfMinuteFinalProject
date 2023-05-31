@@ -28,6 +28,9 @@ application.register("popover", PopoverController)
 import ProgressBarController from "./progress_bar_controller"
 application.register("progress-bar", ProgressBarController)
 
+import RecordingController from "./recording_controller"
+application.register("recording", RecordingController)
+
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
 

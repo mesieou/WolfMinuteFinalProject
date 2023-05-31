@@ -30,5 +30,7 @@ module WolfMinute
     # config/application.rb
     config.i18n.available_locales = [:en, :de, :fr]
     config.i18n.default_locale = :en
+
+    # config.action_controller.forgery_protection_origin_check = false
   end
 end

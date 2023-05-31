@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'video/screenshare'
-  get 'video/name'
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,10 +10,12 @@ Rails.application.routes.draw do
   resources :meetings do
     resources :bookings, only: [:edit, :update]
     resources :messages, only: :create
+    resources :videos, only: :create
     get '/party', to: 'video#index'
     get '/screenshare', to: 'video#screenshare'
     post '/name', to: 'video#name'
   end
+  resources :videos, only: :update
   resources :bookings, only: [:destroy]
   get "users/:id/card", to: "users#card", as: "user_card"
 end
