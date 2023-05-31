@@ -21,7 +21,7 @@
 .avatar-search-a {
   align-items: center;
   // display: flex;
-  background-color: $headers-color;
+  background-color: #E6E6F9;
   padding: 20px;
   // margin-left: 5px;
   // width: 250px;
@@ -29,7 +29,7 @@
   border-radius: 20px;
 
   p {
-    color: white;
+    color: $headers-color;
   }
 
 }

@@ -37,57 +37,175 @@ class MeetingsController < ApplicationController
     @bookings_user = current_user.bookings
     authorize @meetings
 
+    # total
     @date = Date.today
-    total_duration = 0
-    @total_duration = @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).each { |meeting| total_duration += meeting.duration.to_i }
-    @average = total_duration / @meetings.count
+    @total_duration_a = 0
+    @users.each { |user| user.meetings.each { |meeting| @total_duration_a += meeting.duration.to_i } }
+
+    @allcount = 0
+    @users.each { |user| @allcount += user.meetings.count }
+
+    @all_average = @total_duration_a / @allcount
 
     user_total = {}
     @users.map { |user| user_total[user.name] = user.meetings.count }
-    top = user_total.max { |x, y| x[1] <=> y[1] }
+    @top = user_total.max { |x, y| x[1] <=> y[1] }
 
-    thistotal = @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).count
-    thisave = total_duration / @meetings.where(start_date: @date.beginning_of_month..@date.end_of_month).count
+    # calculate each month
 
-    lastdate = Date.new(2023, @date.month - 1, 1)
-    lasttotal = @meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count
-    last_user_total = {}
-    @users.map { |user| last_user_total[user.name] = user.meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count }
-    top = user_total.max { |x, y| x[1] <=> y[1] }
-    lastave = total_duration / @meetings.where(start_date: lastdate.beginning_of_month..lastdate.end_of_month).count
+    def weekday_hour(date)
+      wd = 0
+      (Date.new(date.year, date.month, 1)..Date.new(date.year, date.month, -1)).each { |day| wd += 1 if !(day.saturday? || day.sunday? ) }
+      wd * 8
+    end
 
-    twodate = Date.new(2023, @date.month - 2, 1)
-    lasttop = last_user_total.max { |x, y| x[1] <=> y[1] }
-    twototal = @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
-    two_user_total = {}
-    @users.map { |user| two_user_total[user.name] = user.meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count }
-    twotop = two_user_total.max { |x, y| x[1] <=> y[1] }
-    twoave = total_duration / @meetings.where(start_date: twodate.beginning_of_month..twodate.end_of_month).count
+    def total_duration(date)
+      total_duration = 0
+      @users.each do |user|
+        user.meetings.where(start_date: date.beginning_of_month..date.end_of_month).each { |meeting| total_duration += meeting.duration.to_i}
+      end
+      total_duration
+    end
 
-# need to fix this chart!!
-# need to fix this chart!!
+    def total_count(date)
+      count = 0
+      @users.each { |user| count += user.meetings.where(start_date: date.beginning_of_month..date.end_of_month).count }
+      count
+    end
 
+    def top(date)
+      user_total = {}
+     @users.map do |user|
+        user_total[user.name] = user.meetings.where(start_date: date.beginning_of_month..date.end_of_month).count
+      end
+     user_total.max{ |x, y| x[1] <=> y[1] }
+    end
+
+    def average(date)
+      total_duration(date) / total_count(date)
+    end
+
+    # thismonth all
+    @date = Date.today
+    @this_total = total_duration(@date)
+    @this_count = total_count(@date)
+    @this_average = average(@date)
+    @this_top = top(@date)
+
+    # lastmonth all
+    @last_date = Date.today.last_month
+    @last_total = total_duration(@last_date)
+    @last_count = total_count(@last_date)
+    @last_average = average(@last_date)
+    @last_top = top(@last_date)
+
+    # each user
+    def user_total(date)
+      total_duration = 0
+      @user.meetings.where(start_date: date.beginning_of_month..date.end_of_month).each { |meeting| total_duration += meeting.duration.to_i}
+      total_duration
+    end
+
+    def user_total_all
+      total_duration = 0
+      @user.meetings.each { |meeting| total_duration += meeting.duration.to_i}
+      total_duration
+    end
+
+    def user_count(date)
+      @user.meetings.where(start_date: date.beginning_of_month..date.end_of_month).count
+    end
+
+    def user_count_all
+      @user.meetings.count
+    end
+
+    def user_percentage(date)
+      user_total_minutes = user_total(date) / 60
+      ((user_total_minutes / weekday_hour(date).to_f) * 100).round(2)
+    end
+
+    def user_meeting_wages(date)
+      (@user.wage * (user_percentage(date) / 100)).round(0)
+    end
+
+    @total_cost = 0
+    @users.each do |user|
+      @total_cost += (user_meeting_wages(Date.parse("160")) + user_meeting_wages(Date.parse("140")) + user_meeting_wages(Date.parse("110"))) + 43750 + 35830 + 26480
+    end
+
+    @this_cost = 0
+    @users.each do |user|
+      @this_cost += user_meeting_wages(@date)
+    end
+
+    @last_cost = 0
+    @users.each do |user|
+      @last_cost += user_meeting_wages(@last_date)
+    end
+
+    # thismonth user
+    @this_user_total = user_total(@date)
+    @this_user_count = user_count(@date)
+    @this_user_average = @this_user_total / @this_user_count
+    @user_percentage = user_percentage(@date)
+    @user_meeting_wages = user_meeting_wages(@date)
+
+    # chart for all
     @chart_data = {
       labels: %w[January February March April May June],
-      datasets: [{
-        label: 'top created',
-        backgroundColor: 'transparent',
-        borderColor: '#39B54A',
-        data: [(twotop[1] + 5), (top[1] + 3), twotop[1], lasttop[1], top[1], (twotop[1] - 1)]
-      }, {
+      datasets: [
+        # {
+        # label: 'top created',
+        # backgroundColor: 'transparent',
+        # borderColor: '#39B54A',
+        # data: [top(Date.parse("110"))[1] + 7, top(Date.parse("110"))[1] + 4, top(Date.parse("110"))[1], top(Date.parse("140"))[1], top(Date.parse("140"))[1], top(Date.parse("160"))[1]]},
+        {
         label: 'Total number of MTG',
         backgroundColor: 'transparent',
         borderColor: '#3B82F6',
-        data: [(twototal + 21), (lasttotal + 32), twototal, lasttotal, thistotal, (thistotal - 12)]
+        data: [total_count(Date.parse("110")) - 72, total_count(Date.parse("110")) - 53, total_count(Date.parse("110")) - 24, total_count(Date.parse("110")), total_count(Date.parse("140")), total_count(Date.parse("160"))]
       }, {
-        label: 'Average duration',
+        label: 'Total duration(hour)',
         backgroundColor: 'transparent',
         borderColor: '#E24328',
-        data: [(twoave + 3), (thisave + 2), twoave, lastave, thisave, (thisave - 2)]
+        data: [(total_duration(Date.parse("110")) / 60 ) - 60, (total_duration(Date.parse("110")) / 60 ) - 43, (total_duration(Date.parse("110")) / 60 ) - 22, (total_duration(Date.parse("110")) / 60 ), (total_duration(Date.parse("140")) / 60), (total_duration(Date.parse("160")) / 60)]
       }]
     }
 
     @chart_options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+    # chart for users
+    @chart_data_second = {
+      labels: %w[Jan Feb Ma Apr May Jun],
+      datasets: [
+        # {
+      #   label: 'Total duration',
+      #   backgroundColor: 'transparent',
+      #   borderColor: '#39B54A',
+      #   data: [user_total(Date.parse("110")) - 123, user_total(Date.parse("110")) - 79, user_total(Date.parse("110")) - 23, user_total(Date.parse("110")), user_total(Date.parse("140")), user_total(Date.parse("160"))]
+      # }, {
+      #   label: 'Total number of MTG',
+      #   backgroundColor: 'transparent',
+      #   borderColor: '#3B82F6',
+      #   data: [user_count(Date.parse("110")) - 123, user_count(Date.parse("110")) - 79, user_count(Date.parse("110")) - 23, user_count(Date.parse("110")), user_count(Date.parse("140")), user_count(Date.parse("160"))]
+      # },
+      {
+        label: 'Total cost ¥',
+        backgroundColor: 'transparent',
+        borderColor: '#E24328',
+        data: [user_meeting_wages(Date.parse("110")) - 2302, user_meeting_wages(Date.parse("110")) - 1734, user_meeting_wages(Date.parse("110")) - 336, user_meeting_wages(Date.parse("110")), user_meeting_wages(Date.parse("140")), user_meeting_wages(Date.parse("160"))]
+      }]
+    }
+
+    @chart_options_second = {
       scales: {
         yAxes: [{
           ticks: {

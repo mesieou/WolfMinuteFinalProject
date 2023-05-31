@@ -34,21 +34,22 @@ end
 
 def self.find_available(users)
     # users should be the array of attendees
-    date = Date.tomorrow
-    count = users.count
+  date = Date.tomorrow
+  while date.saturday? || date.sunday?
+    date += 1
+  end
+  count = users.count
+  array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
+  ava = array.select { |value| array.count(value) >= count }.uniq
+  while ava.count.zero?
+    date = Date.tomorrow + 1
+    while date.saturday? || date.sunday?
+      date + 1
+    end
     array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
     ava = array.select { |value| array.count(value) >= count }.uniq
-    while ava.count.zero?
-      date = Date.tomorrow + 1
-      if date.saturday?
-        date + 2
-      elsif date.sunday?
-        date + 1
-      end
-      array = users.map { |user| user.available_time(date.year, date.month, date.day) }.flatten.sort
-      ava = array.select { |value| array.count(value) >= count }.uniq
-    end
-    return DateTime.parse("2023-#{date.month}-#{date.day} #{ava.min}:00:00")
+  end
+  return DateTime.parse("2023-#{date.month}-#{date.day} #{ava.min}:00:00")
 end
 
 # def self.find_available(users)
