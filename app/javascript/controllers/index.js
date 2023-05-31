@@ -34,5 +34,9 @@ application.register("recording", RecordingController)
 import SearchUsersController from "./search_users_controller"
 application.register("search-users", SearchUsersController)
 
+import Chart from 'stimulus-chartjs'
+application.register('chart', Chart)
+
 import TimerController from "./timer_controller"
 application.register("timer", TimerController)
+
