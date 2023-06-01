@@ -247,6 +247,7 @@ class MeetingsController < ApplicationController
         format.html
         format.text { render partial: "meeting_result", locals: {
           duration: @duration,
+          reason_duration: @reason_duration,
           objectives_and_agenda_text: @objectives_and_agenda_text,
           next_available_start_date: @next_available_start_date,
           next_available_end_date: @next_available_end_date}, formats:[:html] }
@@ -402,7 +403,10 @@ class MeetingsController < ApplicationController
       params[:usersnames]
     )
     @matched_duration = @duration_text.match(/\b(\d{2})\smin\b/)
+    @matched_reason_duration = @duration_text.match(/<h3> Reason:<\/h3>\s*<p>\s*(.*?)\s*<\/p>/m)
+    @reason_duration = @matched_reason_duration[1] if @matched_reason_duration
     @duration = @matched_duration[1] if @matched_duration
     @duration.html_safe
+    @reason_duration.html_safe
   end
 end
