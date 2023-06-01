@@ -23,8 +23,9 @@ wage = [250000, 350000, 450000, 550000, 650000, 750000, 850000, 950000, 1500000,
 role = ["Manager", "Employee", "Director", "Chief", "CEO", "Member of the board", "Temporary Employee"]
 location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 durationm = [15, 20, 30, 45, 60]
-duration = [45, 50, 60]
+duration = [50, 60]
 durationa = [30, 45, 50, 60]
+durationmm = [45, 50, 60]
 now = DateTime.now
 
 objective1 = "Objectives:
@@ -206,7 +207,7 @@ puts "created a video sample"
     end_date: Date.today + rand(4..6),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample,
+    duration: durationmm.sample,
     objectives: objectives.sample,
     video: test_video
   )
@@ -430,7 +431,7 @@ end
     end_date: day4 + Rational(duration.sample, 24 * 60),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample,
+    duration: durationmm.sample,
     objectives: objectives.sample
   )
 
