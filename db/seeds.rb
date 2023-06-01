@@ -283,7 +283,7 @@ puts "created meeting"
     user.save
   puts "created #{User.count} users!"
 
-rand(7..9).times do
+rand(8..9).times do
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
   day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -328,7 +328,7 @@ else
 end
 end
 
-rand(6..8).times do
+rand(7..8).times do
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
   day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -374,10 +374,10 @@ end
   )
 end
 
-rand(7..9).times do
-  day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+rand(8..9).times do
+  day4 = DateTime.new(now.year, 5, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
-  day4 = DateTime.new(now.year, 6, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day4 = DateTime.new(now.year, 5, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_june = Meeting.create!(
     title: Faker::Company.buzzword,
