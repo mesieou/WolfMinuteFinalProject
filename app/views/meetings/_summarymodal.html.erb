@@ -6,7 +6,8 @@
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Summary</h1>
           <% if !@summary.nil? %>
-            <button data-action="click->copy#copyToClipboard">copy</button>
+            <button data-action="click->copy#copyToClipboard" class="btn btn-success m-2"><i class="fa-regular fa-clone"></i>
+              copy</button>
           <% end %>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
