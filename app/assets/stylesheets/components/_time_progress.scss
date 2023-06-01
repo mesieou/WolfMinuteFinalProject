@@ -92,8 +92,8 @@ p:has(.marker){
 
 .main-timer {
   font-size: 1.5rem;
-  top: -32.5rem;
-  right: 8rem;
+  top: 10rem;
+  left: 2rem;
   display: flex;
   position: absolute;
   background-color: lavender;
@@ -105,4 +105,5 @@ p:has(.marker){
   align-items: center;
   justify-content: center;
   border:1px solid gray;
+  z-index: 900;
 }

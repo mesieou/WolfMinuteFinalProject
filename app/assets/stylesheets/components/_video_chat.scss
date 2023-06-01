@@ -1,6 +1,8 @@
 .video-container {
   margin: 0.3rem;
   padding: 0.2rem;
+
+  position: relative;
 }
 
 .video-chat {
@@ -115,4 +117,9 @@ left: -12rem;
 
 .audio-button:hover{
   opacity: 0.5;
+}
+
+.video-attendees-lol {
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
