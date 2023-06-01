@@ -7,7 +7,7 @@
             name="users[]"
             value= "<%= user.name%>">
       <label for="name<%=index%>">
-        <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar"%>
+        <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "gorilla.jpg", class: "avatar"%>
         <%= user.name %>
       </label>
     <% end %>
