@@ -20,26 +20,36 @@ ethnicity = 'all'
 
 wage = [250000, 350000, 450000, 550000, 650000, 750000, 850000, 950000, 1500000, 3000000]
 
-title = ["Strategic Planning",
-  "Sales Review",
-  "Product Brainstorm",
-  "Marketing Kickoff",
-  "Financial Evaluation",
-  "Team Building",
-  "Operational Efficiency",
-  "Customer Experience",
-  "Leadership Development",
-  "Market Research",
-  "Supply Chain Optimization",
-  "Partnership Negotiation",
-  "Digital Transformation",
-  "Risk Management",
-  "Performance Appraisal",
-  "Diversity Workshop",
-  "Investor Relations",
-  "CSR Roundtable",
-  "Market Entry Strategy",
-  "Project Kickoff"
+title = ["Strat Plan Retreat: Mapping Success",
+  "Leadership Workshop: Unlocking Potential",
+  "Sales Strategy Summit: Accelerate Growth",
+  "Innovation Forum: Ignite Creativity",
+  "Marketing Analytics: Data-Driven Decisions",
+  "Team Building: Unite for Success",
+  "Financial Forecast Review: Navigating Trends",
+  "Product Launch: Unveiling Next Big Thing",
+  "Client Relationship: Cultivate Trust",
+  "Change Management: Embrace Transformation",
+  "Project Update: Milestones & Deliverables",
+  "Training & Development: Continuous Learning",
+  "Risk Assessment Workshop: Manage Uncertainty",
+  "Customer Experience: Delightful Journeys",
+  "Supplier Collaboration: Strong Partnerships",
+  "Diversity & Inclusion: Foster Belonging",
+  "Operations Optimization: Streamline Efficiency",
+  "Employee Town Hall: Boost Engagement",
+  "Market Research: Insights for Advantage",
+  "Crisis Management: Preparedness & Resilience",
+  "Investor Relations: Build Confidence",
+  "Brand Positioning: Compelling Identity",
+  "Supply Chain Optimization: Efficient Logistics",
+  "Talent Acquisition: Attract Top Talent",
+  "Sustainability Forum: Positive Impact",
+  "IT Planning: Future-proof Technology",
+  "M&A Forum: Maximize Synergies",
+  "Quality Assurance: Excellence in Delivery",
+  "Partnership Meeting: Strategic Alliances",
+  "Customer Feedback: Enhance Experience"
   ]
 
 role = ["Manager", "Employee", "Director", "Chief", "CEO", "Member of the board", "Temporary Employee"]
@@ -58,10 +68,10 @@ objective1 = "Objectives:
 
 Agenda:
 
-  From 09:30 to 09:35 - Introduction and Welcome (5 minutes)
-  From 09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)
-  From 09:45 to 09:55 - Pros and Cons Discussion (10 minutes)
-  From 09:55 to 10:00 - Next Steps and Conclusion (5 minutes)
+  From 09:30 to 09:35 Introduction and Welcome (5 minutes)
+  From 09:35 to 09:45 Overview of the New Accounting Software (10 minutes)
+  From 09:45 to 09:55 Pros and Cons Discussion (10 minutes)
+  From 09:55 to 10:00 Next Steps and Conclusion (5 minutes)
 
 "
 
@@ -73,10 +83,10 @@ objective2 = "Objectives:
 
 Agenda:
 
-  From 10:00 to 10:05 - Welcome and Introductions (5 minutes)
-  From 10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)
-  From 10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)
-  From 10:45 to 11:00 - Q&A and Wrap-up (15 minutes)
+  From 10:00 to 10:05 Welcome and Introductions (5 minutes)
+  From 10:05 to 10:25 Presentation on the New Accounting Software (20 minutes)
+  From 10:25 to 10:45 Group Discussion on Benefits and Drawbacks (20 minutes)
+  From 10:45 to 11:00 Q&A and Wrap-up (15 minutes)
 
 "
 
@@ -88,10 +98,10 @@ objective3 = "Objectives:
 
 Agenda:
 
-  From 14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)
-  From 14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)
-  From 14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)
-  From 14:50 to 15:00 - Action Planning and Next Steps (10 minutes)
+  From 14:00 to 14:10 Opening Remarks and Introduction (10 minutes)
+  From 14:10 to 14:30 Presentation on the Benefits and Features of the New Accounting Software (20 minutes)
+  From 14:30 to 14:50 Discussion on Training and Resource Requirements (20 minutes)
+  From 14:50 to 15:00 Action Planning and Next Steps (10 minutes)
 
 "
 
@@ -103,10 +113,10 @@ objective4 = "Objectives:
 
 Agenda:
 
-  From 13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)
-  From 13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)
-  From 13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)
-  From 14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)
+  From 13:30 to 13:35 Introduction and Meeting Overview (5 minutes)
+  From 13:35 to 13:55 Presentation on the New Accounting Software Features (20 minutes)
+  From 13:55 to 14:10 Discussion on Cost-Benefit Analysis (15 minutes)
+  From 14:10 to 14:25 Assessment of Process and Workflow Impact (15 minutes)
 
 
 "
