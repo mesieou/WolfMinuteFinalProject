@@ -56,7 +56,6 @@ export default class extends Controller {
       .then((data) => {
         this.gptTimeResultTarget.innerHTML = data;
         console.log(typeof data, data,  this.gptTimeResultTarget)
-
       })
       .catch((error) => {
         console.error(error)})
