@@ -20,6 +20,28 @@ ethnicity = 'all'
 
 wage = [250000, 350000, 450000, 550000, 650000, 750000, 850000, 950000, 1500000, 3000000]
 
+title = ["Strategic Planning",
+  "Sales Review",
+  "Product Brainstorm",
+  "Marketing Kickoff",
+  "Financial Evaluation",
+  "Team Building",
+  "Operational Efficiency",
+  "Customer Experience",
+  "Leadership Development",
+  "Market Research",
+  "Supply Chain Optimization",
+  "Partnership Negotiation",
+  "Digital Transformation",
+  "Risk Management",
+  "Performance Appraisal",
+  "Diversity Workshop",
+  "Investor Relations",
+  "CSR Roundtable",
+  "Market Entry Strategy",
+  "Project Kickoff"
+  ]
+
 role = ["Manager", "Employee", "Director", "Chief", "CEO", "Member of the board", "Temporary Employee"]
 location = ["room 1", "room 2", "room 3", "room 4", "room 5"]
 durationm = [15, 20, 30, 45, 60]
@@ -111,8 +133,14 @@ juan = User.create!(
   password: "123456",
   job_title: Faker::Job.title,
   mobile: Faker::PhoneNumber.cell_phone,
-  wage: wage.sample
+  wage: 4000000,
+  admin: true
 )
+    file = URI.open("https://avatars.githubusercontent.com/u/125519096?v=4")
+    juan.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    juan.save
+
+puts "created Juan"
 
 jun = User.create!(
   name: "Jun Ukemori",
@@ -121,8 +149,17 @@ jun = User.create!(
   password: "123456",
   job_title: Faker::Job.title,
   mobile: Faker::PhoneNumber.cell_phone,
-  wage: wage.sample
+  wage: 3000000,
+  admin: true
 )
+
+file = URI.open("https://avatars.githubusercontent.com/u/124132832?v=4")
+    jun.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    jun.save
+
+    puts "created Jun"
+
+
 
 mei = User.create!(
   name: "Mei",
@@ -131,8 +168,17 @@ mei = User.create!(
   password: "123456",
   job_title: Faker::Job.title,
   mobile: Faker::PhoneNumber.cell_phone,
-  wage: wage.sample
+  wage: 3000000,
+  admin: true
 )
+
+file = URI.open("https://avatars.githubusercontent.com/u/123852550?v=4")
+    mei.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    mei.save
+
+    puts "created Mei"
+
+
 
 rika = User.create!(
   name: "Rika Saito",
@@ -141,8 +187,14 @@ rika = User.create!(
   password: "123456",
   job_title: Faker::Job.title,
   mobile: Faker::PhoneNumber.cell_phone,
-  wage: wage.sample
+  wage: 3000000,
+  admin: true
 )
+file = URI.open("https://avatars.githubusercontent.com/u/129135201?v=4")
+    rika.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+    rika.save
+
+puts "created Rika"
 
 test_video = Video.create!(
   start_date: DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0),
@@ -187,21 +239,21 @@ test_video.audio.attach(io: audio_file, filename: "meeting_sample.m4a", content_
 test_video.save
 
 puts "created a video sample"
-  url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
-  json = URI.open(url).read
-  src = JSON.parse(json)['src']
-  photo_url = "https://this-person-does-not-exist.com#{src}"
-  file = URI.open(photo_url)
-  test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
+  # url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
+  # json = URI.open(url).read
+  # src = JSON.parse(json)['src']
+  # photo_url = "https://this-person-does-not-exist.com#{src}"
+  # file = URI.open(photo_url)
+  # test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-9.times do
+2.times do
   past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
     past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
-    user: test_user,
+    title: title.sample,
+    user: jun,
     start_date: past_day,
     end_date: Date.today + rand(4..6),
     description: Faker::Company.catch_phrase,
@@ -214,20 +266,20 @@ puts "created a video sample"
   test_meeting.video = test_video
 
   Booking.create!(
-    user: test_user,
+    user: jun,
     meeting: test_meeting,
     status: "accepted" # or just 'accepted'
   )
 end
 
-10.times do
+2.times do
   future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   while future_day.wday == 0 || future_day.wday == 6
     future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
-    user: test_user,
+    title: title.sample,
+    user: jun,
     start_date: future_day,
     end_date: Date.today + rand(4..6),
     description: Faker::Company.catch_phrase,
@@ -236,76 +288,76 @@ end
     objectives: objectives.sample
   )
   Booking.create!(
-    user: test_user,
+    user: jun,
     meeting: test_meeting,
     status: "accepted" # or just 'accepted'
   )
 end
 
-7.times do
-  april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-  while april_day.wday == 0 || april_day.wday == 6
-    april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-  end
-  test_meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
-    user: test_user,
-    start_date: april_day,
-    end_date: Date.today + rand(4..6),
-    description: Faker::Company.catch_phrase,
-    location: location.sample,
-    duration: durationa.sample,
-    objectives: objectives.sample
-  )
-  Booking.create!(
-    user: test_user,
-    meeting: test_meeting,
-    status: "accepted" # or just 'accepted'
-  )
-end
+# 7.times do
+#   april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+#   while april_day.wday == 0 || april_day.wday == 6
+#     april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+#   end
+#   test_meeting = Meeting.create!(
+#     title: Faker::Company.buzzword,
+#     user: jun,
+#     start_date: april_day,
+#     end_date: Date.today + rand(4..6),
+#     description: Faker::Company.catch_phrase,
+#     location: location.sample,
+#     duration: durationa.sample,
+#     objectives: objectives.sample
+#   )
+#   Booking.create!(
+#     user: jun,
+#     meeting: test_meeting,
+#     status: "accepted" # or just 'accepted'
+#   )
+# end
 
-6.times do
-  march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-  while march_day.wday == 0 || march_day.wday == 6
-    march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-  end
-  test_meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
-    user: test_user,
-    start_date: march_day,
-    end_date: Date.today + rand(4..6),
-    description: Faker::Company.catch_phrase,
-    location: location.sample,
-    duration: durationm.sample,
-    objectives: objectives.sample
-  )
-  Booking.create!(
-    user: test_user,
-    meeting: test_meeting,
-    status: "accepted" # or just 'accepted'
-  )
-end
+# 6.times do
+#   march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+#   while march_day.wday == 0 || march_day.wday == 6
+#     march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+#   end
+#   test_meeting = Meeting.create!(
+#     title: Faker::Company.buzzword,
+#     user: jun,
+#     start_date: march_day,
+#     end_date: Date.today + rand(4..6),
+#     description: Faker::Company.catch_phrase,
+#     location: location.sample,
+#     duration: durationm.sample,
+#     objectives: objectives.sample
+#   )
+#   Booking.create!(
+#     user: jun,
+#     meeting: test_meeting,
+#     status: "accepted" # or just 'accepted'
+#   )
+# end
 
-dday = DateTime.new(now.year, 6, 5, 9, 0, 0)
-ddday = DateTime.new(now.year, 6, 5, 9, 45, 0)
+# dday = DateTime.new(now.year, 6, 5, 9, 0, 0)
+# ddday = DateTime.new(now.year, 6, 5, 9, 45, 0)
 
-ttest = Meeting.create!(
-  title: Faker::Company.buzzword,
-  user: test_user,
-  start_date: dday,
-  end_date: ddday,
-  description: Faker::Company.catch_phrase,
-  location: location.sample,
-  duration: 45,
-  objectives: objectives.sample
-)
-Booking.create!(
-  user: test_user,
-  meeting: ttest,
-  status: "accepted" # or just 'accepted'
-)
+# ttest = Meeting.create!(
+#   title: Faker::Company.buzzword,
+#   user: test_user,
+#   start_date: dday,
+#   end_date: ddday,
+#   description: Faker::Company.catch_phrase,
+#   location: location.sample,
+#   duration: 45,
+#   objectives: objectives.sample
+# )
+# Booking.create!(
+#   user: test_user,
+#   meeting: ttest,
+#   status: "accepted" # or just 'accepted'
+# )
 
-puts "created meeting"
+# puts "created meeting"
 
 20.times do
   user = User.create!(
@@ -335,7 +387,7 @@ end
 
 if day < DateTime.now
   meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
+    title: title.sample,
     user: user,
     start_date: day,
     end_date: day + Rational(duration.sample, 24 * 60),
@@ -354,7 +406,7 @@ if day < DateTime.now
 
 else
   meeting = Meeting.create!(
-    title: Faker::Company.buzzword,
+    title: title.sample,
     user: user,
     start_date: day,
     end_date: day + Rational(duration.sample, 24 * 60),
@@ -372,13 +424,13 @@ else
 end
 end
 
-rand(7..8).times do
+rand(6..7).times do
   day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
   day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_april = Meeting.create!(
-    title: Faker::Company.buzzword,
+    title: title.sample,
     user: user,
     start_date: day2,
     end_date: day2 + Rational(duration.sample, 24 * 60),
@@ -395,13 +447,13 @@ end
   )
 end
 
-rand(6..7).times do
+rand(5..6).times do
   day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day3.wday == 0 || day3.wday == 6
   day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_march = Meeting.create!(
-    title: Faker::Company.buzzword,
+    title: title.sample,
     user: user,
     start_date: day3,
     end_date: day3 + Rational(duration.sample, 24 * 60),
@@ -418,13 +470,13 @@ end
   )
 end
 
-rand(8..9).times do
+rand(7..8).times do
   day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
   day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
-  meeting_june = Meeting.create!(
-    title: Faker::Company.buzzword,
+  meeting_may = Meeting.create!(
+    title: title.sample,
     user: user,
     start_date: day4,
     end_date: day4 + Rational(duration.sample, 24 * 60),
@@ -436,7 +488,7 @@ end
 
   Booking.create!(
     user: user,
-    meeting: meeting_june,
+    meeting: meeting_may,
     status: "accepted" # or just 'accepted'
   )
 end
@@ -447,7 +499,7 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    if user.id != meeting.user_id && rand(0..4) == 0
+    if user.id != meeting.user_id && rand(0..3) == 0
       Booking.create!(
         user: user,
         meeting: meeting,
