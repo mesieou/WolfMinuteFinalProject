@@ -225,10 +225,11 @@ class MeetingsController < ApplicationController
     @objectives = @meeting.objectives.strip.gsub('Objectives:', '').split("Agenda:")[0].split("\n")
     @agenda = @meeting.objectives.strip.split("Agenda:")[1].split("\n")
     if @meeting.video && @meeting.video.summary
-      @summary = @meeting.video.summary
-      @actions = @meeting.video.actions
+      @summary = @meeting.video.summary.split('.')
+      @actions = @meeting.video.actions.split(/\d+\./)[1..-1]
     end
     authorize @meeting
+
   end
 
   def new
