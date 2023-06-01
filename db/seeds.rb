@@ -195,9 +195,9 @@ puts "created a video sample"
   test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
 2.times do
-  past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
+  past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
-    past_day = DateTime.new(now.year, now.month, rand(1..25), rand(0..8), [15, 30, 45, 0].sample, 0)
+    past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -221,9 +221,9 @@ puts "created a video sample"
 end
 
 2.times do
-  future_day = DateTime.new(now.year, now.month, rand(27..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   while future_day.wday == 0 || future_day.wday == 6
-    future_day = DateTime.new(now.year, now.month, rand(27..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -284,9 +284,9 @@ puts "created meeting"
   puts "created #{User.count} users!"
 
 rand(8..9).times do
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
 
 if day < DateTime.now
@@ -329,9 +329,9 @@ end
 end
 
 rand(7..8).times do
-  day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
-  day2 = DateTime.new(now.year, 4, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_april = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -352,9 +352,9 @@ end
 end
 
 rand(6..7).times do
-  day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day3.wday == 0 || day3.wday == 6
-  day3 = DateTime.new(now.year, 3, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_march = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -375,9 +375,9 @@ end
 end
 
 rand(8..9).times do
-  day4 = DateTime.new(now.year, 5, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
-  day4 = DateTime.new(now.year, 5, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_june = Meeting.create!(
     title: Faker::Company.buzzword,
