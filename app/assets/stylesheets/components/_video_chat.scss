@@ -8,6 +8,23 @@
   grid-template-columns: 80% 20%;
 }
 
+.videochat-title {
+  padding-top: 0.5rem;
+  align-items: center;
+text-align: center;
+margin-right: 1rem;
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.main-video-chat {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 3rem;
+}
 
 .video-attendees {
 padding: 0.5rem;
@@ -56,4 +73,46 @@ padding: 0.5rem;
       margin-bottom: 0;
     }
   }
+}
+
+.recording-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recording-button {
+  display: flex;
+  align-items: center;
+}
+
+.audio-button {
+  height: 100%;
+}
+
+.pop-up-buttons {
+position: absolute;
+top: -1.2rem;
+left: -12rem;
+}
+
+.big-icon {
+  font-size: 2em; /* Adjust the size as desired */
+}
+
+.audio-button {
+  /* Add any additional styles you want */
+  color:  #000064; /* Change the color to your preference */
+  /* Add more CSS properties as needed */
+  background-color: lavender;
+  border: lavender;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.fa-check-circle {
+  color: green;
+}
+
+.audio-button:hover{
+  opacity: 0.5;
 }
