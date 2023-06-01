@@ -4,7 +4,7 @@
   </div>
   <div class="time-bar">
     <div class="time-agenda">
-      <% @meeting.objectives.scan(/(\d{2}:\d{2}) to \d{2}:\d{2} - (.*?) \(\d+ minutes\)/).each do |li|%>
+      <% @meeting.objectives.scan(/From (\d{2}:\d{2}) to \d{2}:\d{2} - (.+) \(\d+ minutes\)/).each do |li|%>
         <div class="time-description" >
           <p class="time-time"><span class="marker"><i class="fa-solid fa-circle fa-sm"></i></span>  <%= li[0] %></p>
           <p class="time-title text-muted"> <%= li[1]%></p>

@@ -23,6 +23,8 @@
           <%= image_tag user.photo.key ? cl_image_path(user.photo.key) :  "gorilla.jpg", class: "avatar  border border-3"%>
         <% end %>
       </div>
+    </div>
+    <div class="recording-button" data-controller="recording">
       <div class="timer-container">
         <div class="main-timer">
           <div class="clock" data-controller="timer">
@@ -30,8 +32,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="recording-button" data-controller="recording">
       <div class="many-buttons">
         <button data-action="click->recording#record" class=" fas fa-microphone-alt big-icon audio-button" data-recording-target="start_recording" type="button" ></button>
         <button data-action="click->recording#stop_recording" class=" fas fa-assistive-listening-systems d-none big-icon audio-button" data-recording-target="ear" type="button"></button>
