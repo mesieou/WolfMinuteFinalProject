@@ -194,7 +194,7 @@ puts "created a video sample"
   file = URI.open(photo_url)
   test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-2.times do
+9.times do
   past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
     past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -220,7 +220,7 @@ puts "created a video sample"
   )
 end
 
-2.times do
+10.times do
   future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   while future_day.wday == 0 || future_day.wday == 6
     future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
@@ -233,6 +233,50 @@ end
     description: Faker::Company.catch_phrase,
     location: location.sample,
     duration: duration.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: test_user,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+7.times do
+  april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while april_day.wday == 0 || april_day.wday == 6
+    april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: test_user,
+    start_date: april_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationa.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: test_user,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+6.times do
+  march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while march_day.wday == 0 || march_day.wday == 6
+    march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: test_user,
+    start_date: march_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationm.sample,
     objectives: objectives.sample
   )
   Booking.create!(
