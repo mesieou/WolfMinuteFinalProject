@@ -117,6 +117,8 @@ export default class extends Controller {
     //   dataType: "script",
     //   data: formData
     // })
+    $("#loader").show();
+
     fetch(form.action, {
       method: "PATCH",
       headers: { "Accept": "application/json" },
@@ -127,6 +129,9 @@ export default class extends Controller {
         console.log(data)
         document.getElementById("form").innerHTML = data.form
       })
+      .finally(() => {
+        $("#loader").hide();
+      });
   }
 
   reset() {
