@@ -1,3 +1,4 @@
+
 <div id="timemodal"class="d-flex" class="input-button animate__animated animate__fadeInRight" style="margin-left: 64px; width:100%;">
     <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
     <div>
@@ -20,4 +21,9 @@
         <input type="submit" name="commit" value="Create Meeting" class="button-general" role="button" data-disable-with="Create Meeting">
       </div>
     </div>
+    <textarea autocomplete="off" type="" name="meeting[objectives]" id="meeting_objectives"><%= sanitize objectives_and_agenda_text %></textarea>
+    <div style="margin-top: 32px;">
+      <input type="submit" name="commit" value="Book the Meeting" class="button-general" role="button" data-disable-with="Create Meeting">
+    </div>
+  </div>
 </div>

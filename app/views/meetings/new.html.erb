@@ -1,5 +1,5 @@
 <div class="outer-container">
-  <div class="container m-4" data-controller="search-users">
+  <div class="container m-auto" data-controller="search-users">
     <h1>New Meeting</h1>
     <!-- Search people input -->
     <div class="d-flex animate__animated animate__flash">
@@ -38,11 +38,18 @@
             <%= f.input :description  , label: false, placeholder: "Type description", input_html: {style: "width: 400px; background: lavender; margin-right: 24px;", data: {form_steps_target: "description"}} %>
             <button type="button" data-action="click->form-steps#fetchMeetingInfo" class="button-general" role="button">Next</button>
           </div>
-          <div class="optimaltime" data-form-steps-target="gptTimeResult">
+          <!-- description input -->
+          <div data-form-steps-target="step" class="hidden animate__animated animate__flash">
+            <div class="d-flex" style="margin-top: 20px;">
+              <%= image_tag current_user.photo.key ? cl_image_path(current_user.photo.key) :  "gorilla.jpg", style: "width: 30px; height:30px; margin-right: 16px", class: "avatar", alt: "dropdown menu" %>
+              <%= f.input :description  , label: false, placeholder: "Type description", input_html: {style: "width: 400px; background: lavender; margin-right: 24px;", data: {form_steps_target: "description"}} %>
+              <button type="button" data-action="click->form-steps#fetchMeetingInfo" class="button-general" role="button">Next</button>
+            </div>
+            <div class="optimaltime" data-form-steps-target="gptTimeResult">
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
+    <div id="loader" style="display: none;"></div>
   </div>
-  <div id="loader" style="display: none;"></div>
-</div>
