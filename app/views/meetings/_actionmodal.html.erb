@@ -10,7 +10,9 @@
         <% if @actions.nil?  %>
           <p>No actions</p>
         <% else %>
-          <p><%= @actions %></p>
+          <%  @actions.each_with_index do |action, index| %>
+            <p><%= index + 1 %>.<%= action %></p>
+          <% end %>
         <% end %>
       </div>
     </div>
