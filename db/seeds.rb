@@ -27,66 +27,66 @@ duration = [45, 50, 60]
 durationa = [30, 45, 50, 60]
 now = DateTime.now
 
-objective1 = "<h3>Objectives:</h3>
-<ul>
-  <li>Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software</li>
-  <li>Middle Priority: Evaluate the impact of implementing the new accounting software</li>
-  <li>Low Priority: Identify potential challenges and risks associated with adopting the new accounting software</li>
-</ul>
-<h3>Agenda:</h3>
-<ol>
-  <li>09:30 to 09:35 - Introduction and Welcome (5 minutes)</li>
-  <li>09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)</li>
-  <li>09:45 to 09:55 - Pros and Cons Discussion (10 minutes)</li>
-  <li>09:55 to 10:00 - Next Steps and Conclusion (5 minutes)</li>
-</ol>
+objective1 = "Objectives:
+
+  Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
+  Middle Priority: Evaluate the impact of implementing the new accounting software
+  Low Priority: Identify potential challenges and risks associated with adopting the new accounting software
+
+Agenda:
+
+  09:30 to 09:35 - Introduction and Welcome (5 minutes)
+  09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)
+  09:45 to 09:55 - Pros and Cons Discussion (10 minutes)
+  09:55 to 10:00 - Next Steps and Conclusion (5 minutes)
+
 "
 
-objective2 = "<h3>Objectives:</h3>
-<ul>
-  <li>Highest Priority: Evaluate the potential benefits and drawbacks of adopting the new accounting software</li>
-  <li>Middle Priority: Determine the implementation requirements and timeline for the new accounting software</li>
-  <li>Low Priority: Establish a communication plan for stakeholders regarding the new accounting software</li>
-</ul>
-<h3>Agenda:</h3>
-<ol>
-  <li>10:00 to 10:05 - Welcome and Introductions (5 minutes)</li>
-  <li>10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)</li>
-  <li>10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)</li>
-  <li>10:45 to 11:00 - Q&A and Wrap-up (15 minutes)</li>
-</ol>
+objective2 = "Objectives:
+
+  Highest Priority: Evaluate the potential benefits and drawbacks of adopting the new accounting software
+  Middle Priority: Determine the implementation requirements and timeline for the new accounting software
+  Low Priority: Establish a communication plan for stakeholders regarding the new accounting software
+
+Agenda:
+
+  10:00 to 10:05 - Welcome and Introductions (5 minutes)
+  10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)
+  10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)
+  10:45 to 11:00 - Q&A and Wrap-up (15 minutes)
+
 "
 
-objective3 = "<h3>Objectives:</h3>
-<ul>
-  <li>Highest Priority: Assess the readiness of the organization for adopting the new accounting software</li>
-  <li>Middle Priority: Identify the training needs and resources required for successful implementation</li>
-  <li>Low Priority: Define the key performance indicators to measure the effectiveness of the new accounting software</li>
-</ul>
-<h3>Agenda:</h3>
-<ol>
-  <li>14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)</li>
-  <li>14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)</li>
-  <li>14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)</li>
-  <li>14:50 to 15:00 - Action Planning and Next Steps (10 minutes)</li>
-</ol>
+objective3 = "Objectives:
+
+  Highest Priority: Assess the readiness of the organization for adopting the new accounting software
+  Middle Priority: Identify the training needs and resources required for successful implementation
+  Low Priority: Define the key performance indicators to measure the effectiveness of the new accounting software
+
+Agenda:
+
+  14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)
+  14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)
+  14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)
+  14:50 to 15:00 - Action Planning and Next Steps (10 minutes)
+
 "
 
-objective4 = "<h3>Objectives:</h3>
-<ul>
-  <li>Highest Priority: Determine the cost-benefit analysis of adopting the new accounting software</li>
-  <li>Middle Priority: Assess the impact on existing processes and workflows</li>
-  <li>Low Priority: Identify potential training needs and strategies for successful implementation</li>
-</ul>
-<h3>Agenda:</h3>
-<ol>
-  <li>13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)</li>
-  <li>13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)</li>
-  <li>13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)</li>
-  <li>14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)</li>
-  <li>14:25 to 14:40 - Brainstorming Training Needs and Strategies (15 minutes)</li>
-  <li>14:40 to 14:45 - Wrap-up and Next Steps (5 minutes)</li>
-</ol>
+objective4 = "Objectives:
+
+  Highest Priority: Determine the cost-benefit analysis of adopting the new accounting software
+  Middle Priority: Assess the impact on existing processes and workflows
+  Low Priority: Identify potential training needs and strategies for successful implementation
+
+Agenda:
+
+  13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)
+  13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)
+  13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)
+  14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)
+  14:25 to 14:40 - Brainstorming Training Needs and Strategies (15 minutes)
+  14:40 to 14:45 - Wrap-up and Next Steps (5 minutes)
+
 "
 
 objectives = [objective1, objective2, objective3, objective4]
@@ -403,7 +403,7 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    if user.id != meeting.user_id && rand(0..3) == 0
+    if user.id != meeting.user_id && rand(0..4) == 0
       Booking.create!(
         user: user,
         meeting: meeting,
