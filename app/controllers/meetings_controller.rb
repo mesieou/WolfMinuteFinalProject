@@ -347,7 +347,7 @@ class MeetingsController < ApplicationController
       the following description: #{description_reply}.
       Provide only 3 objectives starting from the highest priority to the lowest.
       The meeting starts at #{start_time} and it ends at #{end_date} min should have an itemised date(maximum 5 items).
-      reply with bullet points. Your reply should only be the Objectives and Agenda.The reply should be in html formal. Example answer:
+      reply with bullet points. Your reply should only be the Objectives and Agenda. Agenda should be exactly 4 items. The reply should be in html formal. Example answer:
       Objectives:
         - Highest Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
         - Middle Priority: Assess the potential benefits and drawbacks of adopting the new accounting software
