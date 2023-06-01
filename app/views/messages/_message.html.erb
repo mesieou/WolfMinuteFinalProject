@@ -1,6 +1,6 @@
 <div id="message-<%= message.id %>">
   <div class="d-flex">
-    <%= image_tag message.user.photo.key ? cl_image_path(message.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class:"avatar-small me-2" %>
+    <%= image_tag message.user.photo.key ? cl_image_path(message.user.photo.key) :  "gorilla.jpg", class:"avatar-small me-2" %>
     <div>
       <small>
         <strong><%= message.user.name %></strong>
