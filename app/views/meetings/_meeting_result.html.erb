@@ -1,8 +1,14 @@
-<div class="d-flex" class="input-button animate__animated animate__fadeInRight" style="margin-left: 64px; width:100%;">
+<div id="timemodal"class="d-flex" class="input-button animate__animated animate__fadeInRight" style="margin-left: 64px; width:100%;">
     <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
-                    <!-- Button trigger modal -->
     <div>
-      <p>Optimal Duration: <%= duration %></p>
+      <div data-controller="popover">
+        <p data-action="mouseenter->popover#show mouseleave->popover#hide">Optimal Duration: <%= duration %></p>
+        <template data-popover-target="content">
+          <div class ="reason-duration" data-popover-target="card">
+            <p> Reason: <%= reason_duration %> </p>
+          </div>
+        </template>
+      </div>
       <p>Available Room: <%= @location %></p>
       <div class="d-flex">
         <p>Next Available meeting:</p>

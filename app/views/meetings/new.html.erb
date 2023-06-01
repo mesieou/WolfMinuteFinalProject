@@ -1,4 +1,3 @@
-
 <div class="outer-container">
   <div class="container m-4" data-controller="search-users">
     <h1>New Meeting</h1>
@@ -19,7 +18,7 @@
     </div>
     <!-- Search people output -->
     <div id="form-container" data-controller="form-steps">
-      <%= simple_form_for @meeting, data: { controller: 'flatpickr' } do |f| %>
+      <%= simple_form_for @meeting do |f| %>
         <div data-form-steps-target="step" class="input-button animate__animated animate__fadeInRight" style="margin-left: 64px;">
           <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
           <div data-search-users-target="users">
