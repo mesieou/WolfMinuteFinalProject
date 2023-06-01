@@ -1,7 +1,7 @@
-<div class="container m-4" data-controller="search-users">
+<div class="container m-auto" data-controller="search-users">
   <h1>New form</h1>
   <div class="d-flex">
-    <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+    <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
     <form action="/meetings/new" method="get" data-search-users-target="form">
       <input
         type="text"
@@ -17,13 +17,13 @@
     <div id="form-container" data-controller="form-steps">
       <%= simple_form_for @meeting, data: { controller: 'flatpickr' } do |f| %>
         <div data-form-steps-target="step" class="input-button" style="margin-left: 64px;">
-          <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+          <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
           <div data-search-users-target="users">
             <% if @users_filtered.present? && @users_filtered.length.positive? %>
               <%= render 'list' %>
               <%# <%= params %>
             <% else %>
-              <p style="font-size: revert">No users found.</p>
+              <p style="font-size: revert;" class="formmessage">No users found.</p>
             <% end %>
           </div>
           <div data-search-users-target="usersClicked" class="hidden"></div>
@@ -31,7 +31,7 @@
         </div>
         <div data-form-steps-target="step" class="hidden">
           <div class="d-flex" style="margin-top: 20px;">
-            <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+            <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
             <%= f.input :description, label: false, placeholder: "Type description", input_html:{style: "width: 400px; background: lavender; margin-right: 24px;", data: {form_steps_target: "description"}} %>
             <button type="button" data-action="click->form-steps#fetchDuration" class="btn btn-flat" role="button">Next</button>
           </div>
@@ -41,14 +41,14 @@
         </div>
         <div data-form-steps-target="step" class="hidden" style="margin-left: 64px;">
           <div class="d-flex" style="margin-top: 20px;">
-            <img src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
+            <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
             <p data-form-steps-target="availabletime" style="margin-right: 185px; font-size: revert;">The next available time is<%= render 'next_available_time' %></p>
             <button type="button" data-action="click->form-steps#nextStep" class="btn btn-flat" role="button">Next</button>
           </div>
         </div>
         <div data-form-steps-target="step" class="hidden mb-3">
           <div class="d-flex" style="margin-top: 20px;">
-            <img src="<%=asset_path('logo.png')%>" style="height: 50px; margin-top: 31px;" alt="">
+            <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px; margin-top: 31px;" alt="">
             <%= f.input :start_date, as: :string, input_html: {style: "margin-right: 22px; background: lavender", data: { flatpickr_target: "startTime", form_steps_target: "startTime" } } %>
             <%= f.input :end_date, as: :string, input_html: { style: "background: lavender", data: { flatpickr_target: "endTime" }, id: 'end_time' } %>
             <button type="button" data-action="click->form-steps#nextStep" class="btn btn-flat" role="button" style="margin-top: 33px; margin-left: 24px;">Next</button>

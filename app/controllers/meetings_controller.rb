@@ -357,7 +357,7 @@ class MeetingsController < ApplicationController
         - From 11: 05 to 11:15 Review of the New Accounting Software (10 minutes)
         - From 11: 15 to 11:25 Pros and Cons Discussion (10 minutes)
         - From 11: 25 to 11:30 Next Steps and Conclusion (5 minutes)"
-    OpenaiService.new(objectives_and_agenda_prompt).call
+    # OpenaiService.new(objectives_and_agenda_prompt).call
   end
 
   def fetch_objectives_and_agenda(next_available_start_date, next_available_end_date)
@@ -395,7 +395,7 @@ class MeetingsController < ApplicationController
     <p> 30 min </p>
     <h3> Reason:</h3>
     <p> small description </p>"
-    OpenaiService.new(optimal_time_prompt).call
+    # OpenaiService.new(optimal_time_prompt).call
   end
 
   def fetch_optimal_duration

@@ -73,11 +73,11 @@
                     <% meeting.bookings.sort_by(&:status).each do |booking|%>
                       <% case booking.status %>
                       <%   when "accepted"%>
-                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-success"%>
+                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-success"%>
                       <%   when "pending"%>
-                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-info"%>
+                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-info"%>
                       <%   when "rejected"%>
-                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-danger"%>
+                      <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-danger"%>
                     <% else %>
                     <% end %>
                   <% end %>
@@ -122,11 +122,11 @@
                   <% meeting.bookings.sort_by(&:status).each do |booking|%>
                     <% case booking.status %>
                     <%   when "accepted"%>
-                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-success"%>
+                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-success"%>
                     <%   when "pending"%>
-                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-info"%>
+                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-info"%>
                     <%   when "rejected"%>
-                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar m-1 border border-3 border-danger"%>
+                    <%= image_tag booking.user.photo.key ? cl_image_path(booking.user.photo.key) :  "gorilla.jpg", class: "avatar m-1 border border-3 border-danger"%>
                   <% else %>
                   <% end %>
                 <% end %>
