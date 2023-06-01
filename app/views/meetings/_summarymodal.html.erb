@@ -10,7 +10,9 @@
         <% if @summary.nil?  %>
           <p>No summary</p>
         <% else %>
-          <p><%= @summary %></p>
+          <% @summary.each do |line| %>
+            <p><%= line %>.</p>
+          <% end %>
         <% end %>
       </div>
     </div>

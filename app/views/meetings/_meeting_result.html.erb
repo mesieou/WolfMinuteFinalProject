@@ -2,6 +2,8 @@
   <img class="logoimg" src="<%=asset_path('logo.png')%>" style="height: 50px;" alt="">
   <!-- Button trigger modal -->
   <div>
+    <%#= render 'meetings/optimaltime', duration: duration, reason_duration: reason_duration %>
+
     <p>Optimal Duration: <%= duration %></p>
     <p>Available Room: <%= @location %></p>
     <div class="d-flex">
