@@ -58,10 +58,10 @@ objective1 = "Objectives:
 
 Agenda:
 
-  09:30 to 09:35 - Introduction and Welcome (5 minutes)
-  09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)
-  09:45 to 09:55 - Pros and Cons Discussion (10 minutes)
-  09:55 to 10:00 - Next Steps and Conclusion (5 minutes)
+  From 09:30 to 09:35 - Introduction and Welcome (5 minutes)
+  From 09:35 to 09:45 - Overview of the New Accounting Software (10 minutes)
+  From 09:45 to 09:55 - Pros and Cons Discussion (10 minutes)
+  From 09:55 to 10:00 - Next Steps and Conclusion (5 minutes)
 
 "
 
@@ -73,10 +73,10 @@ objective2 = "Objectives:
 
 Agenda:
 
-  10:00 to 10:05 - Welcome and Introductions (5 minutes)
-  10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)
-  10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)
-  10:45 to 11:00 - Q&A and Wrap-up (15 minutes)
+  From 10:00 to 10:05 - Welcome and Introductions (5 minutes)
+  From 10:05 to 10:25 - Presentation on the New Accounting Software (20 minutes)
+  From 10:25 to 10:45 - Group Discussion on Benefits and Drawbacks (20 minutes)
+  From 10:45 to 11:00 - Q&A and Wrap-up (15 minutes)
 
 "
 
@@ -88,10 +88,10 @@ objective3 = "Objectives:
 
 Agenda:
 
-  14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)
-  14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)
-  14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)
-  14:50 to 15:00 - Action Planning and Next Steps (10 minutes)
+  From 14:00 to 14:10 - Opening Remarks and Introduction (10 minutes)
+  From 14:10 to 14:30 - Presentation on the Benefits and Features of the New Accounting Software (20 minutes)
+  From 14:30 to 14:50 - Discussion on Training and Resource Requirements (20 minutes)
+  From 14:50 to 15:00 - Action Planning and Next Steps (10 minutes)
 
 "
 
@@ -103,12 +103,11 @@ objective4 = "Objectives:
 
 Agenda:
 
-  13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)
-  13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)
-  13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)
-  14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)
-  14:25 to 14:40 - Brainstorming Training Needs and Strategies (15 minutes)
-  14:40 to 14:45 - Wrap-up and Next Steps (5 minutes)
+  From 13:30 to 13:35 - Introduction and Meeting Overview (5 minutes)
+  From 13:35 to 13:55 - Presentation on the New Accounting Software Features (20 minutes)
+  From 13:55 to 14:10 - Discussion on Cost-Benefit Analysis (15 minutes)
+  From 14:10 to 14:25 - Assessment of Process and Workflow Impact (15 minutes)
+
 
 "
 
@@ -247,10 +246,33 @@ puts "created a video sample"
   # file = URI.open(photo_url)
   # test_user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
 
-2.times do
-  past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+
+9.times do
+  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while future_day.wday == 0 || future_day.wday == 6
+    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: title.sample,
+    user: jun,
+    start_date: future_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: jun,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+8.times do
+  past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
-    past_day = DateTime.new(now.year, 5, rand(29..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+    past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: title.sample,
@@ -273,19 +295,19 @@ puts "created a video sample"
   )
 end
 
-2.times do
-  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-  while future_day.wday == 0 || future_day.wday == 6
-    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+7.times do
+  april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while april_day.wday == 0 || april_day.wday == 6
+    april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
-    title: title.sample,
+    title: Faker::Company.buzzword,
     user: jun,
-    start_date: future_day,
+    start_date: april_day,
     end_date: Date.today + rand(4..6),
     description: Faker::Company.catch_phrase,
     location: location.sample,
-    duration: duration.sample,
+    duration: durationa.sample,
     objectives: objectives.sample
   )
   Booking.create!(
@@ -295,70 +317,143 @@ end
   )
 end
 
-# 7.times do
-#   april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-#   while april_day.wday == 0 || april_day.wday == 6
-#     april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-#   end
-#   test_meeting = Meeting.create!(
-#     title: Faker::Company.buzzword,
-#     user: jun,
-#     start_date: april_day,
-#     end_date: Date.today + rand(4..6),
-#     description: Faker::Company.catch_phrase,
-#     location: location.sample,
-#     duration: durationa.sample,
-#     objectives: objectives.sample
-#   )
-#   Booking.create!(
-#     user: jun,
-#     meeting: test_meeting,
-#     status: "accepted" # or just 'accepted'
-#   )
-# end
+6.times do
+  march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while march_day.wday == 0 || march_day.wday == 6
+    march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: jun,
+    start_date: march_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationm.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: jun,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
 
-# 6.times do
-#   march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-#   while march_day.wday == 0 || march_day.wday == 6
-#     march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
-#   end
-#   test_meeting = Meeting.create!(
-#     title: Faker::Company.buzzword,
-#     user: jun,
-#     start_date: march_day,
-#     end_date: Date.today + rand(4..6),
-#     description: Faker::Company.catch_phrase,
-#     location: location.sample,
-#     duration: durationm.sample,
-#     objectives: objectives.sample
-#   )
-#   Booking.create!(
-#     user: jun,
-#     meeting: test_meeting,
-#     status: "accepted" # or just 'accepted'
-#   )
-# end
 
-# dday = DateTime.new(now.year, 6, 5, 9, 0, 0)
-# ddday = DateTime.new(now.year, 6, 5, 9, 45, 0)
+9.times do
+  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while future_day.wday == 0 || future_day.wday == 6
+    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: title.sample,
+    user: mei,
+    start_date: future_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: duration.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: mei,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
 
-# ttest = Meeting.create!(
-#   title: Faker::Company.buzzword,
-#   user: test_user,
-#   start_date: dday,
-#   end_date: ddday,
-#   description: Faker::Company.catch_phrase,
-#   location: location.sample,
-#   duration: 45,
-#   objectives: objectives.sample
-# )
-# Booking.create!(
-#   user: test_user,
-#   meeting: ttest,
-#   status: "accepted" # or just 'accepted'
-# )
+7.times do
+  april_day = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while april_day.wday == 0 || april_day.wday == 6
+    april_day = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: mei,
+    start_date: april_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationa.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: mei,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
 
-# puts "created meeting"
+6.times do
+  march_day = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while march_day.wday == 0 || march_day.wday == 6
+    march_day = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: Faker::Company.buzzword,
+    user: mei,
+    start_date: march_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationm.sample,
+    objectives: objectives.sample
+  )
+  Booking.create!(
+    user: mei,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+8.times do
+  past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  while past_day.wday == 0 || past_day.wday == 6
+    past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  end
+  test_meeting = Meeting.create!(
+    title: title.sample,
+    user: mei,
+    start_date: past_day,
+    end_date: Date.today + rand(4..6),
+    description: Faker::Company.catch_phrase,
+    location: location.sample,
+    duration: durationmm.sample,
+    objectives: objectives.sample,
+    video: test_video
+  )
+
+  test_meeting.video = test_video
+
+  Booking.create!(
+    user: mei,
+    meeting: test_meeting,
+    status: "accepted" # or just 'accepted'
+  )
+end
+
+
+
+dday = DateTime.new(now.year, 6, 5, 9, 0, 0)
+ddday = DateTime.new(now.year, 6, 5, 9, 45, 0)
+
+ttest = Meeting.create!(
+  title: title.sample,
+  user: test_user,
+  start_date: dday,
+  end_date: ddday,
+  description: Faker::Company.catch_phrase,
+  location: location.sample,
+  duration: 45,
+  objectives: objectives.sample
+)
+Booking.create!(
+  user: test_user,
+  meeting: ttest,
+  status: "accepted" # or just 'accepted'
+)
+
+puts "created #{Meeting.count}meetings"
 
 20.times do
   user = User.create!(
@@ -500,7 +595,7 @@ end
 Meeting.find_each do |meeting|
   # create a booking for each user
   User.find_each do |user|
-    if user.id != meeting.user_id && rand(0..3) == 0
+    if user.id != meeting.user_id && rand(0..4) == 0
       Booking.create!(
         user: user,
         meeting: meeting,
