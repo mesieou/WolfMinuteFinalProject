@@ -43,7 +43,13 @@ class VideosController < ApplicationController
   end
 
   def actions_transcript(transcript)
-    actions_prompt = "your role is a meeting assitant. Please provide a list of discussed action points for the below transcript.Do not include a title in your answer. Transcript: #{transcript}"
+    actions_prompt = "your role is a meeting assitant. Please provide a list of discussed action points about the below discussion. meeding discussion: #{transcript}. Example answer:
+    '- Rural customers need special help to feel more valued
+    - Our sales teams need more accurate information on our customers
+    - A survey will be completed to collect data on spending habits in these areas
+    - The results of this survey will be delivered to our sales teams
+    - Data mining procedures will be considered to deepen our understanding'
+    Do not include a title in your answer"
     OpenaiService.new(actions_prompt).call
   end
 end
