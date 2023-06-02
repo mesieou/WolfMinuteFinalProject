@@ -13,5 +13,6 @@ export default class extends Popover {
     super.disconnect();
     // Remove card from DOM <div data-popover-target="card">
     this.cardTarget.remove();
+
   }
 }
