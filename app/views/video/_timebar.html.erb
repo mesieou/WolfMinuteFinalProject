@@ -12,7 +12,7 @@
       <% end %>
     </div>
     <div class="end-time">
-      <p> <span class="marker"><i class="fa-solid fa-circle fa-sm"></i></span><%= (@meeting.start_date + (@meeting.duration.to_i * 60)).strftime("%H:%M") %></p>
+      <p> <span class="marker"><i class="fa-solid fa-circle fa-sm"></i></span><%= (@meeting.start_date - 9.hours + (@meeting.duration.to_i * 60)).strftime("%H:%M") %></p>
     </div>
   </div>
 </div>
