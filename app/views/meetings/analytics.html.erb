@@ -43,7 +43,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <p>Total cost of meetings : </p>
-            <p>¥ <%= @total_cost %></p>
+            <p>¥ <%= @total_cost.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></p>
           </div>
         </div>
         <div class="chart-container">
@@ -74,7 +74,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <p>Total cost of meetings : </p>
-            <p>¥ <%= @this_cost %></p>
+            <p>¥ <%= @this_cost.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></p>
           </div>
         </div>
         <%# this month until here %>
@@ -100,7 +100,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <p>Total cost of meetings : </p>
-            <p>¥ <%= @last_cost %></p>
+            <p>¥ <%= @last_cost.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></p>
           </div>
         </div>
         <%# last month until here %>
@@ -140,7 +140,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <p>Wages per month</p>
-                <p>¥ <%= @user.wage%></p>
+                <p>¥ <%= @user.wage.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')%></p>
               </div>
               <p></p>
               <p>Result of this month</p>
@@ -163,7 +163,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <p>Wages for meetings :</p>
-                <p>¥ <%= @user_meeting_wages %></p>
+                <p>¥ <%= @user_meeting_wages.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,') %></p>
               </div>
             </div>
             <div class="chart-container">
