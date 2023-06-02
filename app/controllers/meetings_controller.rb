@@ -218,6 +218,8 @@ class MeetingsController < ApplicationController
 
   def show
     @meeting = Meeting.find(params[:id])
+    @start_time = @meeting.start_date - 9.hours
+    @end_time = @meeting.end_date - 9.hours
     @booking = @meeting.bookings
     @attendance = @meeting.bookings.map { |booking| booking.user }
     @organizer = User.find(@meeting.user_id)
