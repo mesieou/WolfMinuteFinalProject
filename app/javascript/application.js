@@ -6,6 +6,7 @@ import "@vonage/vivid"
 import "./components/header";
 import "./components/toolbar";
 import "./time_progress"
+import "@popperjs/core"
 
 // function countdown () {
 //   const progressEl = document.getElementById("progress")

@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: “Star Wars” }, { name: “Lord of the Rings” }])
 #   Character.create(name: “Luke”, movie: movies.first)
 require 'date'
+require 'uri'
+require 'json'
+
 puts "cleaning users, meetings and bookings..."
 Booking.destroy_all
 Meeting.destroy_all
@@ -207,7 +210,7 @@ file = URI.open("https://avatars.githubusercontent.com/u/129135201?v=4")
 puts "created Rika"
 
 test_video = Video.create!(
-  start_date: DateTime.new(now.year, now.month, rand(1..29), rand(0..8), [15, 30, 45, 0].sample, 0),
+  start_date: DateTime.new(now.year, now.month, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0),
   duration: duration.sample,
   transcript: "Meeting Chairman: If we are all here, let's get started. First of all, I'd like you to please join me in welcoming Jack Peterson, our Southwest Area Sales Vice President.
               Jack Peterson: Thank you for having me, I'm looking forward to today's meeting.
@@ -258,9 +261,9 @@ puts "created a video sample"
 
 
 9.times do
-  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  future_day = DateTime.new(now.year, now.month, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while future_day.wday == 0 || future_day.wday == 6
-    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    future_day = DateTime.new(now.year, now.month, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: title.sample,
@@ -280,9 +283,9 @@ puts "created a video sample"
 end
 
 8.times do
-  past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  past_day = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
-    past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+    past_day = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: title.sample,
@@ -306,9 +309,9 @@ end
 end
 
 7.times do
-  april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  april_day = DateTime.new(now.year, 4, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while april_day.wday == 0 || april_day.wday == 6
-    april_day = DateTime.new(now.year, 4, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    april_day = DateTime.new(now.year, 4, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -328,9 +331,9 @@ end
 end
 
 6.times do
-  march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  march_day = DateTime.new(now.year, 3, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while march_day.wday == 0 || march_day.wday == 6
-    march_day = DateTime.new(now.year, 3, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    march_day = DateTime.new(now.year, 3, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -351,9 +354,9 @@ end
 
 
 9.times do
-  future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  future_day = DateTime.new(now.year, now.month, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while future_day.wday == 0 || future_day.wday == 6
-    future_day = DateTime.new(now.year, now.month, rand(4..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    future_day = DateTime.new(now.year, now.month, rand(4..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: title.sample,
@@ -373,9 +376,9 @@ end
 end
 
 7.times do
-  april_day = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  april_day = DateTime.new(now.year, 4, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while april_day.wday == 0 || april_day.wday == 6
-    april_day = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    april_day = DateTime.new(now.year, 4, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -395,9 +398,9 @@ end
 end
 
 6.times do
-  march_day = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  march_day = DateTime.new(now.year, 3, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while march_day.wday == 0 || march_day.wday == 6
-    march_day = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+    march_day = DateTime.new(now.year, 3, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: Faker::Company.buzzword,
@@ -417,9 +420,9 @@ end
 end
 
 8.times do
-  past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+  past_day = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   while past_day.wday == 0 || past_day.wday == 6
-    past_day = DateTime.new(now.year, 5, rand(1..31), rand(0..8), [15, 30, 45, 0].sample, 0)
+    past_day = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
   end
   test_meeting = Meeting.create!(
     title: title.sample,
@@ -476,19 +479,19 @@ puts "created #{Meeting.count}meetings"
     password: "123456",
     wage: wage.sample
   )
-    url = "https://this-person-does-not-exist.com/new?gender=#{gender}&age=#{age}&etnic=#{ethnicity}"
-    json = URI.open(url).read
-    src = JSON.parse(json)['src']
-    photo_url = "https://this-person-does-not-exist.com#{src}"
+    # url = ""
+    # json = URI.open(url).read
+    # src = JSON.parse(json)['src']
+    photo_url = "https://100k-faces.glitch.me/random-image"
     file = URI.open(photo_url)
     user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
     user.save
   puts "created #{User.count} users!"
 
 rand(8..9).times do
-  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day.wday == 0 || day.wday == 6
-  day = DateTime.new(now.year, now.month, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day = DateTime.new(now.year, now.month, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
 
 if day < DateTime.now
@@ -531,9 +534,9 @@ end
 end
 
 rand(6..7).times do
-  day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day2 = DateTime.new(now.year, 4, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day2.wday == 0 || day2.wday == 6
-  day2 = DateTime.new(now.year, 4, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day2 = DateTime.new(now.year, 4, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_april = Meeting.create!(
     title: title.sample,
@@ -554,9 +557,9 @@ end
 end
 
 rand(5..6).times do
-  day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day3 = DateTime.new(now.year, 3, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day3.wday == 0 || day3.wday == 6
-  day3 = DateTime.new(now.year, 3, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day3 = DateTime.new(now.year, 3, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_march = Meeting.create!(
     title: title.sample,
@@ -577,9 +580,9 @@ end
 end
 
 rand(7..8).times do
-  day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day4 = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 while day4.wday == 0 || day4.wday == 6
-  day4 = DateTime.new(now.year, 5, rand(1..30), rand(0..8), [15, 30, 45, 0].sample, 0)
+  day4 = DateTime.new(now.year, 5, rand(1..28), rand(0..8), [15, 30, 45, 0].sample, 0)
 end
   meeting_may = Meeting.create!(
     title: title.sample,
